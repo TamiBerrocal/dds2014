@@ -10,7 +10,7 @@ class HelloXtendTest {
 	
 	@Test
 	def void testHelloWorld() {
-		cliente = new Cliente()
+		cliente = new Cliente() 
 		cliente.setMonto(3)
 		Assert.assertEquals(3, cliente.monto)
 	} 
