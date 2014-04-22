@@ -12,8 +12,8 @@ public class HelloXtendTest {
   public void testHelloWorld() {
     Cliente _cliente = new Cliente();
     this.cliente = _cliente;
-    this.cliente.setMonto(4);
+    this.cliente.setMonto(3);
     int _monto = this.cliente.getMonto();
-    Assert.assertEquals(4, _monto);
+    Assert.assertEquals(3, _monto);
   }
 }
