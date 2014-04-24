@@ -1,7 +1,7 @@
 package ar.edu.dds.model
 
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
-import java.util.Date
+import org.joda.time.DateTime
 
 class Jugador {
 	
@@ -12,9 +12,9 @@ class Jugador {
 	private String nombre
 	
 	@Property 
-	private Date fechaDeNacimiento
+	private DateTime fechaDeNacimiento
 	
 	def void inscribirseA(Partido partido) {
-		modoDeInscripcion.inscribirA(partido)
+		modoDeInscripcion.inscribir(this, partido)
 	}
 }

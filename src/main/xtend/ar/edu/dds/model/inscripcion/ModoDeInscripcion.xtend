@@ -1,9 +1,12 @@
 package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
+import ar.edu.dds.model.Jugador
 
-interface ModoDeInscripcion {
+abstract class ModoDeInscripcion {
 	
-	def void inscribirA(Partido partido)
+	def void inscribir(Jugador jugador, Partido partido) {
+		partido.agregarJugador(jugador)
+	}
 	
 }
