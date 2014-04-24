@@ -1,4 +1,4 @@
-package ar.edu.dds.model
+package ar.edu.dds
 
 class Cliente {
 	

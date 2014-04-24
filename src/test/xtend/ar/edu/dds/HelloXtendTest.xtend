@@ -2,7 +2,7 @@ package ar.edu.dds
 
 import org.junit.Test
 import junit.framework.Assert
-import ar.edu.dds.model.Cliente
+import ar.edu.dds.Cliente
 
 class HelloXtendTest {
 	
