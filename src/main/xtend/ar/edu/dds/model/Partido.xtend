@@ -26,7 +26,7 @@ class Partido {
 		}
 	}
 	
-	def boolean quedaLugarPara(Jugador jugador) {
+	private def boolean quedaLugarPara(Jugador jugador) {
 		
 		// TODO Considerar el caso del que se anota pueda tener prioridad sobre alguno ya anotado
 		jugadoresInscriptos.size < 10
