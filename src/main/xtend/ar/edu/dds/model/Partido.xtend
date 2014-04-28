@@ -13,8 +13,12 @@ class Partido {
 	@Property 
 	private DateTime fechaYHora;
 	
-	new(DateTime fechaYHora) {
+	@Property
+	private String lugar;
+	
+	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
+		this.lugar = lugar
 		this.jugadoresInscriptos = new ArrayList
 	}
 	

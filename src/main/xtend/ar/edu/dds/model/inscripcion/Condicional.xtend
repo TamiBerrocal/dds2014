@@ -3,6 +3,7 @@ package ar.edu.dds.model.inscripcion
 import ar.edu.dds.exception.PartidoNoSatisfaceLasCondicionesException
 import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Partido
+import ar.edu.dds.model.inscripcion.condicion.Condicion
 
 class Condicional extends ModoDeInscripcion {
 	

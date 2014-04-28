@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 class Admin {
 	
-	def Partido organizarPartido(DateTime fechaYHora) {
-		new Partido(fechaYHora)
+	def Partido organizarPartido(DateTime fechaYHora, String lugar) {
+		new Partido(fechaYHora, lugar)
 	}
 }

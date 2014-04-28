@@ -15,8 +15,8 @@ class PartidoTest {
 		
 		val Admin admin = new Admin()
 		
-		// Nuevo partido el 25 de Mayo de 2014 a las 21Hs
-		target = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0))
+		// Nuevo partido el 25 de Mayo de 2014 a las 21Hs en Avellaneda
+		target = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 		
 		// Se le agregan 5 jugadores standard
 		for (int i : 1..5) {
