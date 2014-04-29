@@ -1,5 +1,11 @@
 package ar.edu.dds.model.inscripcion
 
-class Solidaria extends ModoDeInscripcion {
+import ar.edu.dds.model.Partido
+
+class Solidaria implements ModoDeInscripcion {
+	
+	override leSirveElPartido(Partido partido) {
+		true
+	}
 	
 }

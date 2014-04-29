@@ -4,5 +4,5 @@ import ar.edu.dds.model.Partido
 
 interface Condicion {
 	
-	def boolean puedeInscribirseA(Partido partido)
+	def boolean esSatisfechaPor(Partido partido)
 }

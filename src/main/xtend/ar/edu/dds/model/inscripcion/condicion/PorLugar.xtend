@@ -6,7 +6,7 @@ class PorLugar implements Condicion {
 	
 	private String lugar;
 	
-	override puedeInscribirseA(Partido partido) {
+	override esSatisfechaPor(Partido partido) {
 		lugar.equals(partido.lugar)
 	}
 	

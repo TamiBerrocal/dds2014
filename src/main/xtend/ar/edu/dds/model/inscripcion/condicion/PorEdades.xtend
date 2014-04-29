@@ -8,7 +8,7 @@ class PorEdades implements Condicion {
 	private int edadHasta;
 	private int cantidad;
 	
-	override puedeInscribirseA(Partido partido) {
+	override esSatisfechaPor(Partido partido) {
 		return (this.cantidadDeJovenes(partido) <= cantidad)
 	}
 	

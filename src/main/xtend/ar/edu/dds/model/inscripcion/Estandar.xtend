@@ -1,5 +1,11 @@
 package ar.edu.dds.model.inscripcion
 
-class Estandar extends ModoDeInscripcion {
+import ar.edu.dds.model.Partido
+
+class Estandar implements ModoDeInscripcion {
+	
+	override leSirveElPartido(Partido partido) {
+		true
+	}
 	
 }

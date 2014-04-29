@@ -1,9 +1,8 @@
 package ar.edu.dds.model
 
-import ar.edu.dds.exception.PartidoCompletoException
+import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
-import java.util.ArrayList
 
 class Partido {
 	
@@ -11,28 +10,27 @@ class Partido {
 	private List<Jugador> jugadoresInscriptos
 	
 	@Property 
-	private DateTime fechaYHora;
+	private DateTime fechaYHora
 	
 	@Property
-	private String lugar;
+	private String lugar
+	
+	@Property
+	private EstadoDePartido estadoDePartido
 	
 	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
 		this.lugar = lugar
 		this.jugadoresInscriptos = new ArrayList
+		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
+	}
+	
+	def void removerALosQueNoJugarian() {
+		jugadoresInscriptos = jugadoresInscriptos.filter[ j | j.leSirveElPartido(this) ].toList
 	}
 	
 	def void agregarJugador(Jugador jugador) {
-		if (quedaLugarPara(jugador)) {
-			jugadoresInscriptos.add(jugador)
-		} else {
-			throw new PartidoCompletoException("No hay más lugar en el partido")
-		}
+		jugadoresInscriptos.add(jugador)
 	}
 	
-	private def boolean quedaLugarPara(Jugador jugador) {
-		
-		// TODO Considerar el caso del que se anota pueda tener prioridad sobre alguno ya anotado
-		jugadoresInscriptos.size < 10
-	}
 }

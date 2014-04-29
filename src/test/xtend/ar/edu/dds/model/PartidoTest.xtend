@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import org.junit.Before
 import org.junit.Test
 import ar.edu.dds.model.inscripcion.Estandar
-import ar.edu.dds.exception.PartidoCompletoException
 
 class PartidoTest {
 	
@@ -26,20 +25,26 @@ class PartidoTest {
 		}
 	}
 
-	@Test(expected = PartidoCompletoException)
-	def void testMaximo10JugadoresStandard() {
-		// Se le agregan 5 jugadores standard
-		for (int i : 1..5) {
-			val jugador = new Jugador()
-			jugador.setModoDeInscripcion(new Estandar)
-			target.agregarJugador(jugador)
-		}	
-		
-		// Agregar un onceavo jugador debería causar una PartidoCompletoException
-		val jugador = new Jugador()
-			jugador.setModoDeInscripcion(new Estandar)
-			target.agregarJugador(jugador)
+	@Test
+	def void test() {
 		
 	}
+
+//  Ya no aplica
+//	@Test(expected = PartidoCompletoException)
+//	def void testMaximo10JugadoresStandard() {
+//		// Se le agregan 5 jugadores standard
+//		for (int i : 1..5) {
+//			val jugador = new Jugador()
+//			jugador.setModoDeInscripcion(new Estandar)
+//			target.agregarJugador(jugador)
+//		}	
+//		
+//		// Agregar un onceavo jugador debería causar una PartidoCompletoException
+//		val jugador = new Jugador()
+//			jugador.setModoDeInscripcion(new Estandar)
+//			target.agregarJugador(jugador)
+//		
+//	}
 
 }

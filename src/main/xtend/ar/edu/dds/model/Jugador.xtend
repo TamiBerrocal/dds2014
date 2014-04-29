@@ -14,7 +14,11 @@ class Jugador {
 	private int edad
 	
 	def void inscribirseA(Partido partido) {
-		modoDeInscripcion.inscribir(this, partido)
+		partido.agregarJugador(this)
+	}
+	
+	def boolean leSirveElPartido(Partido partido) {
+		modoDeInscripcion.leSirveElPartido(partido)
 	}
 	
 }
