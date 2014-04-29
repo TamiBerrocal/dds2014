@@ -8,4 +8,8 @@ class Solidaria implements ModoDeInscripcion {
 		true
 	}
 	
+	override prioridad() {
+		5000
+	}
+	
 }

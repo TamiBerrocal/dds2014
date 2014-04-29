@@ -8,4 +8,8 @@ class Estandar implements ModoDeInscripcion {
 		true
 	}
 	
+	override prioridad() {
+		10000
+	}
+	
 }

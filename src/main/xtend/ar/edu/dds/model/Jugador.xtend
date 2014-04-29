@@ -1,6 +1,8 @@
 package ar.edu.dds.model
 
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.apache.commons.lang3.builder.EqualsBuilder
 
 class Jugador {
 	
@@ -19,6 +21,18 @@ class Jugador {
 	
 	def boolean leSirveElPartido(Partido partido) {
 		modoDeInscripcion.leSirveElPartido(partido)
+	}
+	
+	def Integer prioridad(Integer prioridadBase) {
+		prioridadBase + modoDeInscripcion.prioridad
+	}
+	
+	override hashCode() {
+		HashCodeBuilder.reflectionHashCode(this)
+	}
+
+	override equals(Object obj) {
+		EqualsBuilder.reflectionEquals(obj, this)
 	}
 	
 }

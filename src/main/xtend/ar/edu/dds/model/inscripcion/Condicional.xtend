@@ -12,4 +12,8 @@ class Condicional implements ModoDeInscripcion {
 		condicion.esSatisfechaPor(partido)
 	}
 	
+	override prioridad() {
+		0
+	}
+	
 }
