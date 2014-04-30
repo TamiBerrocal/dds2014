@@ -208,7 +208,7 @@ class PartidoTest {
 	def void test7Estandares4CondicionalQueNoPasanLaCondicionNoSePuedeConfirmar() {
 		// Inscribo a otros 2 Estandares
 		for (int i : 5..6) {
-			val jugador = new Jugador()
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar)
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
 			target.agregarJugador(jugador)
@@ -216,9 +216,7 @@ class PartidoTest {
 		
 		// Inscribo a 4 Condicionales cuya condicion no es satisfecha
 		for (int i : 7..10) {
-			val jugador = new Jugador()
-			jugador.setModoDeInscripcion(new Condicional(new PorEdades(30, 6)))
-			jugador.nombre = NOMBRES.get(i)
+			val jugador = new Jugador(NOMBRES.get(i), 35, new Condicional(new PorEdades(30, 6)))
 			target.agregarJugador(jugador)
 		}
 		
