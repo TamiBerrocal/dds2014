@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import java.util.List
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
+import org.apache.commons.lang3.builder.ToStringBuilder
 
 class Partido {
 	
@@ -37,7 +38,9 @@ class Partido {
 			this.removerALosQueNoJugarian
 		
 			// Me quedo con los 10 Jugadores con más prioridad
-			this.jugadoresConSusPrioridadesSegunOrden = this.jugadoresConSusPrioridadesSegunOrden.sortBy[ j | j.key.prioridad(j.value) ].take(10).toList
+			this.jugadoresConSusPrioridadesSegunOrden = this.jugadoresConSusPrioridadesSegunOrden
+																.sortBy[ j | -j.key.prioridad(j.value) ]
+																.take(10).toList
 			
 			val int size = this.jugadoresInscriptos.size
 			if (size.equals(10)) {
@@ -70,5 +73,8 @@ class Partido {
 		jugadoresConSusPrioridadesSegunOrden = jugadoresConSusPrioridadesSegunOrden.filter[ j | j.key.leSirveElPartido(this) ].toList
 	}
 	
+	override toString() {
+		ToStringBuilder.reflectionToString(this)
+	}
 	
 }

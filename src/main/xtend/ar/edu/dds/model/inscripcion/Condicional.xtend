@@ -5,6 +5,10 @@ import ar.edu.dds.model.inscripcion.condicion.Condicion
 
 class Condicional implements ModoDeInscripcion {
 	
+	new(Condicion condicion) {
+		this.condicion = condicion
+	}
+	
 	@Property
 	private Condicion condicion
 	
@@ -12,8 +16,8 @@ class Condicional implements ModoDeInscripcion {
 		condicion.esSatisfechaPor(partido)
 	}
 	
-	override prioridad() {
-		0
+	override prioridad(int prioridadBase) {
+		prioridadBase
 	}
 	
 }

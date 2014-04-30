@@ -8,8 +8,8 @@ class Estandar implements ModoDeInscripcion {
 		true
 	}
 	
-	override prioridad() {
-		10000
+	override prioridad(int prioridadBase) {
+		10000 + prioridadBase
 	}
 	
 }

@@ -15,6 +15,14 @@ class Jugador {
 	@Property 
 	private int edad
 	
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion) {
+		this.nombre = nombre
+		this.edad = edad
+		this.modoDeInscripcion = modoDeInscripcion
+	}
+	
+	new() {}
+	
 	def void inscribirseA(Partido partido) {
 		partido.agregarJugador(this)
 	}
@@ -24,7 +32,7 @@ class Jugador {
 	}
 	
 	def Integer prioridad(Integer prioridadBase) {
-		prioridadBase + modoDeInscripcion.prioridad
+		modoDeInscripcion.prioridad(prioridadBase)
 	}
 	
 	override hashCode() {
@@ -33,6 +41,10 @@ class Jugador {
 
 	override equals(Object obj) {
 		EqualsBuilder.reflectionEquals(obj, this)
+	}
+	
+	override toString() {
+		nombre
 	}
 	
 }

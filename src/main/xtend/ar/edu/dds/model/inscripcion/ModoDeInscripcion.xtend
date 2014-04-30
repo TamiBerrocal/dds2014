@@ -4,5 +4,5 @@ import ar.edu.dds.model.Partido
 
 public interface ModoDeInscripcion {
 	def boolean leSirveElPartido(Partido partido)
-	def Integer prioridad()
+	def Integer prioridad(int prioridadBase)
 }
