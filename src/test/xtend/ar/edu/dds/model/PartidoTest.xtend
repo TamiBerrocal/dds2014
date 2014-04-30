@@ -49,13 +49,6 @@ class PartidoTest {
 	}
 	
 	@Test()
-	def void testInscripcionExitosa() {
-		Assert.assertEquals(5, target.jugadoresInscriptos.size)
-		new Jugador().inscribirseA(target)
-		Assert.assertEquals(6, target.jugadoresInscriptos.size)
-	}
-	
-	@Test()
 	def void testConfirmaPartidoCon11EstandaresDejaLosPrimeros10() {
 		// Se le agregan 6 jugadores standards más
 		for (int i : 5..10) {
