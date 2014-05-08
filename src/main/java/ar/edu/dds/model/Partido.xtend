@@ -16,7 +16,12 @@ class Partido {
 
 	@Property
 	private DateTime fechaYHora
-
+	
+	@Property
+	List<InscripcionObserver> inscripcionObservers
+	@Property
+	List<DarBajaObserver> darBajaObservers
+	
 	@Property
 	private String lugar
 

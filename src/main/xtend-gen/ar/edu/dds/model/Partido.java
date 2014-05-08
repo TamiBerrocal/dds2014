@@ -2,7 +2,9 @@ package ar.edu.dds.model;
 
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException;
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException;
+import ar.edu.dds.model.DarBajaObserver;
 import ar.edu.dds.model.EstadoDePartido;
+import ar.edu.dds.model.InscripcionObserver;
 import ar.edu.dds.model.Jugador;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,26 @@ public class Partido {
   
   public void setFechaYHora(final DateTime fechaYHora) {
     this._fechaYHora = fechaYHora;
+  }
+  
+  private List<InscripcionObserver> _inscripcionObservers;
+  
+  public List<InscripcionObserver> getInscripcionObservers() {
+    return this._inscripcionObservers;
+  }
+  
+  public void setInscripcionObservers(final List<InscripcionObserver> inscripcionObservers) {
+    this._inscripcionObservers = inscripcionObservers;
+  }
+  
+  private List<DarBajaObserver> _darBajaObservers;
+  
+  public List<DarBajaObserver> getDarBajaObservers() {
+    return this._darBajaObservers;
+  }
+  
+  public void setDarBajaObservers(final List<DarBajaObserver> darBajaObservers) {
+    this._darBajaObservers = darBajaObservers;
   }
   
   private String _lugar;
