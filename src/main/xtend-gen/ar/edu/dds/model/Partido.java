@@ -130,6 +130,33 @@ public class Partido {
     }
   }
   
+  public void reemplazarJugador(final Jugador jugador, final Jugador reemplazo) {
+    final Pair<Jugador,Integer> jugadorConSuPrioridadAReemplazar = this.quitarJugador(jugador);
+    Integer _value = jugadorConSuPrioridadAReemplazar.getValue();
+    Pair<Jugador,Integer> _pair = new Pair<Jugador, Integer>(reemplazo, _value);
+    this.jugadoresConSusPrioridadesSegunOrden.add(_pair);
+  }
+  
+  public void darDeBajaJugador(final Jugador jugador) {
+    this.quitarJugador(jugador);
+  }
+  
+  private Pair<Jugador,Integer> quitarJugador(final Jugador jugador) {
+    Pair<Jugador,Integer> _xblockexpression = null;
+    {
+      final Function1<Pair<Jugador,Integer>,Boolean> _function = new Function1<Pair<Jugador,Integer>,Boolean>() {
+        public Boolean apply(final Pair<Jugador,Integer> par) {
+          Jugador _key = par.getKey();
+          return Boolean.valueOf(_key.equals(jugador));
+        }
+      };
+      final Pair<Jugador,Integer> jugadorConSuPrioridadADarDeBaja = IterableExtensions.<Pair<Jugador,Integer>>findFirst(this.jugadoresConSusPrioridadesSegunOrden, _function);
+      this.jugadoresConSusPrioridadesSegunOrden.remove(jugadorConSuPrioridadADarDeBaja);
+      _xblockexpression = jugadorConSuPrioridadADarDeBaja;
+    }
+    return _xblockexpression;
+  }
+  
   private void removerALosQueNoJugarian() {
     final Function1<Pair<Jugador,Integer>,Boolean> _function = new Function1<Pair<Jugador,Integer>,Boolean>() {
       public Boolean apply(final Pair<Jugador,Integer> j) {
