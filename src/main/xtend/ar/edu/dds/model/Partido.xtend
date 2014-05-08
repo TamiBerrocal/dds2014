@@ -23,14 +23,13 @@ class Partido {
 	@Property
 	private EstadoDePartido estadoDePartido
 	
-	private Integer prioridadAAsignarPorOrden
+	private Integer prioridadAAsignarPorOrden = 0
 	
 	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
 		this.lugar = lugar
 		this.jugadoresConSusPrioridadesSegunOrden = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
-		this.prioridadAAsignarPorOrden = 200
 	}
 	
 	def confirmar() {
@@ -62,15 +61,31 @@ class Partido {
 	
 	def void agregarJugador(Jugador jugador) {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
-			jugadoresConSusPrioridadesSegunOrden.add(new Pair(jugador, this.prioridadAAsignarPorOrden))
-			prioridadAAsignarPorOrden = prioridadAAsignarPorOrden - 10
+			this.jugadoresConSusPrioridadesSegunOrden.add(new Pair(jugador, this.prioridadAAsignarPorOrden))
+			this.prioridadAAsignarPorOrden = prioridadAAsignarPorOrden - 1
 		} else {
 			throw new EstadoDePartidoInvalidoException("Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
 		}
 	}
 	
+	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
+		val jugadorConSuPrioridadAReemplazar = quitarJugador(jugador)
+		this.jugadoresConSusPrioridadesSegunOrden.add(new Pair<Jugador, Integer>(reemplazo, jugadorConSuPrioridadAReemplazar.value))
+	}
+	
+	def void darDeBajaJugador(Jugador jugador) {
+		this.quitarJugador(jugador)
+		// PENALIZAR
+	}
+	
+	private def Pair<Jugador, Integer> quitarJugador(Jugador jugador) {
+		val jugadorConSuPrioridadADarDeBaja = this.jugadoresConSusPrioridadesSegunOrden.findFirst[ par | par.key.equals(jugador) ]
+		this.jugadoresConSusPrioridadesSegunOrden.remove(jugadorConSuPrioridadADarDeBaja)
+		jugadorConSuPrioridadADarDeBaja
+	}
+	
 	private def void removerALosQueNoJugarian() {
-		jugadoresConSusPrioridadesSegunOrden = jugadoresConSusPrioridadesSegunOrden.filter[ j | j.key.leSirveElPartido(this) ].toList
+		this.jugadoresConSusPrioridadesSegunOrden = this.jugadoresConSusPrioridadesSegunOrden.filter[ j | j.key.leSirveElPartido(this) ].toList
 	}
 	
 	override toString() {
