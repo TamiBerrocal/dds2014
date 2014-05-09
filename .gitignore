@@ -6,7 +6,7 @@ target
 build
 classes
 /target
-/srca/main/xtend-gen/**
-/srca/test/xtend-gen/**
-/srca/main/generated-sources/**
-/srca/test/generated-sources/**
+/src/main/xtend-gen/**
+/src/test/xtend-gen/**
+/src/main/generated-sources/**
+/src/test/generated-sources/**
