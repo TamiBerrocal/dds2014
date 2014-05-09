@@ -1,11 +1,13 @@
 package ar.edu.dds.model
 
-import java.util.ArrayList
-import org.joda.time.DateTime
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
-import java.util.List
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
+import ar.edu.dds.observer.baja.BajaDeJugadorObserver
+import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
+import java.util.ArrayList
+import java.util.List
 import org.apache.commons.lang3.builder.ToStringBuilder
+import org.joda.time.DateTime
 
 class Partido {
 
@@ -18,17 +20,15 @@ class Partido {
 	private DateTime fechaYHora
 	
 	@Property
-	List<InscripcionObserver> inscripcionObservers
-	@Property
-	List<DarBajaObserver> darBajaObservers
-	
-	@Property
 	private String lugar
 
 	@Property
 	private EstadoDePartido estadoDePartido
 
 	private Integer prioridadAAsignarPorOrden
+	
+	private List<InscripcionDeJugadorObserver> inscripcionObservers
+	private List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
