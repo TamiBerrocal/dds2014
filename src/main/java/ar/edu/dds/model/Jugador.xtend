@@ -3,11 +3,15 @@ package ar.edu.dds.model
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
+import java.util.List
 
 class Jugador {
 	
 	@Property
 	private ModoDeInscripcion modoDeInscripcion
+	
+	@Property
+	List<Jugador> amigos
 	
 	@Property
 	private String nombre

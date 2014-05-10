@@ -4,7 +4,7 @@ import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.MailSender
 
-class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver{
+class NotificarAmigosObserver implements InscripcionDeJugadorObserver{
 	
 	@Property MailSender mailSender
 	
@@ -13,11 +13,7 @@ class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver{
 	}
 	
 	override jugadorInscripto (Jugador jugador, Partido partido){
-				
-		var admin = partido.administrador
-		if (partido.cantidadDeJugadoresEnLista.equals(10)){
-			mailSender.mandarMailDiezJugadores(admin)
+		var amigos = jugador.amigos
+		mailSender.mandarMailAmigos(amigos)
 		}
-	}
-	
 }

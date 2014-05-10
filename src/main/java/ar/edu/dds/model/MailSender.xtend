@@ -1,4 +1,4 @@
-package ar.edu.dds.observer.inscripcion
+package ar.edu.dds.model
 
 import ar.edu.dds.model.Jugador
 import java.util.List
