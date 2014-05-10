@@ -25,6 +25,9 @@ class Partido {
 	@Property
 	private EstadoDePartido estadoDePartido
 
+	@Property
+	Jugador administrador
+	
 	private Integer prioridadAAsignarPorOrden
 	
 	private List<InscripcionDeJugadorObserver> inscripcionObservers
@@ -100,6 +103,10 @@ class Partido {
 
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
+	}
+	
+	def cantidadDeJugadoresEnLista() {
+		this.jugadoresConSusPrioridadesSegunOrden.size
 	}
 
 }
