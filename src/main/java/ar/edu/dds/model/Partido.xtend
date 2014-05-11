@@ -14,14 +14,17 @@ class Partido {
 	/**
 	 * Lista de jugadores inscriptos con sus respectivas prioridades por orden
 	 */
-	private List<Pair<Jugador, Integer>> jugadoresConSusPrioridadesSegunOrden
+	
+	
+	@Property 
+	List<Jugador> jugadores
 
 	@Property
 	private DateTime fechaYHora
-	
+
 	@Property
 	private String lugar
-	
+
 	@Property String mailOficial
 
 	@Property
@@ -29,16 +32,15 @@ class Partido {
 
 	@Property
 	Jugador administrador
-	
-	private Integer prioridadAAsignarPorOrden = 0
-	
+
+
 	private List<InscripcionDeJugadorObserver> inscripcionObservers
 	private List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
 		this.lugar = lugar
-		this.jugadoresConSusPrioridadesSegunOrden = new ArrayList
+		this.jugadores = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
 		this.mailOficial = "no-reply@of5.com"
 	}
@@ -48,10 +50,9 @@ class Partido {
 			this.removerALosQueNoJugarian
 
 			// Me quedo con los 10 Jugadores con más prioridad
-			this.jugadoresConSusPrioridadesSegunOrden = this.jugadoresConSusPrioridadesSegunOrden.sortBy[j|
-				-j.key.prioridad(j.value)].take(10).toList
+			this.jugadores = this.jugadores.take(10).toList
 
-			val int size = this.jugadoresInscriptos.size
+			val int size = this.jugadores.size
 			if (size.equals(10)) {
 				this.estadoDePartido = EstadoDePartido.CONFIRMADO
 			} else {
@@ -62,53 +63,45 @@ class Partido {
 		}
 
 		// Retorna la lista con los 10 jugadores confirmados
-		jugadoresInscriptos
+		jugadores
 	}
 
-	def List<Jugador> jugadoresInscriptos() {
-		this.jugadoresConSusPrioridadesSegunOrden.map[par|par.key]
-	}
-
-	def void agregarJugador(Jugador jugador) {
+	def void agregarJugadorPartido(Jugador jugador) {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
-			jugadoresConSusPrioridadesSegunOrden.add(new Pair(jugador, this.prioridadAAsignarPorOrden))
-			prioridadAAsignarPorOrden = prioridadAAsignarPorOrden - 10
+			agregarJugadorALista(jugador)
+			//avisarle a los observers de inscripcion que se inscribio el jugador
 		} else {
 			throw new EstadoDePartidoInvalidoException(
 				"Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
 		}
 	}
 
+	def void agregarJugadorALista(Jugador jugador) {
+		jugadores.add(jugador)
+		jugadores.sortBy[integrante|integrante.modoDeInscripcion.getPrioridadInscripcion]
+	}
+
 	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
-		val jugadorConSuPrioridadAReemplazar = quitarJugador(jugador)
-		this.jugadoresConSusPrioridadesSegunOrden.add(
-			new Pair<Jugador, Integer>(reemplazo, jugadorConSuPrioridadAReemplazar.value))
+		this.agregarJugadorALista(reemplazo)
+		//avisar que se dio de baja jugador a los observers
 	}
 
 	def void darDeBajaJugador(Jugador jugador) {
-		this.quitarJugador(jugador)
+		this.jugadores.remove(jugador)
 
 	// PENALIZAR
 	}
 
-	private def Pair<Jugador, Integer> quitarJugador(Jugador jugador) {
-		val jugadorConSuPrioridadADarDeBaja = this.jugadoresConSusPrioridadesSegunOrden.findFirst[par|
-			par.key.equals(jugador)]
-		this.jugadoresConSusPrioridadesSegunOrden.remove(jugadorConSuPrioridadADarDeBaja)
-		jugadorConSuPrioridadADarDeBaja
-	}
-
 	private def void removerALosQueNoJugarian() {
-		jugadoresConSusPrioridadesSegunOrden = jugadoresConSusPrioridadesSegunOrden.filter[j|
-			j.key.leSirveElPartido(this)].toList
+		jugadores = jugadores.filter[integrante|integrante.leSirveElPartido(this)].toList
 	}
 
-	override toString() {
-		ToStringBuilder.reflectionToString(this)
-	}
-	
+	//
+	//	override toString() {
+	//		ToStringBuilder.reflectionToString(this)
+	//	}	
 	def cantidadDeJugadoresEnLista() {
-		this.jugadoresConSusPrioridadesSegunOrden.size
+		this.jugadores.size
 	}
 
 }

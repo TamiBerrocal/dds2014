@@ -32,24 +32,24 @@ class Jugador {
 	new() {}
 	
 	def void inscribirseA(Partido partido) {
-		partido.agregarJugador(this)
+		partido.agregarJugadorPartido(this)
 	}
 	
 	def boolean leSirveElPartido(Partido partido) {
 		modoDeInscripcion.leSirveElPartido(partido)
 	}
 	
-	def Integer prioridad(Integer prioridadBase) {
-		modoDeInscripcion.prioridad(prioridadBase)
-	}
+//	def Integer prioridad(Integer prioridadBase) {
+//		modoDeInscripcion.prioridad(prioridadBase)
+//	}
 	
-	override hashCode() {
-		HashCodeBuilder.reflectionHashCode(this)
-	}
-
-	override equals(Object obj) {
-		EqualsBuilder.reflectionEquals(obj, this)
-	}
+//	override hashCode() {
+//		HashCodeBuilder.reflectionHashCode(this)
+//	}
+//
+//	override equals(Object obj) {
+//		EqualsBuilder.reflectionEquals(obj, this)
+//	}
 	
 	override toString() {
 		nombre

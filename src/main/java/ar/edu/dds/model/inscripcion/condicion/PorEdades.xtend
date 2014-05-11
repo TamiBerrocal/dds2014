@@ -18,7 +18,7 @@ class PorEdades implements Condicion {
 	}
 	
 	def cantidadDeJovenes(Partido partido) {
-		partido.jugadoresInscriptos.filter[j | j.edad <= edadHasta].size
+		partido.jugadores.filter[ integrante | integrante.edad <= edadHasta].size
 	}
 	
 }

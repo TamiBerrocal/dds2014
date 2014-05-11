@@ -38,7 +38,7 @@ class PartidoTest {
 		// Se le agregan 5 jugadores standard de 30 años
 		for (int i : 0..4) {
 			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 	}
 	
@@ -53,7 +53,7 @@ class PartidoTest {
 		// Se le agregan 6 jugadores standards más
 		for (int i : 5..10) {
 			val jugador = new Jugador(NOMBRES.get(i), 25, new Estandar, "mail@ejemplo.com")
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
@@ -76,7 +76,7 @@ class PartidoTest {
 		
 		// Inscribo a Marcos solidario
 		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
-		partido.agregarJugador(marcos)
+		partido.agregarJugadorPartido(marcos)
 		
 		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
@@ -86,7 +86,7 @@ class PartidoTest {
 			val jugador = new Jugador()
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
@@ -106,7 +106,7 @@ class PartidoTest {
 	def void testConfirmarPartido10EstandaresYUnCondicionalQuedaAfueraElCondicional() {
 		// Inscribo a Román condicional
 		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")), "mail@ejemplo.com")
-		partido.agregarJugador(roman)
+		partido.agregarJugadorPartido(roman)
 		
 		// Antes de confirmarse el partido, Román figura entre los inscriptos
 		verificarQueElNombreEstaEnElPartido("Román", partido)
@@ -116,7 +116,7 @@ class PartidoTest {
 			val jugador = new Jugador()
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
@@ -136,11 +136,11 @@ class PartidoTest {
 		
 		// Inscribo a Román condicional
 		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")), "mail@ejemplo.com")
-		partido.agregarJugador(roman)
+		partido.agregarJugadorPartido(roman)
 		
 		// Inscribo a Marcos solidario
 		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
-		partido.agregarJugador(marcos)
+		partido.agregarJugadorPartido(marcos)
 		
 		// Antes de confirmarse el partido, Román y Marcos figuran entre los inscriptos
 		verificarQueElNombreEstaEnElPartido("Román", partido)
@@ -151,7 +151,7 @@ class PartidoTest {
 			val jugador = new Jugador()
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
@@ -174,7 +174,7 @@ class PartidoTest {
 		
 		// Inscribo a Marcos como primer solidario
 		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
-		partido.agregarJugador(marcos)
+		partido.agregarJugadorPartido(marcos)
 		
 		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
@@ -184,7 +184,7 @@ class PartidoTest {
 			val jugador = new Jugador()
 			jugador.setModoDeInscripcion(new Solidaria)
 			jugador.nombre = NOMBRES.get(i)
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
@@ -211,13 +211,13 @@ class PartidoTest {
 			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		// Inscribo a 4 Condicionales cuya condicion no es satisfecha
 		for (int i : 7..10) {
 			val jugador = new Jugador(NOMBRES.get(i), 35, new Condicional(new PorEdades(30, 6)), "mail@ejemplo.com")
-			partido.agregarJugador(jugador)
+			partido.agregarJugadorPartido(jugador)
 		}
 		
 		admin.confirmarPartido(partido)
