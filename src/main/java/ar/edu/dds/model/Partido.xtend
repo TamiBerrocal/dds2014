@@ -14,9 +14,7 @@ class Partido {
 	/**
 	 * Lista de jugadores inscriptos con sus respectivas prioridades por orden
 	 */
-	
-	
-	@Property 
+	@Property
 	List<Jugador> jugadores
 
 	@Property
@@ -32,7 +30,6 @@ class Partido {
 
 	@Property
 	Jugador administrador
-
 
 	private List<InscripcionDeJugadorObserver> inscripcionObservers
 	private List<BajaDeJugadorObserver> bajaObservers
@@ -63,13 +60,14 @@ class Partido {
 		}
 
 		// Retorna la lista con los 10 jugadores confirmados
-		jugadores
+		return jugadores
 	}
 
 	def void agregarJugadorPartido(Jugador jugador) {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
 			agregarJugadorALista(jugador)
-			//avisarle a los observers de inscripcion que se inscribio el jugador
+
+		//avisarle a los observers de inscripcion que se inscribio el jugador
 		} else {
 			throw new EstadoDePartidoInvalidoException(
 				"Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
@@ -82,14 +80,21 @@ class Partido {
 	}
 
 	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
+		this.darDeBajaJugador(jugador)
 		this.agregarJugadorALista(reemplazo)
-		//avisar que se dio de baja jugador a los observers
+
+	
+	}
+
+	def void eliminarJugadorDeLista(Jugador jugador) {
+		this.jugadores.remove(jugador)
+
 	}
 
 	def void darDeBajaJugador(Jugador jugador) {
-		this.jugadores.remove(jugador)
-
-	// PENALIZAR
+		this.eliminarJugadorDeLista(jugador)
+		//avisar que se dio de baja jugador a los observers
+		//pensalizar
 	}
 
 	private def void removerALosQueNoJugarian() {
