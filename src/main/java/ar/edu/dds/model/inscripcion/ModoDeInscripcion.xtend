@@ -2,7 +2,10 @@ package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
 
-public interface ModoDeInscripcion {
+abstract class ModoDeInscripcion {
+	
+	@Property PrioridadInscripcion prioridadInscripcion
+	
 	def boolean leSirveElPartido(Partido partido)
-	def PrioridadInscripcion getPrioridadInscripcion()
+	
 }

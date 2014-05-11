@@ -2,13 +2,13 @@ package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
 
-class Estandar implements ModoDeInscripcion {
+class Estandar extends ModoDeInscripcion {
 
-	@Property PrioridadInscripcion prioridadInscripcion
+//	@Property PrioridadInscripcion prioridadInscripcion
 	
-	override getPrioridadInscripcion(){
-		return prioridadInscripcion
-	}
+//	override getPrioridadInscripcion(){
+//		return prioridadInscripcion
+//	}
 
 	new() {
 		this.prioridadInscripcion = PrioridadInscripcion.ESTANDAR

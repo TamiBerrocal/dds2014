@@ -2,13 +2,13 @@ package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
 
-class Solidaria implements ModoDeInscripcion {
+class Solidaria extends ModoDeInscripcion {
 
-	@Property PrioridadInscripcion prioridadInscripcion
-	
-	override getPrioridadInscripcion(){
-		return prioridadInscripcion
-	}
+//	@Property PrioridadInscripcion prioridadInscripcion
+//	
+//	override getPrioridadInscripcion(){
+//		return prioridadInscripcion
+//	}
 
 	new() {
 		this.prioridadInscripcion = PrioridadInscripcion.SOLIDARIA
