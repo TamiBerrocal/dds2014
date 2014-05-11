@@ -1,7 +1,7 @@
 package ar.edu.dds.model.inscripcion
 
-import ar.edu.dds.model.Partido
 import ar.edu.dds.model.inscripcion.condicion.Condicion
+import ar.edu.dds.model.PartidoImpl
 
 class Condicional implements ModoDeInscripcion {
 	
@@ -12,7 +12,7 @@ class Condicional implements ModoDeInscripcion {
 	@Property
 	private Condicion condicion
 	
-	override leSirveElPartido(Partido partido) {
+	override leSirveElPartido(PartidoImpl partido) {
 		condicion.esSatisfechaPor(partido)
 	}
 	

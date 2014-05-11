@@ -12,11 +12,11 @@ class Admin extends Jugador {
 		super(nombre, edad, modoDeInscripcion)
 	}
 	
-	def Partido organizarPartido(DateTime fechaYHora, String lugar) {
-		new Partido(fechaYHora, lugar)
+	def PartidoImpl organizarPartido(DateTime fechaYHora, String lugar) {
+		new PartidoImpl(fechaYHora, lugar)
 	}
 	
-	def List<Jugador> confirmarPartido(Partido partido) {
+	def List<Jugador> confirmarPartido(PartidoImpl partido) {
 		partido.confirmar
 	}
 }

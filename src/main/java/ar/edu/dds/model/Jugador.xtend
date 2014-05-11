@@ -3,6 +3,7 @@ package ar.edu.dds.model
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
+import java.util.List
 
 class Jugador {
 	
@@ -15,6 +16,12 @@ class Jugador {
 	@Property 
 	private int edad
 	
+	@Property
+	private String email;
+	
+	@Property
+	private List<Jugador> amigos;
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion) {
 		this.nombre = nombre
 		this.edad = edad
@@ -23,11 +30,11 @@ class Jugador {
 	
 	new() {}
 	
-	def void inscribirseA(Partido partido) {
+	def void inscribirseA(PartidoImpl partido) {
 		partido.agregarJugador(this)
 	}
 	
-	def boolean leSirveElPartido(Partido partido) {
+	def boolean leSirveElPartido(PartidoImpl partido) {
 		modoDeInscripcion.leSirveElPartido(partido)
 	}
 	

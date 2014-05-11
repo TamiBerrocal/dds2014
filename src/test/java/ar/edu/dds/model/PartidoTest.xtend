@@ -14,16 +14,16 @@ import ar.edu.dds.model.inscripcion.condicion.PorEdades
 
 class PartidoTest {
 	
-	private Partido partido
+	private PartidoImpl partido
 	private Admin admin
 	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo",
 											  "Mario", "Carlos", "Luis", "Esteban", "Nestor", "Jose", "Mariano"] 
 	
-	private def void verificarQueElNombreEstaEnElPartido(String nombre, Partido partido) {
+	private def void verificarQueElNombreEstaEnElPartido(String nombre, PartidoImpl partido) {
 		Assert.assertTrue(partido.jugadoresInscriptos.exists[ j | j.nombre.equals(nombre)])
 	}
 	
-	private def void verificarQueElNombreNoEstaEnElPartido(String nombre, Partido partido) {
+	private def void verificarQueElNombreNoEstaEnElPartido(String nombre, PartidoImpl partido) {
 		Assert.assertFalse(partido.jugadoresInscriptos.exists[ j | j.nombre.equals(nombre)])
 	}
 	

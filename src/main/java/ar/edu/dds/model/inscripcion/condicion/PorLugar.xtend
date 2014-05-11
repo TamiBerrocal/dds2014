@@ -1,6 +1,6 @@
 package ar.edu.dds.model.inscripcion.condicion
 
-import ar.edu.dds.model.Partido
+import ar.edu.dds.model.PartidoImpl
 
 class PorLugar implements Condicion {
 	
@@ -10,7 +10,7 @@ class PorLugar implements Condicion {
 	
 	private String lugar;
 	
-	override esSatisfechaPor(Partido partido) {
+	override esSatisfechaPor(PartidoImpl partido) {
 		lugar.equals(partido.lugar)
 	}
 	

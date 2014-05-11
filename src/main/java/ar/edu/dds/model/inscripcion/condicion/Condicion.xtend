@@ -1,8 +1,8 @@
 package ar.edu.dds.model.inscripcion.condicion
 
-import ar.edu.dds.model.Partido
+import ar.edu.dds.model.PartidoImpl
 
 interface Condicion {
 	
-	def boolean esSatisfechaPor(Partido partido)
+	def boolean esSatisfechaPor(PartidoImpl partido)
 }

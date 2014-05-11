@@ -1,8 +1,8 @@
 package ar.edu.dds.model.inscripcion
 
-import ar.edu.dds.model.Partido
+import ar.edu.dds.model.PartidoImpl
 
 public interface ModoDeInscripcion {
-	def boolean leSirveElPartido(Partido partido)
+	def boolean leSirveElPartido(PartidoImpl partido)
 	def Integer prioridad(int prioridadBase)
 }
