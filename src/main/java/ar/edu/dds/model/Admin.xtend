@@ -8,8 +8,8 @@ class Admin extends Jugador {
 	
 	new() {}
 	
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion) {
-		super(nombre, edad, modoDeInscripcion)
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
+		super(nombre, edad, modoDeInscripcion, mail)
 	}
 	
 	def Partido organizarPartido(DateTime fechaYHora, String lugar) {

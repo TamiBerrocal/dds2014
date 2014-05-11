@@ -37,7 +37,7 @@ class PartidoTest {
 		
 		// Se le agregan 5 jugadores standard de 30 años
 		for (int i : 0..4) {
-			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar)
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
 			partido.agregarJugador(jugador)
 		}
 	}
@@ -52,7 +52,7 @@ class PartidoTest {
 	def void testConfirmaPartidoCon11EstandaresDejaLosPrimeros10() {
 		// Se le agregan 6 jugadores standards más
 		for (int i : 5..10) {
-			val jugador = new Jugador(NOMBRES.get(i), 25, new Estandar)
+			val jugador = new Jugador(NOMBRES.get(i), 25, new Estandar, "mail@ejemplo.com")
 			partido.agregarJugador(jugador)
 		}
 		
@@ -75,7 +75,7 @@ class PartidoTest {
 	def void testConfirmarPartido10EstandaresYUnSolidarioQuedaAfueraElSolidario() {
 		
 		// Inscribo a Marcos solidario
-		val marcos = new Jugador("Marcos", 42, new Solidaria)
+		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
 		partido.agregarJugador(marcos)
 		
 		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
@@ -105,7 +105,7 @@ class PartidoTest {
 	@Test
 	def void testConfirmarPartido10EstandaresYUnCondicionalQuedaAfueraElCondicional() {
 		// Inscribo a Román condicional
-		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")))
+		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")), "mail@ejemplo.com")
 		partido.agregarJugador(roman)
 		
 		// Antes de confirmarse el partido, Román figura entre los inscriptos
@@ -135,11 +135,11 @@ class PartidoTest {
 	def void testConfirmarPartido9Estandare1Condicional1SolidarioPriorizaAlSolidario() {
 		
 		// Inscribo a Román condicional
-		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")))
+		val roman = new Jugador("Román", 42, new Condicional(new PorLugar("Avellaneda")), "mail@ejemplo.com")
 		partido.agregarJugador(roman)
 		
 		// Inscribo a Marcos solidario
-		val marcos = new Jugador("Marcos", 42, new Solidaria)
+		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
 		partido.agregarJugador(marcos)
 		
 		// Antes de confirmarse el partido, Román y Marcos figuran entre los inscriptos
@@ -173,7 +173,7 @@ class PartidoTest {
 	def void testConfirmarPartido5Estandares6SolidariosEliminaAlPrimerSolidarioQueSeAnoto() {
 		
 		// Inscribo a Marcos como primer solidario
-		val marcos = new Jugador("Marcos", 42, new Solidaria)
+		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
 		partido.agregarJugador(marcos)
 		
 		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
@@ -208,7 +208,7 @@ class PartidoTest {
 	def void test7Estandares4CondicionalQueNoPasanLaCondicionNoSePuedeConfirmar() {
 		// Inscribo a otros 2 Estandares
 		for (int i : 5..6) {
-			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar)
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
 			jugador.setModoDeInscripcion(new Estandar)
 			jugador.nombre = NOMBRES.get(i)
 			partido.agregarJugador(jugador)
@@ -216,7 +216,7 @@ class PartidoTest {
 		
 		// Inscribo a 4 Condicionales cuya condicion no es satisfecha
 		for (int i : 7..10) {
-			val jugador = new Jugador(NOMBRES.get(i), 35, new Condicional(new PorEdades(30, 6)))
+			val jugador = new Jugador(NOMBRES.get(i), 35, new Condicional(new PorEdades(30, 6)), "mail@ejemplo.com")
 			partido.agregarJugador(jugador)
 		}
 		

@@ -19,7 +19,10 @@ class NotificarAmigosObserver implements InscripcionDeJugadorObserver{
 		mail.from = partido.mailOficial
 		mail.asunto = "Se inscribio al partido un amigo!"
 		mail.mensaje = "Se inscribio al partido" + jugador.nombre 
-		mailSender.mandarMailATodos(mail, amigos)
+		for(Jugador amigo : amigos){
+			mail.to = amigo.mail
+			mailSender.mandarMail(mail)
+		}
 		}
 	
 }
