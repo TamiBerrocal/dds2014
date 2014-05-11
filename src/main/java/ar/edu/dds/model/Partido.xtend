@@ -21,6 +21,8 @@ class Partido {
 	
 	@Property
 	private String lugar
+	
+	@Property String mailOficial
 
 	@Property
 	private EstadoDePartido estadoDePartido
@@ -38,6 +40,7 @@ class Partido {
 		this.lugar = lugar
 		this.jugadoresConSusPrioridadesSegunOrden = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
+		this.mailOficial = "no-reply@of5.com"
 	}
 
 	def confirmar() {

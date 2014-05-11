@@ -14,15 +14,19 @@ class Jugador {
 	List<Jugador> amigos
 	
 	@Property
-	private String nombre
+	String mail
+	
+	@Property
+	String nombre
 	
 	@Property 
 	private int edad
 	
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion) {
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail) {
 		this.nombre = nombre
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
+		this.mail = direccionMail
 	}
 	
 	new() {}
