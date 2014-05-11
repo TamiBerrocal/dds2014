@@ -47,9 +47,10 @@ class Partido {
 			this.removerALosQueNoJugarian
 
 			// Me quedo con los 10 Jugadores con más prioridad
-			this.jugadores = this.jugadores.take(10).toList
+			var jugadoresFinales = this.jugadores.take(10).toList
+			this.jugadores = jugadoresFinales
 
-			val int size = this.jugadores.size
+			val int size = this.cantidadJugadoresEnLista
 			if (size.equals(10)) {
 				this.estadoDePartido = EstadoDePartido.CONFIRMADO
 			} else {
@@ -76,7 +77,7 @@ class Partido {
 
 	def void agregarJugadorALista(Jugador jugador) {
 		jugadores.add(jugador)
-		jugadores.sortBy[integrante|integrante.modoDeInscripcion.getPrioridadInscripcion]
+		jugadores.sortBy[modoDeInscripcion.prioridadInscripcion]
 	}
 
 	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
@@ -105,7 +106,7 @@ class Partido {
 	//	override toString() {
 	//		ToStringBuilder.reflectionToString(this)
 	//	}	
-	def cantidadDeJugadoresEnLista() {
+	def cantidadJugadoresEnLista() {
 		this.jugadores.size
 	}
 
