@@ -1,4 +1,4 @@
-package ar.edu.dds.model.inscripcion.condicion
+package ar.edu.dds.model.inscripcion.condicionales
 
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.inscripcion.Condicional
