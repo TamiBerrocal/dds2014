@@ -8,6 +8,8 @@ import org.joda.time.DateTime
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import ar.edu.dds.model.inscripcion.Solidaria
 import ar.edu.dds.model.inscripcion.condicionales.PorLugar
+import ar.edu.dds.exception.NoHaySuficientesJugadoresException
+import ar.edu.dds.model.inscripcion.condicionales.PorEdades
 
 class NuevoPartidoTest {
 
@@ -129,5 +131,100 @@ class NuevoPartidoTest {
 		// Román quedó afuera por ser condicional
 		verificarQueElNombreNoEstaEnElPartido("Roman", partido)
 	}
+
+	@Test
+	def void testConfirmarPartido9Estandare1Condicional1SolidarioPriorizaAlSolidario() {
+
+		// Inscribo a Román condicional
+		val roman = new Jugador("Román", 42, new PorLugar("Avellaneda"), "mail@ejemplo.com")
+		partido.agregarJugadorPartido(roman)
+
+		// Inscribo a Marcos solidario
+		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
+
+		// Antes de confirmarse el partido, Román y Marcos figuran entre los inscriptos
+		verificarQueElNombreEstaEnElPartido("Román", partido)
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		// Inscribo a otros 4 Standares
+		for (int i : 5 .. 8) {
+			val jugador = new Jugador()
+			jugador.setModoDeInscripcion(new Estandar)
+			jugador.nombre = NOMBRES.get(i)
+			partido.agregarJugadorPartido(jugador)
+		}
+
+		admin.confirmarPartido(partido)
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, partido.estadoDePartido)
+
+		// Los 9 primeros nombres del array quedaron confirmados
+		for (int i : 0 .. 8) {
+			verificarQueElNombreEstaEnElPartido(NOMBRES.get(i), partido)
+		}
+
+		// Marcos quedó confirmado
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		// Román quedó afuera por ser condicional
+		verificarQueElNombreNoEstaEnElPartido("Román", partido)
+	}
+
+	@Test
+	def void testConfirmarPartido5Estandares6SolidariosEliminaAlUltimoSolidarioQueSeAnoto() {
+
+		// Inscribo a 5 Solidarios
+		for (int i : 5 .. 9) {
+			val jugador = new Jugador()
+			jugador.setModoDeInscripcion(new Solidaria)
+			jugador.nombre = NOMBRES.get(i)
+			jugador.mail = "mail@ejemplo.com"
+			partido.agregarJugadorPartido(jugador)
+		}
+
+		// Inscribo a Marcos como ultimo solidario
+		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
+
+		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		admin.confirmarPartido(partido)
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, partido.estadoDePartido)
+
+		// Los 10 primeros nombres del array quedaron confirmados
+		for (int i : 0 .. 9) {
+			verificarQueElNombreEstaEnElPartido(NOMBRES.get(i), partido)
+		}
+
+		// Marcos quedó afuera por ser el primer solidario anotado
+		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
+	}
+	
+	@Test(expected = NoHaySuficientesJugadoresException)
+	def void testNoSePuedeConfirmarPartidoConMenosDe10Jugadores() {
+		admin.confirmarPartido(partido);
+	}
+	
+	@Test(expected = NoHaySuficientesJugadoresException) 
+	def void test7Estandares4CondicionalQueNoPasanLaCondicionNoSePuedeConfirmar() {
+		// Inscribo a otros 2 Estandares
+		for (int i : 5..6) {
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
+			jugador.setModoDeInscripcion(new Estandar)
+			jugador.nombre = NOMBRES.get(i)
+			jugador.mail = "mail@ejemplo.com"
+			partido.agregarJugadorPartido(jugador)
+		}
+		
+		// Inscribo a 4 Condicionales cuya condicion no es satisfecha
+		for (int i : 7..10) {
+			val jugador = new Jugador(NOMBRES.get(i), 35, new PorEdades(30, 6), "mail@ejemplo.com")
+			partido.agregarJugadorPartido(jugador)
+		}
+		admin.confirmarPartido(partido)
+		
+	}
+
 
 }
