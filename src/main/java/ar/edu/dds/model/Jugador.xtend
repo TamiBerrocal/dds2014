@@ -4,6 +4,7 @@ import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 //import org.apache.commons.lang3.builder.HashCodeBuilder
 //import org.apache.commons.lang3.builder.EqualsBuilder
 import java.util.List
+import java.util.ArrayList
 
 class Jugador {
 	
@@ -27,9 +28,12 @@ class Jugador {
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
 		this.mail = direccionMail
+		this.amigos = new ArrayList<Jugador>
 	}
 	
-	new() {}
+	new() {
+		this.amigos = new ArrayList<Jugador>
+	}
 	
 	def void inscribirseA(Partido partido) {
 		partido.agregarJugadorPartido(this)

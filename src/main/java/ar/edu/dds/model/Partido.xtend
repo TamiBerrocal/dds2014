@@ -8,6 +8,10 @@ import java.util.ArrayList
 import java.util.List
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.joda.time.DateTime
+import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
+import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
+import static org.mockito.Matchers.* 
+import static org.mockito.Mockito.*
 
 class Partido {
 
@@ -30,9 +34,12 @@ class Partido {
 
 	@Property
 	Jugador administrador
+	
+	@Property
+	MailSender mailSender 
 
-	private List<InscripcionDeJugadorObserver> inscripcionObservers
-	private List<BajaDeJugadorObserver> bajaObservers
+	@Property List<InscripcionDeJugadorObserver> inscripcionObservers
+	@Property List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar) {
 		this.fechaYHora = fechaYHora
@@ -40,8 +47,16 @@ class Partido {
 		this.jugadores = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
 		this.mailOficial = "no-reply@of5.com"
+		this.inscripcionObservers = new ArrayList<InscripcionDeJugadorObserver>
+		this.jugadores = new ArrayList<Jugador>
+		val diezJugadoresObserver = new HayDiezJugadoresObserver
+		this.mailSender = mock(typeof(MailSender))
+		val avisarAmigosObserver = new NotificarAmigosObserver
+		inscripcionObservers.add(diezJugadoresObserver)
+		inscripcionObservers.add(avisarAmigosObserver)
 	}
 
+	
 	def confirmar() {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
 			this.removerALosQueNoJugarian
@@ -69,6 +84,8 @@ class Partido {
 			agregarJugadorALista(jugador)
 
 		//avisarle a los observers de inscripcion que se inscribio el jugador
+		this.inscripcionObservers.forEach[observer | observer.jugadorInscripto(jugador, this)]
+		
 		} else {
 			throw new EstadoDePartidoInvalidoException(
 				"Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
@@ -80,10 +97,9 @@ class Partido {
 		this.jugadores = jugadores.sortBy[modoDeInscripcion.prioridadInscripcion]
 	}
 
-	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
-		this.darDeBajaJugador(jugador)
-		this.agregarJugadorALista(reemplazo)
-
+	def void reemplazarJugador(Jugador jugador, Jugador jugadorReemplazo) {
+		this.eliminarJugadorDeLista(jugador)
+		this.agregarJugadorALista(jugadorReemplazo)
 	
 	}
 

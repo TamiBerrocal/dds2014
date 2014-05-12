@@ -13,7 +13,10 @@ class Admin extends Jugador {
 	}
 	
 	def Partido organizarPartido(DateTime fechaYHora, String lugar) {
-		new Partido(fechaYHora, lugar)
+		var partido = new Partido(fechaYHora, lugar)
+		partido.administrador = this
+		partido
+		
 	}
 	
 	def List<Jugador> confirmarPartido(Partido partido) {

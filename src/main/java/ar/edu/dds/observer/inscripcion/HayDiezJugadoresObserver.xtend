@@ -5,18 +5,21 @@ import ar.edu.dds.model.Partido
 import ar.edu.dds.model.MailSender
 import ar.edu.dds.model.Mail
 
-class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver{
-	
+class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver {
+
 	@Property MailSender mailSender
-	
-	new(MailSender sender){
-		this.mailSender = sender
+
+	new() {	
+		
 	}
-	
-	override jugadorInscripto (Jugador jugador, Partido partido){
-				
+
+	override jugadorInscripto(Jugador jugador, Partido partido) {
+
 		var admin = partido.administrador
-		if (partido.cantidadJugadoresEnLista.equals(10)){
+
+		this.mailSender = partido.mailSender
+
+		if (partido.cantidadJugadoresEnLista.equals(10)) {
 			var mail = new Mail
 			mail.asunto = "Jugadores suficientes"
 			mail.from = partido.mailOficial
@@ -25,6 +28,5 @@ class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver{
 			mailSender.mandarMail(mail)
 		}
 	}
-	
-	
+
 }
