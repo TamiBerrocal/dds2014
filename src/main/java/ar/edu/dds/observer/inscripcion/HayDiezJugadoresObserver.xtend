@@ -16,7 +16,7 @@ class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver{
 	override jugadorInscripto (Jugador jugador, Partido partido){
 				
 		var admin = partido.administrador
-		if (partido.cantidadDeJugadoresEnLista.equals(10)){
+		if (partido.cantidadJugadoresEnLista.equals(10)){
 			var mail = new Mail
 			mail.asunto = "Jugadores suficientes"
 			mail.from = partido.mailOficial

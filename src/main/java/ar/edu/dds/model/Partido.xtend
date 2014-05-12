@@ -77,7 +77,7 @@ class Partido {
 
 	def void agregarJugadorALista(Jugador jugador) {
 		jugadores.add(jugador)
-		jugadores.sortBy[modoDeInscripcion.prioridadInscripcion]
+		this.jugadores = jugadores.sortBy[modoDeInscripcion.prioridadInscripcion]
 	}
 
 	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {

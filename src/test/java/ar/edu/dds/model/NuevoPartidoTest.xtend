@@ -7,7 +7,7 @@ import org.junit.Test
 import org.joda.time.DateTime
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import ar.edu.dds.model.inscripcion.Solidaria
-import ar.edu.dds.model.inscripcion.condicion.PorLugar
+import ar.edu.dds.model.inscripcion.condicionales.PorLugar
 
 class NuevoPartidoTest {
 
@@ -127,7 +127,7 @@ class NuevoPartidoTest {
 		}
 
 		// Román quedó afuera por ser condicional
-		verificarQueElNombreNoEstaEnElPartido("Román", partido)
+		verificarQueElNombreNoEstaEnElPartido("Roman", partido)
 	}
 
 }
