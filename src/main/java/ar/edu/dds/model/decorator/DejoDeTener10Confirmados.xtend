@@ -21,17 +21,17 @@ class DejoDeTener10Confirmados implements Partido {
 		val jugadorConSuPrioridadADarDeBaja = this.decorado.quitarJugador(jugador)
 
 		//Si despues de quitar un jugador no quedan los 10 confirmados se le notifica al admin
-		if(this.partido.jugadoresInscriptos.filter[j|j.leSirveElPartido(this.partido)].size.equals(9)){
+		if (this.partido.jugadoresInscriptos.filter[j|j.leSirveElPartido(this.partido)].size.equals(9)) {
 			val mail = new Mail
 			mail.setDe(DE)
 			mail.setPara(partido.admin.email)
 			mail.setAsunto(ASUNTO)
 			mail.setCuerpo(CUERPO)
 			mailSender.enviar(mail)
-			
-			jugadorConSuPrioridadADarDeBaja
+
 		}
-		
+		jugadorConSuPrioridadADarDeBaja
+
 	}
 
 	override PartidoImpl partido() {
