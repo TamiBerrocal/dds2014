@@ -4,5 +4,5 @@ import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Partido
 
 interface BajaDeJugadorObserver {
-	def void jugadorSeBajo(Jugador jugador, Partido partido)
+	def void jugadorSeDioDeBaja(Jugador jugador, Partido partido)
 }

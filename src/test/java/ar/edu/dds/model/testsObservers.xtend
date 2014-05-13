@@ -5,7 +5,7 @@ import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
 import org.junit.Test
 import junit.framework.Assert
-import static org.mockito.Matchers.* 
+import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 
 class testsObservers {
@@ -22,6 +22,10 @@ class testsObservers {
 
 	private def void verificarQueElNombreNoEstaEnElPartido(String nombre, Partido partido) {
 		Assert.assertFalse(partido.jugadores.exists[jugador|jugador.nombre.equals(nombre)])
+	}
+
+	private def void verificarQueHayUnaInfraccionDelDiaDeHoy(Jugador jugador, DateTime hoy) {
+		Assert.assertTrue(jugador.infracciones.exists[infraccion|infraccion.fechaCreacion.equals(hoy)])
 	}
 
 	@Before
@@ -42,6 +46,11 @@ class testsObservers {
 		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugadorPartido(marcos)
 
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		var hoy = new DateTime()
+
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
 
@@ -50,7 +59,11 @@ class testsObservers {
 		//verificamos que marcos ya no este en la lista
 		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
 
-	//verificamos que marcos haya sido penalizado
+		//Verificamos que Marcos haya sido penalizado
+		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
+
+		//Verificamos que se haya enviado un mail al administrador notificando que el jugador se ha dado de baja
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 	}
 
 	@Test
@@ -76,10 +89,10 @@ class testsObservers {
 
 	@Test
 	def void seCompletaLaListaCon10Jugadores() {
-		
+
 		val mockedMailSender = mock(typeof(MailSender))
 		partido.mailSender = mockedMailSender
-		
+
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugadorPartido(enrique)
 
@@ -91,12 +104,9 @@ class testsObservers {
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Mariano", partido)
-		
+
 		//verificamos que se haya enviado un mail al administrador notificando que hay10 juagores en la lista 
-	
-
-        verify(mockedMailSender, times(1)).mandarMail(any(typeof (Mail)))
-}
-
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+	}
 
 }

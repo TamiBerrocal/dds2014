@@ -10,8 +10,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder
 import org.joda.time.DateTime
 import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
 import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
-import static org.mockito.Matchers.* 
+import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
+import ar.edu.dds.observer.baja.InfraccionObserver
+import ar.edu.dds.observer.baja.NotificarAdministradorObserver
 
 class Partido {
 
@@ -34,9 +36,9 @@ class Partido {
 
 	@Property
 	Jugador administrador
-	
+
 	@Property
-	MailSender mailSender 
+	MailSender mailSender
 
 	@Property List<InscripcionDeJugadorObserver> inscripcionObservers
 	@Property List<BajaDeJugadorObserver> bajaObservers
@@ -48,15 +50,19 @@ class Partido {
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
 		this.mailOficial = "no-reply@of5.com"
 		this.inscripcionObservers = new ArrayList<InscripcionDeJugadorObserver>
+		this.bajaObservers = new ArrayList<BajaDeJugadorObserver>
 		this.jugadores = new ArrayList<Jugador>
-		val diezJugadoresObserver = new HayDiezJugadoresObserver
 		this.mailSender = mock(typeof(MailSender))
+		val diezJugadoresObserver = new HayDiezJugadoresObserver
 		val avisarAmigosObserver = new NotificarAmigosObserver
 		inscripcionObservers.add(diezJugadoresObserver)
 		inscripcionObservers.add(avisarAmigosObserver)
+		val infraccionObserver = new InfraccionObserver
+		val notificarObserver = new NotificarAdministradorObserver
+		bajaObservers.add(infraccionObserver)
+		bajaObservers.add(notificarObserver)
 	}
 
-	
 	def confirmar() {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
 			this.removerALosQueNoJugarian
@@ -83,9 +89,9 @@ class Partido {
 		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
 			agregarJugadorALista(jugador)
 
-		//avisarle a los observers de inscripcion que se inscribio el jugador
-		this.inscripcionObservers.forEach[observer | observer.jugadorInscripto(jugador, this)]
-		
+			//avisarle a los observers de inscripcion que se inscribio el jugador
+			this.inscripcionObservers.forEach[observer|observer.jugadorInscripto(jugador, this)]
+
 		} else {
 			throw new EstadoDePartidoInvalidoException(
 				"Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
@@ -100,7 +106,7 @@ class Partido {
 	def void reemplazarJugador(Jugador jugador, Jugador jugadorReemplazo) {
 		this.eliminarJugadorDeLista(jugador)
 		this.agregarJugadorALista(jugadorReemplazo)
-	
+
 	}
 
 	def void eliminarJugadorDeLista(Jugador jugador) {
@@ -110,8 +116,9 @@ class Partido {
 
 	def void darDeBajaJugador(Jugador jugador) {
 		this.eliminarJugadorDeLista(jugador)
-		//avisar que se dio de baja jugador a los observers
-		//pensalizar
+
+		//Avisar sobre baja de jugador a los Observers
+		this.bajaObservers.forEach[observer|observer.jugadorSeDioDeBaja(jugador, this)]
 	}
 
 	private def void removerALosQueNoJugarian() {
@@ -125,5 +132,4 @@ class Partido {
 	def cantidadJugadoresEnLista() {
 		this.jugadores.size
 	}
-
 }
