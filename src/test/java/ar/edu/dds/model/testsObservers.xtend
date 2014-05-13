@@ -129,18 +129,22 @@ class testsObservers {
 	}
 
 	@Test
-	def void unJugadorSeDaDeBaja() {
-
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(marcos)
-
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
+	def void unJugadorSeDaDeBajaYEran10EnLista() {
 
 		var hoy = new Date()
-
+		
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+		
+		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+		
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
 		partido.darDeBajaJugador(marcos)
 
@@ -150,8 +154,10 @@ class testsObservers {
 		//Verificamos que Marcos haya sido penalizado
 		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
 
-		//Verificamos que se haya enviado un mail al administrador notificando que el jugador se ha dado de baja
-		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+		//se mandan 2 mails al administrador 
+		//1-notificando que el partido tiene 10 jugadores
+		//2-notificando que el jugador se ha dado de baja
+		verify(mockedMailSender, times(2)).mandarMail(any(typeof(Mail)))
 	}
 
 	@Test
