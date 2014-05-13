@@ -6,6 +6,8 @@ import org.joda.time.DateTime
 import org.junit.Test
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
+import ar.edu.dds.model.mail.MailSender
+import ar.edu.dds.model.mail.Mail
 
 class testsDecorator {
 	Admin admin
@@ -27,11 +29,14 @@ class testsDecorator {
 		val mockedMailSender = mock(typeof(MailSender))
 		partido.mailSender = mockedMailSender
 		
-		//agregamos 3 jugadores estandar mas y se tendria que notificar al adm
+		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
 		partido.agregarJugador(new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com"))
 		partido.agregarJugador(new Admin("Mariano", 25, new Estandar, "mail@ejemplo.com"))
 		
-		
+		verify(mockedMailSender, times(1)).enviar(any(typeof(Mail))
+			
+			
+		)
 	}
 
 }
