@@ -22,10 +22,11 @@ class Jugador {
 	@Property
 	private List<Jugador> amigos;
 
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion) {
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
 		this.nombre = nombre
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
+		this.email = mail
 	}
 
 	new() {
