@@ -27,6 +27,12 @@ class Jugador {
 	@Property
 	List<Infraccion> infracciones
 
+	new() {
+		this.amigos = new ArrayList<Jugador>
+		this.infracciones = new ArrayList<Infraccion>
+
+	}
+
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail) {
 		this.nombre = nombre
 		this.edad = edad
@@ -46,10 +52,13 @@ class Jugador {
 
 	def void agregateInfraccion() {
 		var infraccion = new Infraccion
-
 		//	infraccion.validaHasta = Falta definir validez de infracción
 		infraccion.causa = "Baja sin reemplazante"
 		infracciones.add(infraccion)
+	}
+	
+	def void agregarAmigo(Jugador amigo){
+		amigos.add(amigo)
 	}
 
 	//	def Integer prioridad(Integer prioridadBase) {

@@ -18,10 +18,14 @@ class NotificarAdministradorObserver implements BajaDeJugadorObserver {
 		var administrador = partido.administrador
 		var mail = new Mail
 
-		mail.from = partido.mailOficial
-		mail.asunto = "Se ha dado de baja un jugador"
-		mail.mensaje = "El jugador" + jugador.nombre + "se ha dado de baja del partido sin dejar reemplazante."
-		mail.to = administrador.mail
-		mailSender.mandarMail(mail)
+		if (partido.cantidadJugadoresEnLista.equals(9)) { //si son menos o mas no se notifica al admin
+
+			mail.from = partido.mailOficial
+			mail.asunto = "Se ha dado de baja un jugador"
+			mail.mensaje = "El jugador" + jugador.nombre + "se ha dado de baja del partido sin dejar reemplazante."
+			mail.to = administrador.mail
+			mailSender.mandarMail(mail)
+		}
 	}
+}
 }

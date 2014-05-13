@@ -10,7 +10,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder
 import org.joda.time.DateTime
 import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
 import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
-import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import ar.edu.dds.observer.baja.InfraccionObserver
 import ar.edu.dds.observer.baja.NotificarAdministradorObserver
@@ -35,7 +34,7 @@ class Partido {
 	private EstadoDePartido estadoDePartido
 
 	@Property
-	Jugador administrador
+	Admin administrador
 
 	@Property
 	MailSender mailSender
@@ -116,7 +115,6 @@ class Partido {
 
 	def void darDeBajaJugador(Jugador jugador) {
 		this.eliminarJugadorDeLista(jugador)
-
 		//Avisar sobre baja de jugador a los Observers
 		this.bajaObservers.forEach[observer|observer.jugadorSeDioDeBaja(jugador, this)]
 	}

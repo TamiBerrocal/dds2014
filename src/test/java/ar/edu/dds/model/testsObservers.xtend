@@ -7,6 +7,7 @@ import org.junit.Test
 import junit.framework.Assert
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
+import java.util.Date
 
 class testsObservers {
 
@@ -24,7 +25,7 @@ class testsObservers {
 		Assert.assertFalse(partido.jugadores.exists[jugador|jugador.nombre.equals(nombre)])
 	}
 
-	private def void verificarQueHayUnaInfraccionDelDiaDeHoy(Jugador jugador, DateTime hoy) {
+	private def void verificarQueHayUnaInfraccionDelDiaDeHoy(Jugador jugador, Date hoy) {
 		Assert.assertTrue(jugador.infracciones.exists[infraccion|infraccion.fechaCreacion.equals(hoy)])
 	}
 
@@ -38,53 +39,6 @@ class testsObservers {
 			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
 			partido.agregarJugadorPartido(jugador)
 		}
-	}
-
-	@Test
-	def void unJugadorSeDaDeBaja() {
-
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(marcos)
-
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
-		var hoy = new DateTime()
-
-		//verificamos que se haya agregado a la lista de jugadores
-		verificarQueElNombreEstaEnElPartido("Marcos", partido)
-
-		partido.darDeBajaJugador(marcos)
-
-		//verificamos que marcos ya no este en la lista
-		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
-
-		//Verificamos que Marcos haya sido penalizado
-		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
-
-		//Verificamos que se haya enviado un mail al administrador notificando que el jugador se ha dado de baja
-		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
-	}
-
-	@Test
-	def void unJugadorSeDaDeBajaDejaReemplazante() {
-
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
-
-		//verificamos que se haya agregado a la lista de jugadores
-		verificarQueElNombreEstaEnElPartido("Enrique", partido)
-
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-
-		partido.reemplazarJugador(enrique, marcos)
-
-		//verificamos que enrique ya no este en la lista
-		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
-
-		//Verficamos que Marcos este en la lista 
-		verificarQueElNombreEstaEnElPartido("Marcos", partido)
-
 	}
 
 	@Test
@@ -107,6 +61,119 @@ class testsObservers {
 
 		//verificamos que se haya enviado un mail al administrador notificando que hay10 juagores en la lista 
 		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+	}
+
+	@Test
+	def void seInscribeUnoPeroNoLleganADiez() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
+
+		//verificamos que NO se haya enviado un mail al admin, y como no tiene ningun amigo no se debe notificar a nadie
+		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+	}
+
+	@Test
+	def void JugadorSeInscribeYseAvisaAlosAmigos() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+
+		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
+
+		enrique.agregarAmigo(marcos)
+
+		//verificamos que se haya enviado un mail a los amigos
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+
+	}
+
+	@Test
+	def void unJugadorSeDaDeBajaDejaReemplazante() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
+
+		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
+
+		partido.reemplazarJugador(enrique, marcos)
+
+		//verificamos que enrique ya no este en la lista
+		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
+
+		//Verficamos que Marcos este en la lista 
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		//verificamos que no se haya mandado mail al administrador, como no tiene amigos no se debe mandar ningun mail
+		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+
+	}
+
+	@Test
+	def void unJugadorSeDaDeBaja() {
+
+		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		var hoy = new Date()
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		partido.darDeBajaJugador(marcos)
+
+		//verificamos que marcos ya no este en la lista
+		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
+
+		//Verificamos que Marcos haya sido penalizado
+		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
+
+		//Verificamos que se haya enviado un mail al administrador notificando que el jugador se ha dado de baja
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+	}
+
+	@Test
+	def void seDaDeBajaUnoPeroNoEran10() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
+
+		//verificamos que sean 9 en la lista
+		Assert.assertEquals(9, partido.cantidadJugadoresEnLista)
+
+		partido.darDeBajaJugador(enrique)
+
+		//verificamos que no se haya notificado al admin, no tiene amigos.. 
+		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+
 	}
 
 }
