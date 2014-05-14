@@ -24,7 +24,11 @@ abstract class PartidoDecorator implements Partido {
 	override quitarJugador(Jugador jugador) {
 		this.decorado.quitarJugador(jugador)
 	}
-
+	
+	override reemplazarJugador(Jugador jugador, Jugador reemplazo){
+		this.decorado.reemplazarJugador(jugador,reemplazo)	
+		
+	}
 	override MailSender mailSender() {
 		this.decorado.mailSender
 	}

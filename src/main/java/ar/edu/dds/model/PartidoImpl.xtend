@@ -72,7 +72,7 @@ class PartidoImpl implements Partido {
 		prioridadAAsignarPorOrden = prioridadAAsignarPorOrden - 10
 	}
 
-	def void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
+	override void reemplazarJugador(Jugador jugador, Jugador reemplazo) {
 		val jugadorConSuPrioridadAReemplazar = quitarJugador(jugador)
 		this.jugadoresConSusPrioridadesSegunOrden.add(
 			new Pair<Jugador, Integer>(reemplazo, jugadorConSuPrioridadAReemplazar.value))
