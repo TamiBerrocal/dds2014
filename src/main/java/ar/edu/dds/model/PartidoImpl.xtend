@@ -7,6 +7,7 @@ import java.util.List
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
 import org.apache.commons.lang3.builder.ToStringBuilder
 import ar.edu.dds.model.mail.MailSender
+import static org.mockito.Mockito.*
 
 class PartidoImpl implements Partido {
 
@@ -17,17 +18,17 @@ class PartidoImpl implements Partido {
 
 	@Property
 	private DateTime fechaYHora
-	
+
 	@Property
 	private String lugar
-	
-	@Property 
+
+	@Property
 	private Admin admin
 
 	@Property
 	private EstadoDePartido estadoDePartido
 	
-	private MailSender mailSender = new MailSender
+	private MailSender mailSender
 
 	private Integer prioridadAAsignarPorOrden = 0
 
@@ -36,11 +37,12 @@ class PartidoImpl implements Partido {
 		this.lugar = lugar
 		this.jugadoresConSusPrioridadesSegunOrden = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
+		this.mailSender = mock(typeof(MailSender))
 	}
 
 	def confirmar() {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
-		
+
 		this.removerALosQueNoJugarian
 
 		// Me quedo con los 10 Jugadores con más prioridad
@@ -63,7 +65,8 @@ class PartidoImpl implements Partido {
 	}
 
 	override void agregarJugador(Jugador jugador) {
-		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible agregar jugadores a un partido con estado: ")
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION,
+			"Imposible agregar jugadores a un partido con estado: ")
 		jugadoresConSusPrioridadesSegunOrden.add(new Pair(jugador, this.prioridadAAsignarPorOrden))
 		prioridadAAsignarPorOrden = prioridadAAsignarPorOrden - 10
 	}
@@ -79,7 +82,7 @@ class PartidoImpl implements Partido {
 
 	// PENALIZAR
 	}
-	
+
 	override PartidoImpl partido() {
 		this
 	}
@@ -95,19 +98,19 @@ class PartidoImpl implements Partido {
 		jugadoresConSusPrioridadesSegunOrden = jugadoresConSusPrioridadesSegunOrden.filter[j|
 			j.key.leSirveElPartido(this)].toList
 	}
-	
+
 	private def validarEstadoDePartido(EstadoDePartido estadoEsperado, String error) {
 		if (!estadoEsperado.equals(this.estadoDePartido)) {
 			throw new EstadoDePartidoInvalidoException(error + this.estadoDePartido)
 		}
 	}
 
-	override mailSender() {
+	override MailSender mailSender() {
 		this.mailSender
 	}
 
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
 	}
-	
+
 }

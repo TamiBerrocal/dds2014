@@ -3,6 +3,7 @@ package ar.edu.dds.model.decorator
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.PartidoImpl
 import ar.edu.dds.model.Jugador
+import ar.edu.dds.model.mail.MailSender
 
 abstract class PartidoDecorator implements Partido {
 
@@ -24,7 +25,7 @@ abstract class PartidoDecorator implements Partido {
 		this.decorado.quitarJugador(jugador)
 	}
 
-	override mailSender() {
+	override MailSender mailSender() {
 		this.decorado.mailSender
 	}
 

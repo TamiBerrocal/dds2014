@@ -9,12 +9,14 @@ import static org.mockito.Mockito.*
 import ar.edu.dds.model.mail.MailSender
 import ar.edu.dds.model.mail.Mail
 
-class testsDecorator {
+
+class TestsDecorator {
 	Admin admin
 	Partido partido
-	
+
 	//lista de 8 jugadores
-	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario", "Carlos"]
+	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario",
+		"Carlos"]
 
 	@Before
 	def void init() {
@@ -25,18 +27,25 @@ class testsDecorator {
 	}
 
 	@Test
-	def seCompletaLaListaCon10Jugadores() {
+	def testSeCompletaLaListaCon10Jugadores() {
 		val mockedMailSender = mock(typeof(MailSender))
 		partido.mailSender = mockedMailSender
 		
 		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
 		partido.agregarJugador(new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com"))
 		partido.agregarJugador(new Admin("Mariano", 25, new Estandar, "mail@ejemplo.com"))
-		
-		verify(mockedMailSender, times(1)).enviar(any(typeof(Mail))
-			
-			
-		)
-	}
 
+		verify(mockedMailSender, times(1)).enviar(any(typeof(Mail)))
+	}
+	
+	@Test
+	def void testSeInscribeUnoPeroNoLleganADiez() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
+
+		//verificamos que NO se haya enviado un mail al admin, y como no tiene ningun amigo no se debe notificar a nadie
+		verify(mockedMailSender, times(0)).enviar(any(typeof(Mail)))
+	}
 }
