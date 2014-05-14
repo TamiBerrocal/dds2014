@@ -9,11 +9,11 @@ class Admin extends Jugador {
 	new() {}
 	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion,String mail) {
-		super(nombre, edad, modoDeInscripcion,mail)
+		super(nombre, edad, modoDeInscripcion, mail)
 	}
 	
 	def PartidoImpl organizarPartido(DateTime fechaYHora, String lugar) {
-		new PartidoImpl(fechaYHora, lugar)
+		new PartidoImpl(fechaYHora, lugar, this)
 	}
 	
 	def List<Jugador> confirmarPartido(PartidoImpl partido) {

@@ -6,46 +6,43 @@ import org.joda.time.DateTime
 import org.junit.Test
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import ar.edu.dds.model.mail.MailSender
 import ar.edu.dds.model.mail.Mail
+import ar.edu.dds.model.decorator.YaHay10EnElPartidoDecorator
 
 
 class TestsDecorator {
 	Admin admin
 	Partido partido
 
-	//lista de 8 jugadores
 	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario",
-		"Carlos"]
+		"Carlos", "Luis", "Esteban", "Nestor", "Jose", "Mariano"]
 
 	@Before
 	def void init() {
 		admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
-		NOMBRES.forEach[n|partido.agregarJugador(new Jugador(n, 21, new Estandar, "mimail@dds.com"))]
 
+		//partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+		partido = new YaHay10EnElPartidoDecorator(admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda"))
+		for (int i : 0 .. 7) {
+			partido.agregarJugador(new Jugador(NOMBRES.get(i), 21, new Estandar, "mimail@dds.com"))
+		}
 	}
 
 	@Test
-	def testSeCompletaLaListaCon10Jugadores() {
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-		
-		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
-		partido.agregarJugador(new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com"))
-		partido.agregarJugador(new Admin("Mariano", 25, new Estandar, "mail@ejemplo.com"))
+	def void testSeCompletaLaListaCon10Jugadores() {
 
-		verify(mockedMailSender, times(1)).enviar(any(typeof(Mail)))
+		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
+		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
+		partido.agregarJugador(new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com"))
+
+		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 	}
-	
+
 	@Test
 	def void testSeInscribeUnoPeroNoLleganADiez() {
-
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
 		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
 
 		//verificamos que NO se haya enviado un mail al admin, y como no tiene ningun amigo no se debe notificar a nadie
-		verify(mockedMailSender, times(0)).enviar(any(typeof(Mail)))
+		verify(partido.mailSender, times(0)).enviar(any(typeof(Mail)))
 	}
 }

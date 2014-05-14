@@ -32,11 +32,12 @@ class PartidoImpl implements Partido {
 
 	private Integer prioridadAAsignarPorOrden = 0
 
-	new(DateTime fechaYHora, String lugar) {
+	new(DateTime fechaYHora, String lugar, Admin admin) {
 		this.fechaYHora = fechaYHora
 		this.lugar = lugar
 		this.jugadoresConSusPrioridadesSegunOrden = new ArrayList
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
+		this.admin = admin
 		this.mailSender = mock(typeof(MailSender))
 	}
 
