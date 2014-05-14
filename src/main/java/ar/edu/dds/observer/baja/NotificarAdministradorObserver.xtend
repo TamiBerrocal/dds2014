@@ -7,7 +7,8 @@ import ar.edu.dds.model.Mail
 
 class NotificarAdministradorObserver implements BajaDeJugadorObserver {
 
-	@Property MailSender mailSender
+	@Property 
+	MailSender mailSender
 
 	new() {
 	}

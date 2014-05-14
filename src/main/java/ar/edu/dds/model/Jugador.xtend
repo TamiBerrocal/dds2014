@@ -22,7 +22,7 @@ class Jugador {
 	String nombre
 
 	@Property
-	private int edad
+	int edad
 
 	@Property
 	List<Infraccion> infracciones

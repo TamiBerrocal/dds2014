@@ -7,7 +7,8 @@ import ar.edu.dds.model.Mail
 
 class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver {
 
-	@Property MailSender mailSender
+	@Property 
+	MailSender mailSender
 
 	new() {	
 		
