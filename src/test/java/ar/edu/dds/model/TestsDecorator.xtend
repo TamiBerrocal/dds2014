@@ -35,7 +35,7 @@ class TestsDecorator {
 
 	@Before
 	def void init() {
-		admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		admin = new Admin("Claudio", 27, new Estandar, "mail@ejemplo.com")
 		val Partido datosPartido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
 		//DECORO con todos los decorators
@@ -52,11 +52,11 @@ class TestsDecorator {
 
 	@Test
 	def void testSeCompletaLaListaCon10Jugadores() {
-
-		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
-		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
-		partido.agregarJugador(new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com"))
 		
+		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
+		partido.agregarJugador(new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com"))
+		partido.agregarJugador(new Jugador("Victor", 25, new Estandar, "mail@ejemplo.com"))
+
 		//verificamos que avise al admin
 		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 	}
@@ -64,7 +64,7 @@ class TestsDecorator {
 	@Test
 	def void testSeInscribeUnoPeroNoLleganADiez() {
 
-		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
+		partido.agregarJugador(new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com"))
 
 		//verificamos que NO se haya enviado un mail al admin, y como no tiene ningun amigo no se debe notificar a nadie
 		verify(partido.mailSender, times(0)).enviar(any(typeof(Mail)))
@@ -73,14 +73,14 @@ class TestsDecorator {
 	@Test
 	def void testJugadorSeInscribeYseLeAvisaAlosAmigos() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugador(enrique)
-		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
-		marcos.agregarJugadorAListaDeAmigos(enrique)
+		val claudio = new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(claudio)
+		val hector = new Jugador("Hector", 25, new Estandar, "mail@ejemplo.com")
+		hector.agregarJugadorAListaDeAmigos(claudio)
 
-		//cuando agrego al partido a marcos (amigo de enrique) se le debe notificar a enrique
+		//cuando agrego al partido a hector (amigo de claudio) se le debe notificar a claudio
 		//y notificar al admin porque se llego a los 10 confirmados. Serian 2 mails
-		partido.agregarJugador(marcos)
+		partido.agregarJugador(hector)
 		verify(partido.mailSender, times(2)).enviar(any(typeof(Mail)))
 
 	}
@@ -88,17 +88,17 @@ class TestsDecorator {
 	@Test
 	def void testUnJugadorSeDaDeBajaDejaReemplazante() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugador(enrique)
+		val claudio = new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(claudio)
 
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-		partido.reemplazarJugador(enrique, marcos)
+		val lucas = new Jugador("Lucas", 42, new Estandar, "mail@ejemplo.com")
+		partido.reemplazarJugador(claudio, lucas)
 
-		//verificamos que enrique ya no este en la lista
-		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
+		//verificamos que claudio ya no este en la lista
+		verificarQueElNombreNoEstaEnElPartido("Claudio", partido)
 
-		//Verficamos que Marcos este en la lista 
-		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+		//Verficamos que Lucas este en la lista 
+		verificarQueElNombreEstaEnElPartido("Lucas", partido)
 
 		//verificamos que no se haya mandado mail al administrador, como no tiene amigos no se debe mandar ningun mail
 		verify(partido.mailSender, times(0)).enviar(any(typeof(Mail)))
@@ -108,28 +108,72 @@ class TestsDecorator {
 	@Test
 	def void testUnJugadorSeDaDeBajaYEran10EnLaLista() {
 
-		val enrique = new Jugador("enrique", 42, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugador(enrique)
+		val claudio = new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(claudio)
 
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugador(marcos)
+		val gustavo = new Jugador("Gustavo", 42, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(gustavo)
 
 		var hoy = new LocalDate()
 
 		//verificamos que se haya agregado a la lista de jugadores
-		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+		verificarQueElNombreEstaEnElPartido("Gustavo", partido)
 
-		partido.darDeBajaJugador(marcos)
+		partido.darDeBajaJugador(gustavo)
 
-		//verificamos que marcos ya no este en la lista
-		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
+		//verificamos que gustavo ya no este en la lista
+		verificarQueElNombreNoEstaEnElPartido("Gustavo", partido)
 
-		//Verificamos que Marcos haya sido penalizado
-		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
+		//Verificamos que gustavo haya sido penalizado
+		verificarQueHayUnaInfraccionDelDiaDeHoy(gustavo, hoy)
 
 		//Verificamos que notifica al admin por no haber 10 confirmados
 		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 
 	}
 
+	//////////////////////////7
+	@Test
+	def void testSeDaDeBajaUnoPeroNoEran10() {
+
+		val claudio = new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(claudio)
+
+		//verificamos que sean 9 en la lista
+		Assert.assertEquals(9, partido.partido().jugadoresInscriptos().size)
+
+		partido.darDeBajaJugador(claudio)
+
+		//verificamos que se haya eliminado el jugador de la lista
+		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
+
+		//verificamos que no se haya notificado al admin, no tiene amigos.. 
+		verify(partido.mailSender, times(0)).enviar(any(typeof(Mail)))
+
+	}
+
+	@Test
+	def void testSeDaDeBajaUnoPeroTodaviaHay10() {
+
+		val claudio = new Jugador("Claudio", 27, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(claudio)
+
+		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(marcos)
+
+		//verificamos que le manda un mail al admin por que se llego a los 10 jugadores
+		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
+
+		val augusto = new Jugador("Augusto", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(augusto)
+
+		//verificamos que sean 11 en la lista
+		Assert.assertEquals(11, partido.partido().jugadoresInscriptos().size)
+
+		partido.darDeBajaJugador(claudio)
+
+		//verificamos que no se haya notificado de vuelta al admin
+		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
+
+	}
 }
