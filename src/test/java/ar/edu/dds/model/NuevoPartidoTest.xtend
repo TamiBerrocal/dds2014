@@ -46,7 +46,7 @@ class NuevoPartidoTest {
 	@Test(expected=EstadoDePartidoInvalidoException)
 	def void testPartidoConfirmadoNoPuedeAgregarJugador() {
 		partido.estadoDePartido = EstadoDePartido.CONFIRMADO
-		new Jugador().inscribirseA(partido)
+		partido.agregarJugadorPartido(new Jugador())
 	}
 
 	@Test()

@@ -42,10 +42,6 @@ class Jugador {
 		this.infracciones = new ArrayList<Infraccion>
 	}
 
-	def void inscribirseA(Partido partido) {
-		partido.agregarJugadorPartido(this)
-	}
-
 	def boolean leSirveElPartido(Partido partido) {
 		modoDeInscripcion.leSirveElPartido(partido)
 	}
