@@ -26,6 +26,8 @@ class Jugador {
 	@Property
 	private List<Infraccion> infracciones
 	
+	new(){}
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
 		this.nombre = nombre
 		this.edad = edad

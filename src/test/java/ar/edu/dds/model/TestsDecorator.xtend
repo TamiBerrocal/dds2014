@@ -11,8 +11,10 @@ import ar.edu.dds.model.decorator.YaHay10EnElPartidoDecorator
 import ar.edu.dds.model.decorator.AvisarAmigosDeInscripcion
 import org.junit.Assert
 import org.joda.time.LocalDate
+import ar.edu.dds.model.decorator.DejoDeTener10Confirmados
 
 class TestsDecorator {
+
 	Admin admin
 	Partido partido
 
@@ -34,8 +36,15 @@ class TestsDecorator {
 	@Before
 	def void init() {
 		admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+		val Partido datosPartido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
+		//DECORO con todos los decorators
+		partido = new DejoDeTener10Confirmados(
+			new AvisarAmigosDeInscripcion(
+				new YaHay10EnElPartidoDecorator(datosPartido)
+			))
+
+		//Agrego 8 jugadores estandar
 		for (int i : 0 .. 7) {
 			partido.agregarJugador(new Jugador(NOMBRES.get(i), 21, new Estandar, "mimail@dds.com"))
 		}
@@ -44,21 +53,16 @@ class TestsDecorator {
 	@Test
 	def void testSeCompletaLaListaCon10Jugadores() {
 
-		//decoro partido para que notifique al admin
-		partido = new YaHay10EnElPartidoDecorator(partido)
-
 		//agregamos 2 jugadores estandar mas y se tendria que notificar al adm
 		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
 		partido.agregarJugador(new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com"))
-
+		
+		//verificamos que avise al admin
 		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 	}
 
 	@Test
 	def void testSeInscribeUnoPeroNoLleganADiez() {
-
-		//decoro partido para que notifique al admin
-		partido = new YaHay10EnElPartidoDecorator(partido)
 
 		partido.agregarJugador(new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com"))
 
@@ -67,10 +71,7 @@ class TestsDecorator {
 	}
 
 	@Test
-	def void testJugadorSeInscribeYseAvisaAlosAmigos() {
-
-		//decoro partido para que avise a sus amigos 
-		partido = new AvisarAmigosDeInscripcion(partido)
+	def void testJugadorSeInscribeYseLeAvisaAlosAmigos() {
 
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugador(enrique)
@@ -78,8 +79,9 @@ class TestsDecorator {
 		marcos.agregarJugadorAListaDeAmigos(enrique)
 
 		//cuando agrego al partido a marcos (amigo de enrique) se le debe notificar a enrique
+		//y notificar al admin porque se llego a los 10 confirmados. Serian 2 mails
 		partido.agregarJugador(marcos)
-		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
+		verify(partido.mailSender, times(2)).enviar(any(typeof(Mail)))
 
 	}
 
@@ -104,7 +106,10 @@ class TestsDecorator {
 	}
 
 	@Test
-	def void testUnJugadorSeDaDeBaja() {
+	def void testUnJugadorSeDaDeBajaYEran10EnLaLista() {
+
+		val enrique = new Jugador("enrique", 42, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugador(enrique)
 
 		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugador(marcos)
@@ -121,6 +126,9 @@ class TestsDecorator {
 
 		//Verificamos que Marcos haya sido penalizado
 		verificarQueHayUnaInfraccionDelDiaDeHoy(marcos, hoy)
+
+		//Verificamos que notifica al admin por no haber 10 confirmados
+		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 
 	}
 
