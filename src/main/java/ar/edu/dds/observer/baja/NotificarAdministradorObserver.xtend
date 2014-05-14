@@ -28,4 +28,4 @@ class NotificarAdministradorObserver implements BajaDeJugadorObserver {
 		}
 	}
 }
-}
+

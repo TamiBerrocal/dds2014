@@ -7,7 +7,7 @@ import org.junit.Test
 import junit.framework.Assert
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import java.util.Date
+import org.joda.time.LocalDate
 
 class testsObservers {
 
@@ -25,7 +25,7 @@ class testsObservers {
 		Assert.assertFalse(partido.jugadores.exists[jugador|jugador.nombre.equals(nombre)])
 	}
 
-	private def void verificarQueHayUnaInfraccionDelDiaDeHoy(Jugador jugador, Date hoy) {
+	private def void verificarQueHayUnaInfraccionDelDiaDeHoy(Jugador jugador, LocalDate hoy) {
 		Assert.assertTrue(jugador.infracciones.exists[infraccion|infraccion.fechaCreacion.equals(hoy)])
 	}
 
@@ -131,18 +131,20 @@ class testsObservers {
 	@Test
 	def void unJugadorSeDaDeBajaYEran10EnLista() {
 
-		var hoy = new Date()
-		
+		var hoy = new LocalDate()
+
 		val mockedMailSender = mock(typeof(MailSender))
 		partido.mailSender = mockedMailSender
-		
+
 		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugadorPartido(marcos)
+
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
-		
+
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
 		partido.agregarJugadorPartido(enrique)
+
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
@@ -176,10 +178,51 @@ class testsObservers {
 		Assert.assertEquals(9, partido.cantidadJugadoresEnLista)
 
 		partido.darDeBajaJugador(enrique)
+		//verificamos que se haya eliminado el jugador de la lista
+		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
 
 		//verificamos que no se haya notificado al admin, no tiene amigos.. 
 		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
 
 	}
 
+	@Test
+	def void seDaDeBajaUnoPeroTodaviaHay10() {
+
+		val mockedMailSender = mock(typeof(MailSender))
+		partido.mailSender = mockedMailSender
+
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(enrique)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Enrique", partido)
+
+		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(marcos)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Marcos", partido)
+
+		//verificamos que le manda un mail al admin por que se llego a los 10 jugadores
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+
+		val augusto = new Jugador("Augusto", 25, new Estandar, "mail@ejemplo.com")
+		partido.agregarJugadorPartido(augusto)
+
+		//verificamos que se haya agregado a la lista de jugadores
+		verificarQueElNombreEstaEnElPartido("Augusto", partido)
+
+		//verificamos que sean 11 en la lista
+		Assert.assertEquals(11, partido.cantidadJugadoresEnLista)
+
+		partido.darDeBajaJugador(enrique)
+
+		//verificamos que se haya eliminado el jugador de la lista
+		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
+
+		//verificamos que no se haya notificado de vuelta al admin
+		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+
+	}
 }

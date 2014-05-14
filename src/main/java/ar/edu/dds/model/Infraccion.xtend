@@ -1,19 +1,19 @@
 package ar.edu.dds.model
-import java.util.Date
+import org.joda.time.LocalDate
 
 class Infraccion {
 
 	@Property
-	private Date fechaCreacion
+	private LocalDate fechaCreacion
 	
 	@Property
-	private Date validaHasta
+	private LocalDate validaHasta
 
 	@Property
 	String causa
 	
 	new() {
-		this.fechaCreacion = new Date()
+		this.fechaCreacion = new LocalDate()
 	}
 
 	//Si bien todavía no es un requerimiento que debamos atender, acá tendríamos un método como el siguiente
