@@ -8,6 +8,7 @@ interface Partido {
 	def void agregarJugador(Jugador jugador)
 	def Pair<Jugador, Integer> quitarJugador(Jugador jugador)
 	def void reemplazarJugador(Jugador jugador, Jugador reemplazo)
+	def void darDeBajaJugador(Jugador jugador)
 	def MailSender mailSender()
 
 }

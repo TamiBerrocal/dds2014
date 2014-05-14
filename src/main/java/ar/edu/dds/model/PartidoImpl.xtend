@@ -78,10 +78,10 @@ class PartidoImpl implements Partido {
 			new Pair<Jugador, Integer>(reemplazo, jugadorConSuPrioridadAReemplazar.value))
 	}
 
-	def void darDeBajaJugador(Jugador jugador) {
+	override void darDeBajaJugador(Jugador jugador) {
 		this.quitarJugador(jugador)
-
-	// PENALIZAR
+		// PENALIZAR
+		jugador.agregateInfraccion()
 	}
 
 	override PartidoImpl partido() {

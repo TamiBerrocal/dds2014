@@ -6,7 +6,7 @@ import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 
 class Admin extends Jugador {
 	
-	new() {}
+	
 	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion,String mail) {
 		super(nombre, edad, modoDeInscripcion, mail)

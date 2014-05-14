@@ -22,16 +22,17 @@ class Jugador {
 
 	@Property
 	private List<Jugador> amigos 
-
+	
+	@Property
+	private List<Infraccion> infracciones
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
 		this.nombre = nombre
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
 		this.email = mail
 		this.amigos = new ArrayList
-	}
-
-	new() {
+		this.infracciones = new ArrayList
 	}
 
 	def agregarJugadorAListaDeAmigos(Jugador jugador) {
@@ -49,7 +50,13 @@ class Jugador {
 	def Integer prioridad(Integer prioridadBase) {
 		modoDeInscripcion.prioridad(prioridadBase)
 	}
-
+	
+	def void agregateInfraccion(){
+		var infraccion = new Infraccion
+		infraccion.causa = "Baja sin reemplazante"
+		infracciones.add(infraccion)
+	}
+	
 	override hashCode() {
 		HashCodeBuilder.reflectionHashCode(this)
 	}
