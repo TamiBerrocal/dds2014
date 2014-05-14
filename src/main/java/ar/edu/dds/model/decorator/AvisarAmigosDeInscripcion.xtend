@@ -15,14 +15,17 @@ class AvisarAmigosDeInscripcion extends PartidoDecorator {
 		this.decorado.agregarJugador(jugador)
 
 		//notifica a sus amigos que se agrego al partido
-		val mail = new Mail
-		mail.setDe(jugador.email)
-		mail.setPara(jugador.amigos.map[j|j.email].join(","))
-		mail.setAsunto("Nueva Inscripcion")
-		mail.setCuerpo(
-			"Me he inscripto al partido en " + this.partido.lugar + " de la fecha " + this.partido.fechaYHora)
-		mailSender.enviar(mail)
+		if (!jugador.amigos.empty) {
+			val mail = new Mail
+			mail.setDe(jugador.email)
+			mail.setAsunto("Nueva Inscripcion")
+			mail.setCuerpo(
+				"Me he inscripto al partido en " + this.partido.lugar + " de la fecha " + this.partido.fechaYHora
+			)
 
+			jugador.amigos.forEach[j|mail.setPara(j.email) mailSender.enviar(mail)]
+
+		}
 	}
 
 }

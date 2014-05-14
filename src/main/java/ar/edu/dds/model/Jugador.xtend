@@ -4,6 +4,7 @@ import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import java.util.List
+import java.util.ArrayList
 
 class Jugador {
 
@@ -20,13 +21,14 @@ class Jugador {
 	private String email;
 
 	@Property
-	private List<Jugador> amigos;
+	private List<Jugador> amigos 
 
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
 		this.nombre = nombre
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
 		this.email = mail
+		this.amigos = new ArrayList
 	}
 
 	new() {
