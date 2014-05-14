@@ -27,7 +27,7 @@ class Partido {
 	@Property
 	String lugar
 
-	@Property 
+	@Property
 	String mailOficial
 
 	@Property
@@ -39,10 +39,11 @@ class Partido {
 	@Property
 	MailSender mailSender
 
-	@Property 
+	//Otra opción es crear los métodos registrarObserverDeInscripcion y registrarObserverDeBaja y evitar los getters y setters del @Property
+	@Property
 	List<InscripcionDeJugadorObserver> inscripcionObservers
-	
-	@Property 
+
+	@Property
 	List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar) {
@@ -59,22 +60,35 @@ class Partido {
 		val avisarAmigosObserver = new NotificarAmigosObserver
 		inscripcionObservers.add(diezJugadoresObserver)
 		inscripcionObservers.add(avisarAmigosObserver)
+		//this.registrarObserverDeInscripcion(diezJugadoresObserver)
+		//this.registrarObserverDeInscripcion(avisarAmigosObserver)
 		val infraccionObserver = new InfraccionObserver
 		val notificarObserver = new NotificarAdministradorObserver
 		bajaObservers.add(infraccionObserver)
 		bajaObservers.add(notificarObserver)
+		//this.registrarObserverDeBaja(infraccionObserver)
+		//this.registrarObserverDeBaja(notificarObserver)
 	}
 
-	def confirmar() {
-		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
-			this.removerALosQueNoJugarian
+	/*def void registrarObserverDeInscripcion(InscripcionDeJugadorObserver inscripcionObserver) {
+		inscripcionObservers.add(inscripcionObserver)
+	}
+
+	def void registrarObserverDeBaja(BajaDeJugadorObserver bajaObserver) {
+		bajaObservers.add(bajaObserver)
+	}*/
+	
+	confirmar() {
+		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(
+	this.estadoDePartido)) {
+	this.removerALosQueNoJugarian
 
 			// Me quedo con los 10 Jugadores con más prioridad
 			var jugadoresFinales = this.jugadores.take(10).toList
-			this.jugadores = jugadoresFinales
+	this.jugadores = jugadoresFinales
 
-			val int size = this.cantidadJugadoresEnLista
-			if (size.equals(10)) {
+	val int size = this.cantidadJugadoresEnLista
+if (size.equals(10)) {
 				this.estadoDePartido = EstadoDePartido.CONFIRMADO
 			} else {
 				throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + size + "jugadores...")
@@ -118,11 +132,12 @@ class Partido {
 
 	def void darDeBajaJugador(Jugador jugador) {
 		this.eliminarJugadorDeLista(jugador)
+
 		//Avisar sobre baja de jugador a los Observers
 		this.bajaObservers.forEach[observer|observer.jugadorSeDioDeBaja(jugador, this)]
 	}
 
-	private def void removerALosQueNoJugarian() {
+private def void removerALosQueNoJugarian() {
 		jugadores = jugadores.filter[integrante|integrante.leSirveElPartido(this)].toList
 	}
 
@@ -130,6 +145,7 @@ class Partido {
 	//	override toString() {
 	//		ToStringBuilder.reflectionToString(this)
 	//	}	
+	
 	def cantidadJugadoresEnLista() {
 		this.jugadores.size
 	}
