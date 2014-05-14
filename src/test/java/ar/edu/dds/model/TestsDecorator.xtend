@@ -35,14 +35,14 @@ class TestsDecorator {
 
 	@Before
 	def void init() {
+		//defino al administrador
 		admin = new Admin("Claudio", 27, new Estandar, "mail@ejemplo.com")
-		val Partido datosPartido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
-
+		
 		//DECORO con todos los decorators
 		partido = new DejoDeTener10Confirmados(
 			new AvisarAmigosDeInscripcion(
-				new YaHay10EnElPartidoDecorator(datosPartido)
-			))
+				new YaHay10EnElPartidoDecorator(admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+			)))
 
 		//Agrego 8 jugadores estandar
 		for (int i : 0 .. 7) {
@@ -116,7 +116,7 @@ class TestsDecorator {
 
 		var hoy = new LocalDate()
 
-		//verificamos que se haya agregado a la lista de jugadores
+		//verificamos que gustavo se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Gustavo", partido)
 
 		partido.darDeBajaJugador(gustavo)
@@ -127,7 +127,7 @@ class TestsDecorator {
 		//Verificamos que gustavo haya sido penalizado
 		verificarQueHayUnaInfraccionDelDiaDeHoy(gustavo, hoy)
 
-		//Verificamos que notifica al admin por no haber 10 confirmados
+		//Verificamos que se notifica al admin por no haber 10 confirmados
 		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 
 	}
@@ -144,7 +144,7 @@ class TestsDecorator {
 		partido.darDeBajaJugador(claudio)
 
 		//verificamos que se haya eliminado el jugador de la lista
-		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
+		verificarQueElNombreNoEstaEnElPartido("Claudio", partido)
 
 		//verificamos que no se haya notificado al admin, no tiene amigos.. 
 		verify(partido.mailSender, times(0)).enviar(any(typeof(Mail)))
@@ -171,7 +171,7 @@ class TestsDecorator {
 
 		partido.darDeBajaJugador(claudio)
 
-		//verificamos que no se haya notificado de vuelta al admin
+		//verificamos que no haya notificado de vuelta al admin
 		verify(partido.mailSender, times(1)).enviar(any(typeof(Mail)))
 
 	}
