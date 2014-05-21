@@ -10,14 +10,14 @@ class NotificarAdministradorObserver implements BajaDeJugadorObserver {
 	@Property 
 	MailSender mailSender
 
-	new() {
+	new(MailSender mailSender) {
+		this.mailSender = mailSender
 	}
 
 	override jugadorSeDioDeBaja(Jugador jugador, Partido partido) {
 
-		this.mailSender = partido.mailSender
-		var administrador = partido.administrador
-		var mail = new Mail
+		val administrador = partido.administrador
+		val mail = new Mail
 
 		if (partido.cantidadJugadoresEnLista.equals(9)) { //si son menos o mas no se notifica al admin
 

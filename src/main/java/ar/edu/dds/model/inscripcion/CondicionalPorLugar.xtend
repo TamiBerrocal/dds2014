@@ -1,10 +1,9 @@
-package ar.edu.dds.model.inscripcion.condicionales
+package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
-import ar.edu.dds.model.inscripcion.Condicional
 import ar.edu.dds.model.inscripcion.PrioridadInscripcion
 
-class PorLugar extends Condicional {
+class CondicionalPorLugar extends ModoDeInscripcion {
 	
 	new(String lugar) {
 		this.lugar = lugar
@@ -14,7 +13,7 @@ class PorLugar extends Condicional {
 	private String lugar;
 	
 	override leSirveElPartido(Partido partido) {
-		lugar.equals(partido.lugar)
+		lugar.equals(partido.getLugar)
 	}
 	
 }

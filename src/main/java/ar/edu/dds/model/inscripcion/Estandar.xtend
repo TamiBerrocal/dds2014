@@ -4,12 +4,6 @@ import ar.edu.dds.model.Partido
 
 class Estandar extends ModoDeInscripcion {
 
-//	@Property PrioridadInscripcion prioridadInscripcion
-	
-//	override getPrioridadInscripcion(){
-//		return prioridadInscripcion
-//	}
-
 	new() {
 		this.prioridadInscripcion = PrioridadInscripcion.ESTANDAR
 	}

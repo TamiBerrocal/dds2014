@@ -10,22 +10,22 @@ class NotificarAmigosObserver implements InscripcionDeJugadorObserver {
 	@Property 
 	MailSender mailSender
 
-	new() {
+	new(MailSender mailSender) {
+		this.mailSender = mailSender
 	}
 
 	override jugadorInscripto(Jugador jugador, Partido partido) {
 
-		this.mailSender = partido.mailSender
-
-		var amigos = jugador.amigos
+		val amigos = jugador.amigos
 		
 		amigos.forEach [ amigo |
-			var mail = new Mail
+			val mail = new Mail
 			mail.from = partido.mailOficial
 			mail.asunto = "Se inscribio al partido un amigo!"
 			mail.mensaje = "Se inscribio al partido" + jugador.nombre
 			mail.to = amigo.mail
-			mailSender.mandarMail(mail)
+			
+			this.mailSender.mandarMail(mail)
 		]
 	}
 }

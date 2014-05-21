@@ -10,22 +10,21 @@ class HayDiezJugadoresObserver implements InscripcionDeJugadorObserver {
 	@Property 
 	MailSender mailSender
 
-	new() {	
-		
+	new(MailSender mailSender) {	
+		this.mailSender = mailSender
 	}
 
 	override jugadorInscripto(Jugador jugador, Partido partido) {
 
-		var admin = partido.administrador
-
-		this.mailSender = partido.mailSender
+		val admin = partido.administrador
 
 		if (partido.cantidadJugadoresEnLista.equals(10)) {
-			var mail = new Mail
+			val mail = new Mail
 			mail.asunto = "Jugadores suficientes"
 			mail.from = partido.mailOficial
 			mail.to = admin.mail
 			mail.mensaje = "El partido ya alcanzo los 10 jugadores inscriptos"
+			
 			mailSender.mandarMail(mail)
 		}
 	}

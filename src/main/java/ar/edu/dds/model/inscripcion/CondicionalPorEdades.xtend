@@ -1,10 +1,10 @@
-package ar.edu.dds.model.inscripcion.condicionales
+package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
-import ar.edu.dds.model.inscripcion.Condicional
 import ar.edu.dds.model.inscripcion.PrioridadInscripcion
+import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 
-class PorEdades extends Condicional {
+class CondicionalPorEdades extends ModoDeInscripcion {
 
 	private int edadHasta
 	private int cantidad
@@ -21,7 +21,7 @@ class PorEdades extends Condicional {
 	}
 
 	def cantidadDeJovenes(Partido partido) {
-		partido.jugadores.filter[integrante|integrante.edad <= edadHasta].size
+		partido.getJugadores.filter[integrante | integrante.getEdad <= edadHasta].size
 	}
 
 }

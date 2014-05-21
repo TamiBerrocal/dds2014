@@ -8,11 +8,16 @@ import junit.framework.Assert
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import org.joda.time.LocalDate
+import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
+import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
+import ar.edu.dds.observer.baja.InfraccionObserver
+import ar.edu.dds.observer.baja.NotificarAdministradorObserver
 
-class testsObservers {
+class Entrega2Tests {
 
 	Admin admin
 	Partido partido
+	MailSender mockedMailSender
 
 	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario",
 		"Carlos", "Luis", "Esteban", "Nestor", "Jose", "Mariano"]
@@ -32,64 +37,63 @@ class testsObservers {
 	@Before
 	def void init() {
 
-		admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+		
+		this.mockedMailSender = mock(MailSender)
+		
+		this.partido.registrarObserverDeInscripcion(new HayDiezJugadoresObserver(this.mockedMailSender))
+		this.partido.registrarObserverDeInscripcion(new NotificarAmigosObserver(this.mockedMailSender))
+
+		this.partido.registrarObserverDeBaja(new InfraccionObserver)
+		this.partido.registrarObserverDeBaja(new NotificarAdministradorObserver(this.mockedMailSender))
 
 		for (int i : 0 .. 7) {
 			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
-			partido.agregarJugadorPartido(jugador)
+			this.partido.agregarJugadorPartido(jugador)
 		}
 	}
 
 	@Test
 	def void seCompletaLaListaCon10Jugadores() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
 		val mariano = new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(mariano)
+		this.partido.agregarJugadorPartido(mariano)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Mariano", partido)
 
 		//verificamos que se haya enviado un mail al administrador notificando que hay10 juagores en la lista 
-		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 	}
 
 	@Test
 	def void seInscribeUnoPeroNoLleganADiez() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
 		//verificamos que NO se haya enviado un mail al admin, y como no tiene ningun amigo no se debe notificar a nadie
-		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
 	}
 
 	@Test
 	def void JugadorSeInscribeYseAvisaAlosAmigos() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(marcos)
+		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
@@ -97,25 +101,22 @@ class testsObservers {
 		enrique.agregarAmigo(marcos)
 
 		//verificamos que se haya enviado un mail a los amigos
-		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 
 	}
 
 	@Test
 	def void unJugadorSeDaDeBajaDejaReemplazante() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
 		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
 
-		partido.reemplazarJugador(enrique, marcos)
+		this.partido.reemplazarJugador(enrique, marcos)
 
 		//verificamos que enrique ya no este en la lista
 		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
@@ -124,7 +125,7 @@ class testsObservers {
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
 
 		//verificamos que no se haya mandado mail al administrador, como no tiene amigos no se debe mandar ningun mail
-		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
 
 	}
 
@@ -133,22 +134,19 @@ class testsObservers {
 
 		var hoy = new LocalDate()
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(marcos)
+		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
 
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
-		partido.darDeBajaJugador(marcos)
+		this.partido.darDeBajaJugador(marcos)
 
 		//verificamos que marcos ya no este en la lista
 		verificarQueElNombreNoEstaEnElPartido("Marcos", partido)
@@ -159,17 +157,14 @@ class testsObservers {
 		//se mandan 2 mails al administrador 
 		//1-notificando que el partido tiene 10 jugadores
 		//2-notificando que el jugador se ha dado de baja
-		verify(mockedMailSender, times(2)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(2)).mandarMail(any(typeof(Mail)))
 	}
 
 	@Test
 	def void seDaDeBajaUnoPeroNoEran10() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
@@ -177,29 +172,26 @@ class testsObservers {
 		//verificamos que sean 9 en la lista
 		Assert.assertEquals(9, partido.cantidadJugadoresEnLista)
 
-		partido.darDeBajaJugador(enrique)
+		this.partido.darDeBajaJugador(enrique)
 		//verificamos que se haya eliminado el jugador de la lista
 		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
 
 		//verificamos que no se haya notificado al admin, no tiene amigos.. 
-		verify(mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(0)).mandarMail(any(typeof(Mail)))
 
 	}
 
 	@Test
 	def void seDaDeBajaUnoPeroTodaviaHay10() {
 
-		val mockedMailSender = mock(typeof(MailSender))
-		partido.mailSender = mockedMailSender
-
 		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(enrique)
+		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
 		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(marcos)
+		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
@@ -208,7 +200,7 @@ class testsObservers {
 		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 
 		val augusto = new Jugador("Augusto", 25, new Estandar, "mail@ejemplo.com")
-		partido.agregarJugadorPartido(augusto)
+		this.partido.agregarJugadorPartido(augusto)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Augusto", partido)
@@ -216,13 +208,13 @@ class testsObservers {
 		//verificamos que sean 11 en la lista
 		Assert.assertEquals(11, partido.cantidadJugadoresEnLista)
 
-		partido.darDeBajaJugador(enrique)
+		this.partido.darDeBajaJugador(enrique)
 
 		//verificamos que se haya eliminado el jugador de la lista
 		verificarQueElNombreNoEstaEnElPartido("Enrique", partido)
 
 		//verificamos que no se haya notificado de vuelta al admin
-		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
+		verify(this.mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 
 	}
 }

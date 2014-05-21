@@ -7,17 +7,12 @@ import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
 import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
-import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
-import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
-import static org.mockito.Mockito.*
-import ar.edu.dds.observer.baja.InfraccionObserver
-import ar.edu.dds.observer.baja.NotificarAdministradorObserver
+import org.apache.commons.lang3.builder.ToStringBuilder
 
 class Partido {
+	
+	private static final String MAIL_OFICIAL = "no-reply@of5.com"
 
-	/*
-	 * Lista de jugadores inscriptos con sus respectivas prioridades por orden
-	 */
 	@Property
 	List<Jugador> jugadores
 
@@ -28,125 +23,109 @@ class Partido {
 	String lugar
 
 	@Property
-	String mailOficial
-
-	@Property
 	EstadoDePartido estadoDePartido
 
 	@Property
 	Admin administrador
 
-	@Property
-	MailSender mailSender
-
-	//Otra opción es crear los métodos registrarObserverDeInscripcion y registrarObserverDeBaja y evitar los getters y setters del @Property
-	@Property
 	List<InscripcionDeJugadorObserver> inscripcionObservers
-
-	@Property
 	List<BajaDeJugadorObserver> bajaObservers
 
-	new(DateTime fechaYHora, String lugar) {
+	new(DateTime fechaYHora, String lugar, Admin administrador) {
 		this.fechaYHora = fechaYHora
 		this.lugar = lugar
-		this.jugadores = new ArrayList
+		this.administrador = administrador
 		this.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
-		this.mailOficial = "no-reply@of5.com"
-		this.inscripcionObservers = new ArrayList<InscripcionDeJugadorObserver>
-		this.bajaObservers = new ArrayList<BajaDeJugadorObserver>
-		this.jugadores = new ArrayList<Jugador>
-		this.mailSender = mock(typeof(MailSender))
-		val diezJugadoresObserver = new HayDiezJugadoresObserver
-		val avisarAmigosObserver = new NotificarAmigosObserver
-		inscripcionObservers.add(diezJugadoresObserver)
-		inscripcionObservers.add(avisarAmigosObserver)
-
-		//this.registrarObserverDeInscripcion(diezJugadoresObserver)
-		//this.registrarObserverDeInscripcion(avisarAmigosObserver)
-		val infraccionObserver = new InfraccionObserver
-		val notificarObserver = new NotificarAdministradorObserver
-		bajaObservers.add(infraccionObserver)
-		bajaObservers.add(notificarObserver)
-
-	//this.registrarObserverDeBaja(infraccionObserver)
-	//this.registrarObserverDeBaja(notificarObserver)
+		this.jugadores = new ArrayList
+		this.inscripcionObservers = new ArrayList
+		this.bajaObservers = new ArrayList
+		this.jugadores = new ArrayList
 	}
 
-	/*def void registrarObserverDeInscripcion(InscripcionDeJugadorObserver inscripcionObserver) {
-		inscripcionObservers.add(inscripcionObserver)
-	}
-
-	def void registrarObserverDeBaja(BajaDeJugadorObserver bajaObserver) {
-		bajaObservers.add(bajaObserver)
-	}*/
-	
 	def confirmar() {
-		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
-			this.removerALosQueNoJugarian
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
+		
+		this.removerALosQueNoJugarian
 
-			// Me quedo con los 10 Jugadores con más prioridad
-			var jugadoresFinales = this.jugadores.take(10).toList
-			this.jugadores = jugadoresFinales
+		// Me quedo con los 10 Jugadores con más prioridad
+		var jugadoresFinales = this.jugadores.sortBy[modoDeInscripcion.prioridadInscripcion].take(10).toList
+		this.jugadores = jugadoresFinales
 
-			val int size = this.cantidadJugadoresEnLista
-			if (size.equals(10)) {
-				this.estadoDePartido = EstadoDePartido.CONFIRMADO
-			} else {
-				throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + size + "jugadores...")
-			}
+		val int size = this.cantidadJugadoresEnLista
+		if (size.equals(10)) {
+			this.estadoDePartido = EstadoDePartido.CONFIRMADO
 		} else {
-			throw new EstadoDePartidoInvalidoException("Imposible confirmar partido con estado: " + this.estadoDePartido)
+			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + size + "jugadores...")
 		}
 
 		// Retorna la lista con los 10 jugadores confirmados
 		return jugadores
 	}
-
+	
+	
+	// MÉTODOS DE JUGADORES
 	def void agregarJugadorPartido(Jugador jugador) {
-		if (EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(this.estadoDePartido)) {
-			agregarJugadorALista(jugador)
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible agregar jugadores a un partido con estado: ")
+		this.jugadores.add(jugador)
 
-			//avisarle a los observers de inscripcion que se inscribio el jugador
-			this.inscripcionObservers.forEach[observer|observer.jugadorInscripto(jugador, this)]
-
-		} else {
-			throw new EstadoDePartidoInvalidoException(
-				"Imposible agregar jugadores a un partido con estado: " + this.estadoDePartido)
-		}
-	}
-
-	def void agregarJugadorALista(Jugador jugador) {
-		jugadores.add(jugador)
-		this.jugadores = jugadores.sortBy[modoDeInscripcion.prioridadInscripcion]
-	}
-
-	def void reemplazarJugador(Jugador jugador, Jugador jugadorReemplazo) {
-		this.eliminarJugadorDeLista(jugador)
-		this.agregarJugadorALista(jugadorReemplazo)
-
-	}
-
-	def void eliminarJugadorDeLista(Jugador jugador) {
-		this.jugadores.remove(jugador)
-
+		//avisarle a los observers de inscripcion que se inscribio el jugador
+		this.inscripcionObservers.forEach[observer|observer.jugadorInscripto(jugador, this)]
 	}
 
 	def void darDeBajaJugador(Jugador jugador) {
-		this.eliminarJugadorDeLista(jugador)
+		this.jugadores.remove(jugador)
 
 		//Avisar sobre baja de jugador a los Observers
-		this.bajaObservers.forEach[observer|observer.jugadorSeDioDeBaja(jugador, this)]
+		this.bajaObservers.forEach[observer | observer.jugadorSeDioDeBaja(jugador, this)]
+	}
+	
+	def void reemplazarJugador(Jugador jugador, Jugador jugadorReemplazo) {
+		this.jugadores.remove(jugador)
+		this.jugadores.add(jugadorReemplazo)
+
 	}
 
-	private def void removerALosQueNoJugarian() {
-		jugadores = jugadores.filter[integrante|integrante.leSirveElPartido(this)].toList
+
+	// MÉTODOS DE OBSERVERS
+	def void registrarObserverDeInscripcion(InscripcionDeJugadorObserver inscripcionObserver) {
+		inscripcionObservers.add(inscripcionObserver)
+	}
+	
+	def void removerObserverDeInscripcion(InscripcionDeJugadorObserver inscripcionObserver) {
+		inscripcionObservers.remove(inscripcionObserver)
 	}
 
-	//
-	//	override toString() {
-	//		ToStringBuilder.reflectionToString(this)
-	//	}	
+	def void registrarObserverDeBaja(BajaDeJugadorObserver bajaObserver) {
+		bajaObservers.add(bajaObserver)
+	}
+	
+	def void removerObserverDeBaja(BajaDeJugadorObserver bajaObserver) {
+		bajaObservers.remove(bajaObserver)
+	}
+	
+	
+	// OTROS
+	def String mailOficial() {
+		MAIL_OFICIAL
+	}
+	
 	def cantidadJugadoresEnLista() {
 		this.jugadores.size
+	}
+	
+	private def void removerALosQueNoJugarian() {
+		jugadores = jugadores.filter[integrante | integrante.leSirveElPartido(this)].toList
+	}
+	
+	private def validarEstadoDePartido(EstadoDePartido estadoEsperado, String mensajeDeError) {
+		if (!estadoEsperado.equals(this.estadoDePartido)) {
+			throw new EstadoDePartidoInvalidoException(mensajeDeError + this.estadoDePartido)
+		}
+	}
+	
+	
+	// TOSTRING
+	override toString() {
+		ToStringBuilder.reflectionToString(this)
 	}
 }

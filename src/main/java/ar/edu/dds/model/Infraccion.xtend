@@ -4,16 +4,16 @@ import org.joda.time.LocalDate
 class Infraccion {
 
 	@Property
-	private LocalDate fechaCreacion
+	LocalDate fechaCreacion
 	
 	@Property
-	private LocalDate validaHasta
+	LocalDate validaHasta
 
 	@Property
 	String causa
 	
 	new() {
-		this.fechaCreacion = new LocalDate()
+		this.fechaCreacion = new LocalDate
 	}
 
 	//Si bien todavía no es un requerimiento que debamos atender, acá tendríamos un método como el siguiente
