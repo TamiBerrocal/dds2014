@@ -6,6 +6,7 @@ import java.util.List
 import java.util.ArrayList
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
+import ar.edu.dds.home.JugadoresHome
 
 class Jugador {
 
@@ -26,7 +27,7 @@ class Jugador {
 
 	@Property
 	List<Infraccion> infracciones
-
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail) {
 		this()
 		this.nombre = nombre
@@ -38,6 +39,10 @@ class Jugador {
 	new() {
 		this.amigos = new ArrayList
 		this.infracciones = new ArrayList
+	}
+	
+	def void recomendarAmigo(Jugador jugador) {
+		JugadoresHome.instance.recomendarNuevoJugador(jugador)
 	}
 
 	def boolean leSirveElPartido(Partido partido) {
