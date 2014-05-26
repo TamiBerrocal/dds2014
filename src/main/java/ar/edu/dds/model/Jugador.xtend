@@ -78,6 +78,10 @@ class Jugador {
 		this.calificaciones.add(calificacion)
 	}
 	
+	def boolean tieneCalificacion(Calificacion calificacion){
+		this.calificaciones.contains(calificacion)
+	}
+	
 
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {

@@ -5,6 +5,7 @@ import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
 import org.junit.Test
 import org.junit.Assert
+import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 
 class Entrega3Tests {
 
@@ -50,5 +51,40 @@ class Entrega3Tests {
 		Assert.assertTrue(partido.estaEnElPartido(jorge))
 	}
 
+	@Test
+	def void unJugadorCalificaAOtro() {
+
+		val calificacion = new Calificacion
+		calificacion.nota = 6
+		calificacion.comentario = "Cabezeas muy mal, todo el resto OK"
+		calificacion.autor = matias
+		calificacion.partido = partido
+
+		jorge.calificarJugador(matias, calificacion)
+
+		Assert.assertTrue(matias.tieneCalificacion(calificacion))
+
+	}
+
+	@Test (expected = JugadorYaCalificadoParaEsePartidoException)
+	def void unJugadorTrataDeCalificarDosVecesAlMismoJugador() {
+
+		val calificacion1 = new Calificacion
+		calificacion1.nota = 6
+		calificacion1.comentario = "Cabezeas muy mal, todo el resto OK"
+		calificacion1.autor = jorge
+		calificacion1.partido = partido
+
+		jorge.calificarJugador(matias, calificacion1)
+
+		val calificacion2 = new Calificacion
+		calificacion2.nota = 4
+		calificacion2.comentario = "no corres nada!"
+		calificacion2.autor = jorge
+		calificacion2.partido = partido
+
+		jorge.calificarJugador(matias, calificacion2)
+
+	}
 
 }
