@@ -77,7 +77,7 @@ class Entrega3Tests {
 
 		val calificacion1 = new Calificacion
 		calificacion1.nota = 6
-		calificacion1.comentario = "Cabezeas muy mal, todo el resto OK"
+		calificacion1.comentario = "Cabeceas muy mal, todo el resto OK"
 		calificacion1.autor = jorge
 		calificacion1.partido = partido
 

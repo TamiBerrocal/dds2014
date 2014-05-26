@@ -30,10 +30,12 @@ class JugadoresHome {
 
 	def boolean estaRechazado(Jugador jugador) {
 		this.jugadoresRechazados().contains(jugador)
+		
 	}
 
 	def boolean estaAprobado(Jugador jugador) {
 		this.jugadoresAprobados.contains(jugador)
+
 	}
 
 	def boolean estaPendiente(Jugador jugador) {
