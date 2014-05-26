@@ -6,6 +6,6 @@ class Calificacion {
 	int nota
 	
 	@Property
-	String mensaje
+	String comentario
 	
 }
