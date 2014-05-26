@@ -6,11 +6,13 @@ import org.joda.time.DateTime
 import org.junit.Test
 import org.junit.Assert
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
+import ar.edu.dds.home.JugadoresHome
 
 class Entrega3Tests {
 
 	Admin admin
 	Partido partido
+	JugadoresHome home
 
 	Jugador matias
 	Jugador jorge
@@ -24,6 +26,7 @@ class Entrega3Tests {
 
 		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+		this.home = JugadoresHome.instance
 
 		matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(matias)
@@ -51,6 +54,9 @@ class Entrega3Tests {
 		Assert.assertTrue(partido.estaEnElPartido(jorge))
 	}
 
+	/* *****************************************************************************
+ 	*                         Tests de las calificaciones
+	********************************************************************************/
 	@Test
 	def void unJugadorCalificaAOtro() {
 
@@ -66,7 +72,7 @@ class Entrega3Tests {
 
 	}
 
-	@Test (expected = JugadorYaCalificadoParaEsePartidoException)
+	@Test(expected=JugadorYaCalificadoParaEsePartidoException)
 	def void unJugadorTrataDeCalificarDosVecesAlMismoJugador() {
 
 		val calificacion1 = new Calificacion
@@ -84,6 +90,46 @@ class Entrega3Tests {
 		calificacion2.partido = partido
 
 		jorge.calificarJugador(matias, calificacion2)
+
+	}
+
+	/********************************************************************************
+ 	*                             Tests de proponer Amigos
+	*******************************************************************************/
+	@Test
+	def void unJugadorProponeAUnAmigoYElAdminNoHaceNada() {
+
+		val rodrigo = new Jugador("Rodrigo", 25, new Estandar, "mail@ejemplo.com")
+		this.matias.recomendarAmigo(rodrigo)
+
+		Assert.assertTrue(home.estaPendiente(rodrigo))
+	}
+
+	@Test
+	def void unJugadorProponeUnAmigoYElAdminLoRechaza() {
+
+		val rodrigo = new Jugador("Rodrigo", 25, new Estandar, "mail@ejemplo.com")
+		this.matias.recomendarAmigo(rodrigo)
+
+		//el admin rechaza el amigo del jugador 
+		admin.rechazarJugador(rodrigo, "No sabe jugar")
+
+		Assert.assertTrue(home.estaRechazado(rodrigo))
+		Assert.assertFalse(home.estaPendiente(rodrigo))
+
+	}
+
+	@Test
+	def void unJugadorProponeAmigoYseAcepta() {
+
+		val rodrigo = new Jugador("Rodrigo", 25, new Estandar, "mail@ejemplo.com")
+		this.matias.recomendarAmigo(rodrigo)
+
+		//el admin acepta el amigo del jugador 
+		admin.aprobarJugador(rodrigo)
+
+		Assert.assertTrue(home.estaAprobado(rodrigo))
+		Assert.assertFalse(home.estaPendiente(rodrigo))
 
 	}
 
