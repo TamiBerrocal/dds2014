@@ -1,5 +1,8 @@
 package ar.edu.dds.model
 import org.joda.time.LocalDate
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.apache.commons.lang3.builder.EqualsBuilder
+import org.apache.commons.lang3.builder.ToStringBuilder
 
 class Infraccion {
 
@@ -20,4 +23,18 @@ class Infraccion {
 	def void penalizarJugador(Jugador jugador, Partido partido) {
 		partido.darDeBajaJugador(jugador)
 	}
+	
+	// ------ HASHCODE - EQUALS - TOSTRING ------- //
+	override hashCode() {
+		HashCodeBuilder.reflectionHashCode(this)
+	}
+
+	override equals(Object obj) {
+		EqualsBuilder.reflectionEquals(obj, this)
+	}
+	
+	override toString() {
+		ToStringBuilder.reflectionToString(this)
+	}
+	
 }
