@@ -138,4 +138,9 @@ class Partido {
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
 	}
+	
+	
+	def estaEnElPartido(Jugador jugador){
+		this.jugadores.contains(jugador)
+	}
 }
