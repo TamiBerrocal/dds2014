@@ -28,6 +28,9 @@ class Jugador {
 	@Property
 	List<Infraccion> infracciones
 	
+	@Property
+	List<Calificacion> calificaciones
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail) {
 		this()
 		this.nombre = nombre
@@ -39,6 +42,7 @@ class Jugador {
 	new() {
 		this.amigos = new ArrayList
 		this.infracciones = new ArrayList
+		this.calificaciones = new ArrayList
 	}
 	
 	def void recomendarAmigo(Jugador jugador) {
@@ -56,10 +60,20 @@ class Jugador {
 		infracciones.add(infraccion)
 	}
 	
-	def void agregarAmigo(Jugador amigo){
+	def void agregarAmigo(Jugador amigo) {
 		amigos.add(amigo)
 	}
+	
 
+	// ----- CALIFICACIONES ----- //
+	def void calificarJugador(Jugador jugador, Calificacion calificacion) {
+		jugador.recibirCalificacion(calificacion)
+	}
+	
+	def void recibirCalificacion(Calificacion calificacion) {
+		this.calificaciones.add(calificacion)
+	}
+	
 
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {
