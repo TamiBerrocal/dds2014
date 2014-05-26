@@ -125,6 +125,9 @@ class Partido {
 		}
 	}
 	
+	def estaEnElPartido(Jugador jugador){
+		this.jugadores.contains(jugador)
+	}
 	
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {
@@ -137,10 +140,5 @@ class Partido {
 	
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
-	}
-	
-	
-	def estaEnElPartido(Jugador jugador){
-		this.jugadores.contains(jugador)
 	}
 }
