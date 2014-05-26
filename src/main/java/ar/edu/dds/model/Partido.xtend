@@ -8,6 +8,8 @@ import java.util.ArrayList
 import java.util.List
 import org.joda.time.DateTime
 import org.apache.commons.lang3.builder.ToStringBuilder
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.apache.commons.lang3.builder.EqualsBuilder
 
 class Partido {
 	
@@ -124,7 +126,15 @@ class Partido {
 	}
 	
 	
-	// TOSTRING
+	// ------ HASHCODE - EQUALS - TOSTRING ------- //
+	override hashCode() {
+		HashCodeBuilder.reflectionHashCode(this)
+	}
+
+	override equals(Object obj) {
+		EqualsBuilder.reflectionEquals(obj, this)
+	}
+	
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
 	}

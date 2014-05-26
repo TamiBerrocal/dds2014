@@ -7,6 +7,7 @@ import java.util.ArrayList
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.home.JugadoresHome
+import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 
 class Jugador {
 
@@ -71,6 +72,9 @@ class Jugador {
 	}
 	
 	def void recibirCalificacion(Calificacion calificacion) {
+		if (this.calificaciones.exists[ c | c.autor.equals(calificacion.autor) && c.partido.equals(calificacion.partido) ]) {
+			throw new JugadorYaCalificadoParaEsePartidoException("Jugador Ya Calificado...")
+		}
 		this.calificaciones.add(calificacion)
 	}
 	

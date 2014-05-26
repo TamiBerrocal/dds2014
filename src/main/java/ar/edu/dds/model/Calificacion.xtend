@@ -8,4 +8,10 @@ class Calificacion {
 	@Property
 	String comentario
 	
+	@Property
+	Jugador autor
+	
+	@Property
+	Partido partido
+	
 }
