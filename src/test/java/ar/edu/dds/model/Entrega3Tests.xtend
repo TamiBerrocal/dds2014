@@ -12,6 +12,8 @@ class Entrega3Tests {
 
 	Admin admin
 	Partido partido
+	
+	JugadoresHome jugadoresHome
 
 	Jugador matias
 	Jugador jorge
@@ -26,7 +28,8 @@ class Entrega3Tests {
 		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 		
-		JugadoresHome.instance.reset
+		JugadoresHome.reset
+		jugadoresHome = JugadoresHome.instance
 
 		matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(matias)
@@ -102,7 +105,7 @@ class Entrega3Tests {
 		val rodrigo = new Jugador("Rodrigo", 25, new Estandar, "mail@ejemplo.com")
 		this.matias.recomendarAmigo(rodrigo)
 
-		Assert.assertTrue(JugadoresHome.instance.estaPendiente(rodrigo))
+		Assert.assertTrue(jugadoresHome.estaPendiente(rodrigo))
 	}
 
 	@Test
@@ -114,8 +117,8 @@ class Entrega3Tests {
 		//el admin rechaza el amigo del jugador 
 		admin.rechazarJugador(rodrigo, "No sabe jugar")
 
-		Assert.assertTrue(JugadoresHome.instance.estaRechazado(rodrigo))
-		Assert.assertFalse(JugadoresHome.instance.estaPendiente(rodrigo))
+		Assert.assertTrue(jugadoresHome.estaRechazado(rodrigo))
+		Assert.assertFalse(jugadoresHome.estaPendiente(rodrigo))
 
 	}
 
@@ -128,8 +131,8 @@ class Entrega3Tests {
 		//el admin acepta el amigo del jugador 
 		admin.aprobarJugador(rodrigo)
 
-		Assert.assertTrue(JugadoresHome.instance.estaAprobado(rodrigo))
-		Assert.assertFalse(JugadoresHome.instance.estaPendiente(rodrigo))
+		Assert.assertTrue(jugadoresHome.estaAprobado(rodrigo))
+		Assert.assertFalse(jugadoresHome.estaPendiente(rodrigo))
 
 	}
 
