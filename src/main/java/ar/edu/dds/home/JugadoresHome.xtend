@@ -55,6 +55,12 @@ class JugadoresHome {
 		}
 		INSTANCE
 	}
+	
+	def void reset() {
+		this.jugadoresAprobados = new ArrayList
+		this.jugadoresPendientesDeAprobacion = new ArrayList
+		this.rechazos = new ArrayList
+	}
 
 	// Getters
 	def List<Jugador> jugadoresAprobados() {
