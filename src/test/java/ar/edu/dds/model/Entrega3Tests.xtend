@@ -66,10 +66,11 @@ class Entrega3Tests {
 		val calificacion = new Calificacion
 		calificacion.nota = 6
 		calificacion.comentario = "Cabezeas muy mal, todo el resto OK"
-		calificacion.autor = matias
+		calificacion.autor = jorge
 		calificacion.partido = partido
 
 		jorge.calificarJugador(matias, calificacion)
+//		matias.recibirCalificacion(calificacion)
 
 		Assert.assertTrue(matias.tieneCalificacion(calificacion))
 

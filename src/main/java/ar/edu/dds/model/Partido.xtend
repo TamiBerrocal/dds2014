@@ -2,6 +2,7 @@ package ar.edu.dds.model
 
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
+import ar.edu.dds.exception.EquiposNoGeneradosException
 import ar.edu.dds.observer.baja.BajaDeJugadorObserver
 import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
 import java.util.ArrayList
@@ -10,6 +11,9 @@ import org.joda.time.DateTime
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
+import ar.edu.dds.model.equipos.OrdenadorDeJugadores
+import ar.edu.dds.model.equipos.GeneradorDeEquipos
+import ar.edu.dds.model.equipos.ParDeEquipos
 
 class Partido {
 	
@@ -29,6 +33,9 @@ class Partido {
 
 	@Property
 	Admin administrador
+	
+	@Property
+	ParDeEquipos equipos
 
 	List<InscripcionDeJugadorObserver> inscripcionObservers
 	List<BajaDeJugadorObserver> bajaObservers
@@ -42,26 +49,33 @@ class Partido {
 		this.inscripcionObservers = new ArrayList
 		this.bajaObservers = new ArrayList
 		this.jugadores = new ArrayList
+		this.equipos = new ParDeEquipos
 	}
 
-	def confirmar() {
+	def void confirmar() {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
 		
-		this.removerALosQueNoJugarian
-
-		// Me quedo con los 10 Jugadores con más prioridad
-		var jugadoresFinales = this.jugadores.sortBy[modoDeInscripcion.prioridadInscripcion].take(10).toList
-		this.jugadores = jugadoresFinales
-
-		val int size = this.cantidadJugadoresEnLista
-		if (size.equals(10)) {
+		if (equipos.estanOk) {
 			this.estadoDePartido = EstadoDePartido.CONFIRMADO
 		} else {
-			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + size + "jugadores...")
+			throw new EquiposNoGeneradosException("Generar equipos antes de confirmar")
 		}
+	}
 
-		// Retorna la lista con los 10 jugadores confirmados
-		return jugadores
+	// MÉTODOS DE EQUIPOS
+	def void generarEquiposTentativos(OrdenadorDeJugadores ordenador, GeneradorDeEquipos generadorDeEquipos) {
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible generar equipos para partido con estado: ")
+		
+		// Me quedo con los 10 Jugadores con más prioridad
+		val jugadoresFinales = this.jugadoresQueJugarian.sortBy[modoDeInscripcion.prioridadInscripcion].take(10).toList
+	
+		val cantidadDeConfirmados = jugadoresFinales.size 
+		if (cantidadDeConfirmados.equals(10)) {
+			ordenador.ordenar(jugadoresFinales)
+			this.equipos = generadorDeEquipos.generar(jugadoresFinales)
+		} else {
+			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + cantidadDeConfirmados + "jugadores...")
+		}
 	}
 	
 	
@@ -75,6 +89,7 @@ class Partido {
 	}
 
 	def void darDeBajaJugador(Jugador jugador) {
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "No se puede dar de baja de un partido con estado: ")
 		this.jugadores.remove(jugador)
 
 		//Avisar sobre baja de jugador a los Observers
@@ -82,12 +97,14 @@ class Partido {
 	}
 	
 	def void reemplazarJugador(Jugador jugador, Jugador jugadorReemplazo) {
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "No se puede reemplazar jugadores en un partido con estado: ")
+		
 		this.jugadores.remove(jugador)
 		this.jugadores.add(jugadorReemplazo)
 
 	}
 
-
+	
 	// MÉTODOS DE OBSERVERS
 	def void registrarObserverDeInscripcion(InscripcionDeJugadorObserver inscripcionObserver) {
 		inscripcionObservers.add(inscripcionObserver)
@@ -115,8 +132,8 @@ class Partido {
 		this.jugadores.size
 	}
 	
-	private def void removerALosQueNoJugarian() {
-		jugadores = jugadores.filter[integrante | integrante.leSirveElPartido(this)].toList
+	private def List<Jugador> jugadoresQueJugarian() {
+		jugadores.filter[integrante | integrante.leSirveElPartido(this)].toList
 	}
 	
 	private def validarEstadoDePartido(EstadoDePartido estadoEsperado, String mensajeDeError) {

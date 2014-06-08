@@ -1,8 +1,8 @@
 package ar.edu.dds.model
 
+import ar.edu.dds.home.JugadoresHome
+import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import org.joda.time.DateTime
-import java.util.List
-import ar.edu.dds.model.inscripcion.ModoDeInscripcionimport ar.edu.dds.home.JugadoresHome
 
 class Admin extends Jugador {
 
@@ -14,7 +14,7 @@ class Admin extends Jugador {
 		new Partido(fechaYHora, lugar, this)
 	}
 
-	def List<Jugador> confirmarPartido(Partido partido) {
+	def void confirmarPartido(Partido partido) {
 		partido.confirmar
 	}
 	
