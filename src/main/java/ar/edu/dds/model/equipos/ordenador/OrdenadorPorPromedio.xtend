@@ -8,13 +8,18 @@ import ar.edu.dds.model.Jugador
 abstract class OrdenadorPorPromedio extends OrdenadorDeJugadores {
 	
 	def BigDecimal promedio(List<Calificacion> calificaciones) {
-		val total = calificaciones.fold(BigDecimal.ZERO, [ res, cal | res.add(BigDecimal.valueOf(cal.nota))])
-		total.divide(BigDecimal.valueOf(calificaciones.size))
+		calcularPromedio(calificaciones.map[ c | BigDecimal.valueOf(c.nota) ])
 	}
 	
 	def BigDecimal promedio(List<OrdenadorDeJugadores> ordenadores, Jugador jugador) {
-		val total = ordenadores.fold(BigDecimal.ZERO, [ res, ord | res.add(ord.valuar(jugador))])
-		total.divide(BigDecimal.valueOf(ordenadores.size))
+		calcularPromedio(ordenadores.map[ o | o.valuar(jugador)] )
+	}
+	
+	private def BigDecimal calcularPromedio(List<BigDecimal> numeros) {
+		val cant = numeros.size
+		if (cant == 0) return BigDecimal.ZERO
+		
+		numeros.fold(BigDecimal.ZERO, [ sem, num | sem.add(num) ]).divide(BigDecimal.valueOf(cant))
 	}
 	
 }
