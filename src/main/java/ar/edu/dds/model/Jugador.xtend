@@ -25,6 +25,9 @@ class Jugador {
 
 	@Property
 	int edad
+	
+	@Property
+	int handicap
 
 	@Property
 	List<Infraccion> infracciones
@@ -72,14 +75,23 @@ class Jugador {
 	}
 	
 	def void recibirCalificacion(Calificacion calificacion) {
-		if (this.calificaciones.exists[ c | c.autor.equals(calificacion.autor) && c.partido.equals(calificacion.partido) ]) {
+		if (this.calificaciones.exists[ c | c.esLaMismaQue(calificacion) ]) {
 			throw new JugadorYaCalificadoParaEsePartidoException("Jugador Ya Calificado...")
 		}
 		this.calificaciones.add(calificacion)
 	}
 	
-	def boolean tieneCalificacion(Calificacion calificacion){
+	def boolean tieneCalificacion(Calificacion calificacion) {
 		this.calificaciones.contains(calificacion)
+	}
+	
+	def List<Calificacion> ultimasNCalificaciones(int n) {
+		this.calificaciones.sortBy[ c | c.fechaDeCarga ].take(n).toList
+	}
+	
+	def List<Calificacion> calificacionesDelUltimoPartido() {
+		val ultimoPartidoEnElQueFueCalificado = this.calificaciones.sortBy[ c | c.partido.fechaYHora ].head.partido
+		this.calificaciones.filter[ c | c.partido.equals(ultimoPartidoEnElQueFueCalificado)].toList
 	}
 	
 

@@ -3,6 +3,7 @@ package ar.edu.dds.model
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.joda.time.DateTime
 
 class Calificacion {
 	
@@ -18,17 +19,28 @@ class Calificacion {
 	@Property
 	Partido partido
 	
+	@Property
+	DateTime fechaDeCarga
+	
+	def boolean esLaMismaQue(Calificacion calificacion) {
+		calificacion.autor.equals(this.autor) && calificacion.partido.equals(this.partido)
+	}
+	
+	new() {
+		this.fechaDeCarga = DateTime.now 
+	}
 	
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {
-		HashCodeBuilder.reflectionHashCode(this)
+		HashCodeBuilder.reflectionHashCode(this, "fechaDeCarga")
 	}
 
 	override equals(Object obj) {
-		EqualsBuilder.reflectionEquals(obj, this)
+		EqualsBuilder.reflectionEquals(obj, this, "fechaDeCarga")
 	}
 	
 	override toString() {
 		ToStringBuilder.reflectionToString(this)
 	}
+	
 }

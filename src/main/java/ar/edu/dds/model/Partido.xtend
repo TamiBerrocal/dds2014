@@ -11,8 +11,8 @@ import org.joda.time.DateTime
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
-import ar.edu.dds.model.equipos.OrdenadorDeJugadores
-import ar.edu.dds.model.equipos.GeneradorDeEquipos
+import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
+import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ParDeEquipos
 
 class Partido {
