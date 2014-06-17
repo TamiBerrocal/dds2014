@@ -67,7 +67,7 @@ class Entrega4Tests {
 	}
 	
 	/* *****************************************************************************
- 	*                                     Tests
+ 	*                                     Tests                                    *
 	********************************************************************************/
 
 	@Test
@@ -102,6 +102,11 @@ class Entrega4Tests {
 		
 		//Verificamos que Franco se encuentre en el Equipo de los pares ya que esta en la posicion 0 de la lista
 		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		
+		this.partido.confirmar
+	 	//Confirmamos el equipo
+	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+		
 	}
 	
 	@Test
@@ -186,8 +191,11 @@ class Entrega4Tests {
 	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
 	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
 	 	
+	 	
+	 	this.partido.confirmar
+	 	//Confirmamos el equipo
+	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+	 		 	
 	}
-	
-	
-	
+		
 }
