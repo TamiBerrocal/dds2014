@@ -8,6 +8,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
 
 class Entrega4Tests {
 	
@@ -99,16 +100,18 @@ class Entrega4Tests {
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
 		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
 		
-	
+		//Verificamos que Franco se encuentre en el Equipo de los pares ya que esta en la posicion 0 de la lista
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
 	}
 	
 	@Test
 	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710(){
 		
 		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val generadosEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
 		
 		val calificacion = new Calificacion
-		calificacion.nota = 6
+		calificacion.nota = 10
 		calificacion.partido = partido
 		
 		val calificacion1 = new Calificacion
@@ -116,33 +119,73 @@ class Entrega4Tests {
 		calificacion1.partido = partido
 	
 		val calificacion2 = new Calificacion
-		calificacion2.nota = 8
+		calificacion2.nota = 2
 		calificacion2.partido = partido
 		
 		val calificacion3 = new Calificacion
-		calificacion3.nota = 2
+		calificacion3.nota = 3
 		calificacion3.partido = partido
 	
 		val calificacion4 = new Calificacion
 		calificacion4.nota = 4
 		calificacion4.partido = partido
 		
+		val calificacion5 = new Calificacion
+		calificacion5.nota = 5
+		calificacion5.partido = partido
+		
+		val calificacion6 = new Calificacion
+		calificacion6.nota = 6
+		calificacion6.partido = partido
+	
+		val calificacion7 = new Calificacion
+		calificacion7.nota = 7
+		calificacion7.partido = partido
+		
+		val calificacion8 = new Calificacion
+		calificacion8.nota = 8
+		calificacion8.partido = partido
+	
+		val calificacion9 = new Calificacion
+		calificacion9.nota = 9
+		calificacion9.partido = partido
+		
 		matias.recibirCalificacion(calificacion)
-		jorge.recibirCalificacion(calificacion4)
-		carlos.recibirCalificacion(calificacion3)
-		pablo.recibirCalificacion(calificacion4)
-		pedro.recibirCalificacion(calificacion)
+		jorge.recibirCalificacion(calificacion7)
+		carlos.recibirCalificacion(calificacion8)
+		pablo.recibirCalificacion(calificacion6)
+		pedro.recibirCalificacion(calificacion9)
 	 	franco.recibirCalificacion(calificacion4)
 	 	lucas.recibirCalificacion(calificacion1)
-	 	adrian.recibirCalificacion(calificacion4)
+	 	adrian.recibirCalificacion(calificacion3)
 	 	simon.recibirCalificacion(calificacion2)
-	 	patricio.recibirCalificacion(calificacion)
+	 	patricio.recibirCalificacion(calificacion5)
 	 	
 	 	this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
 	 	
-	 	//verificamos que Lucas tenga el peor promedio del ultimo partido
+	 	//verificamos que Lucas sea el Jugador con el peor promedio
 	 	Assert.assertEquals("lucas",this.partido.jugadores.get(0).nombre)
+	 	
+	 	this.partido.equipos = generadosEquiposPor14589Vs236710.generar(this.partido.jugadores)
+	 	
+	 	//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
 		
+		//Verificamos para el equipo1 las posiciones 14589
+	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
+	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
+	 	
+		//Verificamos para el equipo2 las posiciones 236710
+	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
+	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
+	 	
 	}
 	
 	
