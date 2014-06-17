@@ -88,47 +88,60 @@ class Entrega4Tests {
 	 	
 		this.partido.jugadores = ordenadosPorHandicap.ordenar(this.partido.jugadores)
 		
+		//verificamos que el que tiene el peor handicap sea el primero de la lista
 		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
+		//verificamos que el que tiene el mejor handicap sea el ultimo de la lista
 		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
 		
 		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
 		
+		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
 		
 	
 	}
 	
 	@Test
-	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartido(){
+	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710(){
 		
-		val ordenadosDeCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 		
 		val calificacion = new Calificacion
 		calificacion.nota = 6
 		calificacion.partido = partido
 		
 		val calificacion1 = new Calificacion
-		calificacion1.nota = 4
-		calificacion.partido = partido
+		calificacion1.nota = 1
+		calificacion1.partido = partido
 	
 		val calificacion2 = new Calificacion
 		calificacion2.nota = 8
-		calificacion.partido = partido
+		calificacion2.partido = partido
 		
 		val calificacion3 = new Calificacion
 		calificacion3.nota = 2
-		calificacion.partido = partido
+		calificacion3.partido = partido
 	
 		val calificacion4 = new Calificacion
-		calificacion4.nota = 1
-		calificacion.partido = partido
-		
+		calificacion4.nota = 4
+		calificacion4.partido = partido
 		
 		matias.recibirCalificacion(calificacion)
-		matias.recibirCalificacion(calificacion1)
-		
 		jorge.recibirCalificacion(calificacion4)
-		jorge.recibirCalificacion(calificacion2)
+		carlos.recibirCalificacion(calificacion3)
+		pablo.recibirCalificacion(calificacion4)
+		pedro.recibirCalificacion(calificacion)
+	 	franco.recibirCalificacion(calificacion4)
+	 	lucas.recibirCalificacion(calificacion1)
+	 	adrian.recibirCalificacion(calificacion4)
+	 	simon.recibirCalificacion(calificacion2)
+	 	patricio.recibirCalificacion(calificacion)
+	 	
+	 	this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
+	 	
+	 	//verificamos que Lucas tenga el peor promedio del ultimo partido
+	 	Assert.assertEquals("lucas",this.partido.jugadores.get(0).nombre)
 		
 	}
 	
