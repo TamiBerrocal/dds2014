@@ -6,6 +6,8 @@ import java.math.BigDecimal
 
 abstract class OrdenadorDeJugadores {
 	
+	new(){}
+	
 	def ordenar(List<Jugador> jugadores) {
 		jugadores.sortBy[ j | valuar(j)  ]
 	}

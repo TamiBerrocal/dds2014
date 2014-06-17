@@ -27,7 +27,7 @@ class Calificacion {
 	}
 	
 	new() {
-		this.fechaDeCarga = DateTime.now
+		this.fechaDeCarga = new DateTime
 	}
 	
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //

@@ -11,6 +11,10 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDe
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeUltimasNCalificaciones
+import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
+import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
+import java.util.List
+import java.util.ArrayList
 
 class Entrega4Tests {
 
@@ -304,6 +308,94 @@ class Entrega4Tests {
 
 	}
 
+	//--------------Test 5------------------
+	@Test
+	def void testOrdenarPorPromedioDeNCalificacionesYGenereEquipoPorParidad() {
+
+		val ordenadorPorPromCalificUltNCalif = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
+		val generadorEquiposPorParidad = new GeneradorDeEquiposParesContraImpares
+
+		this.partido.jugadores = ordenadorPorPromCalificUltNCalif.ordenar(this.partido.jugadores)
+
+		this.partido.equipos = generadorEquiposPorParidad.generar(this.partido.jugadores)
+
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//verificamos que todos los jugadores esten donde corresponde
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
+
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+	}
+
+	//-------------------test 6-------------------
+	@Test
+	def void testOrdenarPorPromedioDeNCalificacionesYGenereEquipoPor14589Vs236710() {
+
+		val ordenadorPorPromCalificUltNCalif = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
+		val generadorRaro = new GeneradorDeEquipos14589Vs236710
+
+		this.partido.jugadores = ordenadorPorPromCalificUltNCalif.ordenar(this.partido.jugadores)
+
+		this.partido.equipos = generadorRaro.generar(this.partido.jugadores)
+
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//Verificamos para el equipo1 las posiciones 14589
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(matias))
+
+		//Verificamos para el equipo2 las posiciones 236710
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(patricio))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pedro))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+	}
+
+	
+	//--------------Test 13------------------
+    @Test(expected=EstadoDePartidoInvalidoException)
+    def void confirmarEquipoYNoSePuedeDarDeAltaJugador() {
+
+        val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+        val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
+
+        this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
+        this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
+
+        this.partido.confirmar
+        
+        //Confirmamos el estado del equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
+        this.partido.agregarJugadorPartido(matias)
+    }
+
 	//--------------Test 14------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
 	def void confirmarEquipoYNoSePuedeDarDeBajaJugador() {
@@ -315,6 +407,9 @@ class Entrega4Tests {
 		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
 
 		this.partido.confirmar
+		
+		//Confirmamos el estado del equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
 
 		this.partido.darDeBajaJugador(matias)
 	}
