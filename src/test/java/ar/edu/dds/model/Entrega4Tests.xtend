@@ -15,6 +15,7 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import java.util.List
 import java.util.ArrayList
+import ar.edu.dds.exception.NoHaySuficientesJugadoresException
 
 class Entrega4Tests {
 
@@ -167,22 +168,10 @@ class Entrega4Tests {
 	@Test
 	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares() {
 
-		val ordenadorPorHandicap = new OrdenadorPorHandicap
-		val generadorEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-
-		this.partido.jugadores = ordenadorPorHandicap.ordenar(this.partido.jugadores)
-
-		//verificamos que el que tiene el peor handicap sea el primero de la lista
-		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
-
-		//verificamos que el que tiene el mejor handicap sea el ultimo de la lista
-		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
-
-		this.partido.equipos = generadorEquiposPorParesEImpares.generar(this.partido.jugadores)
-
-		//verificamos que ambos equipos tengan 5 jugadores
-		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
-		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorHandicap,
+			new GeneradorDeEquiposParesContraImpares
+		)
 
 		//Verificamos que los jugadores se encuentren en los Equipos que corresponde
 		Assert.assertTrue(this.partido.equipos.equipo1.contains(pablo))
@@ -206,13 +195,11 @@ class Entrega4Tests {
 	//--------------Test 2------------------
 	@Test
 	def void testOrdenarPorHandicapYGenerarEquipoPor14589Vs236710() {
-		val ordenadorPorHandicap = new OrdenadorPorHandicap
-		val generadorEquipoRaro = new GeneradorDeEquipos14589Vs236710
 
-		val jugadoresPartido = this.partido.jugadores
-		this.partido.jugadores = ordenadorPorHandicap.ordenar(jugadoresPartido)
-
-		this.partido.equipos = generadorEquipoRaro.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorHandicap,
+			new GeneradorDeEquipos14589Vs236710
+		)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
@@ -241,12 +228,10 @@ class Entrega4Tests {
 	@Test
 	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPorParidad() {
 
-		val ordenadorPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-		val generadorEquiposPorParidad = new GeneradorDeEquiposParesContraImpares
-
-		val jugadoresPartido = this.partido.jugadores
-		this.partido.jugadores = ordenadorPorPromCalificUltPart.ordenar(jugadoresPartido)
-		this.partido.equipos = generadorEquiposPorParidad.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido,
+			new GeneradorDeEquiposParesContraImpares
+		)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
@@ -276,12 +261,10 @@ class Entrega4Tests {
 	@Test
 	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710() {
 
-		val ordenadorPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-		val generadorEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
-
-		this.partido.jugadores = ordenadorPorPromCalificUltPart.ordenar(this.partido.jugadores)
-
-		this.partido.equipos = generadorEquiposPor14589Vs236710.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido,
+			new GeneradorDeEquipos14589Vs236710
+		)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
@@ -312,12 +295,10 @@ class Entrega4Tests {
 	@Test
 	def void testOrdenarPorPromedioDeNCalificacionesYGenereEquipoPorParidad() {
 
-		val ordenadorPorPromCalificUltNCalif = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
-		val generadorEquiposPorParidad = new GeneradorDeEquiposParesContraImpares
-
-		this.partido.jugadores = ordenadorPorPromCalificUltNCalif.ordenar(this.partido.jugadores)
-
-		this.partido.equipos = generadorEquiposPorParidad.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeUltimasNCalificaciones(2),
+			new GeneradorDeEquiposParesContraImpares
+		)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
@@ -346,12 +327,10 @@ class Entrega4Tests {
 	@Test
 	def void testOrdenarPorPromedioDeNCalificacionesYGenereEquipoPor14589Vs236710() {
 
-		val ordenadorPorPromCalificUltNCalif = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
-		val generadorRaro = new GeneradorDeEquipos14589Vs236710
-
-		this.partido.jugadores = ordenadorPorPromCalificUltNCalif.ordenar(this.partido.jugadores)
-
-		this.partido.equipos = generadorRaro.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeUltimasNCalificaciones(2),
+			new GeneradorDeEquipos14589Vs236710
+		)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
@@ -378,27 +357,10 @@ class Entrega4Tests {
 	}
 
 	
+
 	//--------------Test 13------------------
-    @Test(expected=EstadoDePartidoInvalidoException)
-    def void confirmarEquipoYNoSePuedeDarDeAltaJugador() {
-
-        val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-        val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-
-        this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
-        this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
-
-        this.partido.confirmar
-        
-        //Confirmamos el estado del equipo
-		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
-
-        this.partido.agregarJugadorPartido(matias)
-    }
-
-	//--------------Test 14------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
-	def void confirmarEquipoYNoSePuedeDarDeBajaJugador() {
+	def void testConfirmarEquipoYNoSePuedeDarDeAltaJugador() {
 
 		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
@@ -407,11 +369,43 @@ class Entrega4Tests {
 		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
 
 		this.partido.confirmar
-		
+
+		//Confirmamos el estado del equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
+		this.partido.agregarJugadorPartido(matias)
+	}
+
+	//--------------Test 14------------------
+	@Test(expected=EstadoDePartidoInvalidoException)
+	def void testConfirmarEquipoYNoSePuedeDarDeBajaJugador() {
+
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido,
+			new GeneradorDeEquiposParesContraImpares
+		)
+
+		this.partido.confirmar
+
 		//Confirmamos el estado del equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
 
 		this.partido.darDeBajaJugador(matias)
+	}
+
+	//------------Test 15--------------------------
+	@Test(expected=NoHaySuficientesJugadoresException)
+	def void testTratarDeGenerarEquiposTentativosConJugadoresInsuficientes() {
+		this.partido.darDeBajaJugador(matias)
+
+		//corroborar que no pertenezca a la lista de jugadores
+		Assert.assertEquals(9, this.partido.cantidadJugadoresEnLista)
+
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido,
+			new GeneradorDeEquiposParesContraImpares
+		)
+
 	}
 
 }
