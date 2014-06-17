@@ -6,7 +6,7 @@ import ar.edu.dds.model.Jugador
 class GeneradorDeEquiposParesContraImpares extends GeneradorDeEquipos {
 	
 	override boolean cumpleParaEquipo1(Jugador j, List<Jugador> jugadores) {
-		jugadores.indexOf(j) % 2 == 0
+		(jugadores.indexOf(j) + 1) % 2 == 0
 	}
 	
 }

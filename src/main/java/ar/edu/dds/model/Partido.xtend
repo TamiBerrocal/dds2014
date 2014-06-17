@@ -71,8 +71,8 @@ class Partido {
 	
 		val cantidadDeConfirmados = jugadoresFinales.size 
 		if (cantidadDeConfirmados.equals(10)) {
-			ordenador.ordenar(jugadoresFinales)
-			this.equipos = generadorDeEquipos.generar(jugadoresFinales)
+			val jugadoresOrdenados = ordenador.ordenar(jugadoresFinales) //agrego la asignacion porque el sortby no tiene efecto
+			this.equipos = generadorDeEquipos.generar(jugadoresOrdenados)
 		} else {
 			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + cantidadDeConfirmados + "jugadores...")
 		}

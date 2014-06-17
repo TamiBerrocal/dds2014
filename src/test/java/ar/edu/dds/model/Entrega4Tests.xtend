@@ -10,12 +10,13 @@ import org.junit.Test
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
+import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeUltimasNCalificaciones
 
 class Entrega4Tests {
-	
+
 	Admin admin
 	Partido partido
-	
+
 	Jugador matias
 	Jugador jorge
 	Jugador carlos
@@ -26,14 +27,13 @@ class Entrega4Tests {
 	Jugador adrian
 	Jugador simon
 	Jugador patricio
-	
-	
+
 	@Before
 	def void init() {
-		
+
 		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
-		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")	
-		
+		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
+
 		matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(matias)
 
@@ -51,165 +51,272 @@ class Entrega4Tests {
 
 		franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(franco)
-		
+
 		lucas = new Jugador("lucas", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(lucas)
-		
+
 		adrian = new Jugador("adrian", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(adrian)
-		
+
 		simon = new Jugador("simon", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(simon)
-		
+
 		patricio = new Jugador("patricio", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(patricio)
-		
+
 		matias.handicap = 5
 		jorge.handicap = 8
 		carlos.handicap = 3
 		pablo.handicap = 2
 		pedro.handicap = 9
-	 	franco.handicap = 1
-	 	lucas.handicap = 4
-	 	adrian.handicap = 7
-	 	simon.handicap = 6
-	 	patricio.handicap = 10
-	 	
-	 	val calificacion = new Calificacion
-		calificacion.nota = 10
-		calificacion.partido = partido
-		
+		franco.handicap = 1
+		lucas.handicap = 4
+		adrian.handicap = 7
+		simon.handicap = 6
+		patricio.handicap = 10
+
 		val calificacion1 = new Calificacion
+		calificacion1.autor = carlos
 		calificacion1.nota = 1
 		calificacion1.partido = partido
-	
+
 		val calificacion2 = new Calificacion
+		calificacion2.autor = pedro
 		calificacion2.nota = 2
 		calificacion2.partido = partido
-		
+
 		val calificacion3 = new Calificacion
+		calificacion3.autor = patricio
 		calificacion3.nota = 3
 		calificacion3.partido = partido
-	
+
 		val calificacion4 = new Calificacion
+		calificacion4.autor = simon
 		calificacion4.nota = 4
 		calificacion4.partido = partido
-		
+
 		val calificacion5 = new Calificacion
+		calificacion5.autor = franco
 		calificacion5.nota = 5
 		calificacion5.partido = partido
-		
+
 		val calificacion6 = new Calificacion
+		calificacion6.autor = lucas
 		calificacion6.nota = 6
 		calificacion6.partido = partido
-	
+
 		val calificacion7 = new Calificacion
+		calificacion7.autor = adrian
 		calificacion7.nota = 7
 		calificacion7.partido = partido
-		
+
 		val calificacion8 = new Calificacion
+		calificacion8.autor = jorge
 		calificacion8.nota = 8
 		calificacion8.partido = partido
-	
+
 		val calificacion9 = new Calificacion
+		calificacion9.autor = pablo
 		calificacion9.nota = 9
 		calificacion9.partido = partido
-		
-		matias.recibirCalificacion(calificacion)
+
+		val calificacion10 = new Calificacion
+		calificacion10.autor = adrian
+		calificacion10.nota = 10
+		calificacion10.partido = partido
+
+		matias.recibirCalificacion(calificacion10)
+		matias.recibirCalificacion(calificacion8)
+
 		jorge.recibirCalificacion(calificacion7)
+		jorge.recibirCalificacion(calificacion3)
+
 		carlos.recibirCalificacion(calificacion8)
+		carlos.recibirCalificacion(calificacion9)
+
 		pablo.recibirCalificacion(calificacion6)
+		pablo.recibirCalificacion(calificacion7)
+
 		pedro.recibirCalificacion(calificacion9)
-	 	franco.recibirCalificacion(calificacion4)
-	 	lucas.recibirCalificacion(calificacion1)
-	 	adrian.recibirCalificacion(calificacion3)
-	 	simon.recibirCalificacion(calificacion2)
-	 	patricio.recibirCalificacion(calificacion5)
-	 	
+		pedro.recibirCalificacion(calificacion10)
+
+		franco.recibirCalificacion(calificacion4)
+		franco.recibirCalificacion(calificacion5)
+
+		lucas.recibirCalificacion(calificacion1)
+		lucas.recibirCalificacion(calificacion2)
+
+		adrian.recibirCalificacion(calificacion3)
+		adrian.recibirCalificacion(calificacion4)
+
+		simon.recibirCalificacion(calificacion3)
+		simon.recibirCalificacion(calificacion1)
+
+		patricio.recibirCalificacion(calificacion5)
+		patricio.recibirCalificacion(calificacion6)
 	}
-	
+
 	/* *****************************************************************************
  	*                                     Tests                                    *
 	********************************************************************************/
-
+	//--------------Test 1------------------
 	@Test
-	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares(){
-		
-		val ordenadosPorHandicap = new OrdenadorPorHandicap
-		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-		
-		this.partido.jugadores = ordenadosPorHandicap.ordenar(this.partido.jugadores)
-		
+	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares() {
+
+		val ordenadorPorHandicap = new OrdenadorPorHandicap
+		val generadorEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
+
+		this.partido.jugadores = ordenadorPorHandicap.ordenar(this.partido.jugadores)
+
 		//verificamos que el que tiene el peor handicap sea el primero de la lista
 		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
+
 		//verificamos que el que tiene el mejor handicap sea el ultimo de la lista
 		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
-		
-		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
-		
+
+		this.partido.equipos = generadorEquiposPorParesEImpares.generar(this.partido.jugadores)
+
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
 		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
-		
-		//Verificamos que Franco se encuentre en el Equipo de los pares ya que esta en la posicion 0 de la lista
-		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
-		
+
+		//Verificamos que los jugadores se encuentren en los Equipos que corresponde
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
+
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pedro))
 		this.partido.confirmar
-	 	//Confirmamos el equipo
-	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
-		
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
 	}
-	
+
+	//--------------Test 2------------------
 	@Test
-	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710(){
-		
-		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-		val generadosEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
-		
-		this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
-	 	
-	 	//verificamos que Lucas sea el Jugador con el peor promedio
-	 	Assert.assertEquals("lucas",this.partido.jugadores.get(0).nombre)
-	 	
-	 	this.partido.equipos = generadosEquiposPor14589Vs236710.generar(this.partido.jugadores)
-	 	
-	 	//verificamos que ambos equipos tengan 5 jugadores
+	def void testOrdenarPorHandicapYGenerarEquipoPor14589Vs236710() {
+		val ordenadorPorHandicap = new OrdenadorPorHandicap
+		val generadorEquipoRaro = new GeneradorDeEquipos14589Vs236710
+
+		val jugadoresPartido = this.partido.jugadores
+		this.partido.jugadores = ordenadorPorHandicap.ordenar(jugadoresPartido)
+
+		this.partido.equipos = generadorEquipoRaro.generar(this.partido.jugadores)
+
+		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
 		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
-		
-		//Verificamos para el equipo1 las posiciones 14589
-	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
-	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
-	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
-	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
-	 	Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
-	 	
-		//Verificamos para el equipo2 las posiciones 236710
-	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
-	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
-	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
-	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
-	 	Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
-	 	
-	 	
-	 	this.partido.confirmar
-	 	//Confirmamos el equipo
-	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
-	 		 	
+
+		//verificamos que todos los jugadores esten donde corresponde
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(matias))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
+
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(patricio))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
 	}
-	
+
+	//-------------Test 3------------------
+	@Test
+	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPorParidad() {
+
+		val ordenadorPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val generadorEquiposPorParidad = new GeneradorDeEquiposParesContraImpares
+
+		val jugadoresPartido = this.partido.jugadores
+		this.partido.jugadores = ordenadorPorPromCalificUltPart.ordenar(jugadoresPartido)
+		this.partido.equipos = generadorEquiposPorParidad.generar(this.partido.jugadores)
+
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//verificamos que todos los jugadores esten donde corresponde
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
+
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(matias))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
+	}
+
+	//--------------Test 4------------------
+	@Test
+	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710() {
+
+		val ordenadorPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val generadorEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
+
+		this.partido.jugadores = ordenadorPorPromCalificUltPart.ordenar(this.partido.jugadores)
+
+		this.partido.equipos = generadorEquiposPor14589Vs236710.generar(this.partido.jugadores)
+
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//Verificamos para el equipo1 las posiciones 14589
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(matias))
+
+		//Verificamos para el equipo2 las posiciones 236710
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(patricio))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pedro))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
+	}
+
+	//--------------Test 14------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
-	def void confirmarEquipoYNoSePuedeDarDeBajaJugador(){
-		
+	def void confirmarEquipoYNoSePuedeDarDeBajaJugador() {
+
 		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-		
+
 		this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
 		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
-		
+
 		this.partido.confirmar
-		
+
 		this.partido.darDeBajaJugador(matias)
 	}
-		
+
 }
