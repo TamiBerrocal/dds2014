@@ -14,10 +14,6 @@ class Admin extends Jugador {
 		new Partido(fechaYHora, lugar, this)
 	}
 
-	def void confirmarPartido(Partido partido) {
-		partido.confirmar
-	}
-	
 	def void aprobarJugador(Jugador jugador) {
 		JugadoresHome.instance.aprobarJugador(jugador)
 	}
