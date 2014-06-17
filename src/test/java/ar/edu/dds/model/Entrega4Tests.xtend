@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
+import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 
 class Entrega4Tests {
 	
@@ -63,19 +64,6 @@ class Entrega4Tests {
 		patricio = new Jugador("patricio", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(patricio)
 		
-	
-	}
-	
-	/* *****************************************************************************
- 	*                                     Tests                                    *
-	********************************************************************************/
-
-	@Test
-	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares(){
-		
-		val ordenadosPorHandicap = new OrdenadorPorHandicap
-		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-		
 		matias.handicap = 5
 		jorge.handicap = 8
 		carlos.handicap = 3
@@ -87,35 +75,7 @@ class Entrega4Tests {
 	 	simon.handicap = 6
 	 	patricio.handicap = 10
 	 	
-		this.partido.jugadores = ordenadosPorHandicap.ordenar(this.partido.jugadores)
-		
-		//verificamos que el que tiene el peor handicap sea el primero de la lista
-		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
-		//verificamos que el que tiene el mejor handicap sea el ultimo de la lista
-		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
-		
-		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
-		
-		//verificamos que ambos equipos tengan 5 jugadores
-		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
-		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
-		
-		//Verificamos que Franco se encuentre en el Equipo de los pares ya que esta en la posicion 0 de la lista
-		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
-		
-		this.partido.confirmar
-	 	//Confirmamos el equipo
-	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
-		
-	}
-	
-	@Test
-	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710(){
-		
-		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-		val generadosEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
-		
-		val calificacion = new Calificacion
+	 	val calificacion = new Calificacion
 		calificacion.nota = 10
 		calificacion.partido = partido
 		
@@ -166,7 +126,47 @@ class Entrega4Tests {
 	 	simon.recibirCalificacion(calificacion2)
 	 	patricio.recibirCalificacion(calificacion5)
 	 	
-	 	this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
+	}
+	
+	/* *****************************************************************************
+ 	*                                     Tests                                    *
+	********************************************************************************/
+
+	@Test
+	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares(){
+		
+		val ordenadosPorHandicap = new OrdenadorPorHandicap
+		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
+		
+		this.partido.jugadores = ordenadosPorHandicap.ordenar(this.partido.jugadores)
+		
+		//verificamos que el que tiene el peor handicap sea el primero de la lista
+		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
+		//verificamos que el que tiene el mejor handicap sea el ultimo de la lista
+		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
+		
+		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
+		
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+		
+		//Verificamos que Franco se encuentre en el Equipo de los pares ya que esta en la posicion 0 de la lista
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		
+		this.partido.confirmar
+	 	//Confirmamos el equipo
+	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+		
+	}
+	
+	@Test
+	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartidoYGeneraEquipoPor14589Vs236710(){
+		
+		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val generadosEquiposPor14589Vs236710 = new GeneradorDeEquipos14589Vs236710
+		
+		this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
 	 	
 	 	//verificamos que Lucas sea el Jugador con el peor promedio
 	 	Assert.assertEquals("lucas",this.partido.jugadores.get(0).nombre)
@@ -196,6 +196,20 @@ class Entrega4Tests {
 	 	//Confirmamos el equipo
 	 	Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
 	 		 	
+	}
+	
+	@Test(expected=EstadoDePartidoInvalidoException)
+	def void confirmarEquipoYNoSePuedeDarDeBajaJugador(){
+		
+		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
+		
+		this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
+		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
+		
+		this.partido.confirmar
+		
+		this.partido.darDeBajaJugador(matias)
 	}
 		
 }
