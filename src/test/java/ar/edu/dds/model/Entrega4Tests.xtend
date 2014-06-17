@@ -1,11 +1,13 @@
 package ar.edu.dds.model
 
-import org.junit.Before
-import org.joda.time.DateTime
-import ar.edu.dds.model.inscripcion.Estandar
-import org.junit.Test
+import ar.edu.dds.model.equipos.generador.GeneradorDeEquiposParesContraImpares
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorHandicap
+import ar.edu.dds.model.inscripcion.Estandar
+import org.joda.time.DateTime
 import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
 class Entrega4Tests {
 	
@@ -60,16 +62,18 @@ class Entrega4Tests {
 		patricio = new Jugador("patricio", 30, new Estandar, "mail@ejemplo.com")
 		this.partido.agregarJugadorPartido(patricio)
 		
+	
 	}
 	
 	/* *****************************************************************************
- 	*                         Tests de Ordenamientos
+ 	*                                     Tests
 	********************************************************************************/
 
 	@Test
-	def void testOrdenarPorHandicap(){
+	def void testOrdenarPorHandicapYGenerarEquipoPorParesEImpares(){
 		
 		val ordenadosPorHandicap = new OrdenadorPorHandicap
+		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
 		
 		matias.handicap = 5
 		jorge.handicap = 8
@@ -82,10 +86,49 @@ class Entrega4Tests {
 	 	simon.handicap = 6
 	 	patricio.handicap = 10
 	 	
-	 	ordenadosPorHandicap.ordenar(this.partido.jugadores)
+		this.partido.jugadores = ordenadosPorHandicap.ordenar(this.partido.jugadores)
 		
 		Assert.assertEquals(1, this.partido.jugadores.get(0).handicap)
 		Assert.assertEquals(10, this.partido.jugadores.get(9).handicap)
+		
+		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
+		
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		
+	
+	}
+	
+	@Test
+	def void testOrdenarPorPromedioDeCalificacionesDelUltimoPartido(){
+		
+		val ordenadosDeCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		
+		val calificacion = new Calificacion
+		calificacion.nota = 6
+		calificacion.partido = partido
+		
+		val calificacion1 = new Calificacion
+		calificacion1.nota = 4
+		calificacion.partido = partido
+	
+		val calificacion2 = new Calificacion
+		calificacion2.nota = 8
+		calificacion.partido = partido
+		
+		val calificacion3 = new Calificacion
+		calificacion3.nota = 2
+		calificacion.partido = partido
+	
+		val calificacion4 = new Calificacion
+		calificacion4.nota = 1
+		calificacion.partido = partido
+		
+		
+		matias.recibirCalificacion(calificacion)
+		matias.recibirCalificacion(calificacion1)
+		
+		jorge.recibirCalificacion(calificacion4)
+		jorge.recibirCalificacion(calificacion2)
 		
 	}
 	
