@@ -356,7 +356,79 @@ class Entrega4Tests {
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
 	}
 
-	
+	//-------------------Test 7---------------------
+	@Test
+	def void testOrdenarPorHandicapYUltimasCalificacionesOrdenarPorParidad() {
+
+		var List<OrdenadorDeJugadores> listaOrdenadores = new ArrayList
+		listaOrdenadores.add(new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido)
+		listaOrdenadores.add(new OrdenadorPorHandicap)
+
+		this.partido.generarEquiposTentativos(
+			new OrdenadorCompuesto(listaOrdenadores),
+			new GeneradorDeEquiposParesContraImpares
+		)
+
+		//verificamos que ambos equipos tengan 5 jugadores
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//verificamos que todos los jugadores esten donde corresponde en cada equipo
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(matias))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pedro))
+
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(patricio))
+
+		this.partido.confirmar
+
+		//Confirmo  el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+	}
+
+	//---------------Test 8----------------------------
+	@Test
+	def void testOrdenarPorHandicapYUltimasCalificacionesOrdenarPorAlgoritmoRaro() {
+
+		var List<OrdenadorDeJugadores> listaOrdenadores = new ArrayList
+		listaOrdenadores.add(new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido)
+		listaOrdenadores.add(new OrdenadorPorHandicap)
+
+		this.partido.generarEquiposTentativos(
+			new OrdenadorCompuesto(listaOrdenadores),
+			new GeneradorDeEquipos14589Vs236710
+		)
+
+		//verificamos que los 2 equipos tengan 5 jugadores cada uno
+		Assert.assertEquals(5, this.partido.equipos.equipo1.size)
+		Assert.assertEquals(5, this.partido.equipos.equipo2.size)
+
+		//Verificamos para el equipo1 las posiciones 14589
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(franco))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(pablo))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(adrian))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(matias))
+		Assert.assertTrue(this.partido.equipos.equipo1.contains(patricio))
+
+		//Verificamos para el equipo2 las posiciones 236710
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(lucas))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(simon))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(carlos))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(jorge))
+		Assert.assertTrue(this.partido.equipos.equipo2.contains(pedro))
+
+		this.partido.confirmar
+
+		//Confirmamos el equipo
+		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
+
+	}
 
 	//--------------Test 13------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
