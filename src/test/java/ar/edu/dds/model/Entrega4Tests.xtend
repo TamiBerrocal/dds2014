@@ -508,11 +508,10 @@ class Entrega4Tests {
 	@Test(expected=EstadoDePartidoInvalidoException)
 	def void testConfirmarEquipoYNoSePuedeDarDeAltaJugador() {
 
-		val ordenadosPorPromCalificUltPart = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
-		val generadosEquiposPorParesEImpares = new GeneradorDeEquiposParesContraImpares
-
-		this.partido.jugadores = ordenadosPorPromCalificUltPart.ordenar(this.partido.jugadores)
-		this.partido.equipos = generadosEquiposPorParesEImpares.generar(this.partido.jugadores)
+		this.partido.generarEquiposTentativos(
+			new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido,
+			new GeneradorDeEquiposParesContraImpares
+		)
 
 		this.partido.confirmar
 
