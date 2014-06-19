@@ -430,7 +430,7 @@ class Entrega4Tests {
 
 	}
 
-	//--------------Test 13------------------
+	//--------------Test 9------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
 	def void testConfirmarEquipoYNoSePuedeDarDeAltaJugador() {
 
@@ -448,7 +448,7 @@ class Entrega4Tests {
 		this.partido.agregarJugadorPartido(matias)
 	}
 
-	//--------------Test 14------------------
+	//--------------Test 10------------------
 	@Test(expected=EstadoDePartidoInvalidoException)
 	def void testConfirmarEquipoYNoSePuedeDarDeBajaJugador() {
 
@@ -465,7 +465,7 @@ class Entrega4Tests {
 		this.partido.darDeBajaJugador(matias)
 	}
 
-	//------------Test 15--------------------------
+	//------------Test 11--------------------------
 	@Test(expected=NoHaySuficientesJugadoresException)
 	def void testTratarDeGenerarEquiposTentativosConJugadoresInsuficientes() {
 		this.partido.darDeBajaJugador(matias)
