@@ -194,7 +194,7 @@ class Entrega1Tests {
 	
 	@Test(expected = EquiposNoGeneradosException)
 	def void testNoSePuedeConfirmarPartidoConMenosDe10Jugadores() {
-		this.admin.confirmarPartido(this.partido);
+		this.partido.confirmar;
 	}
 	
 }
