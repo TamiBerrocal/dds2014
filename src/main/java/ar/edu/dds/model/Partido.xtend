@@ -49,7 +49,7 @@ class Partido {
 		this.inscripcionObservers = new ArrayList
 		this.bajaObservers = new ArrayList
 		this.jugadores = new ArrayList
-		this.equipos = new ParDeEquipos
+		this.equipos = null
 	}
 
 	def void confirmar() {
