@@ -4,10 +4,12 @@ import java.util.List
 import ar.edu.dds.model.Jugador
 import java.util.ArrayList
 import ar.edu.dds.model.Rechazo
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class JugadoresHome {
 
-	private static JugadoresHome INSTANCE
+	static JugadoresHome INSTANCE
 
 	List<Jugador> jugadoresAprobados
 	List<Jugador> jugadoresPendientesDeAprobacion
@@ -43,7 +45,7 @@ class JugadoresHome {
 	}
 
 	// Singleton
-	private new() {
+	new() {
 		this.jugadoresAprobados = new ArrayList
 		this.jugadoresPendientesDeAprobacion = new ArrayList
 		this.rechazos = new ArrayList
