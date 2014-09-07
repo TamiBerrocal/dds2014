@@ -4,9 +4,12 @@ import java.math.BigDecimal
 import java.util.List
 import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Jugador
+import org.uqbar.commons.utils.Observable
 
+@Observable
 abstract class OrdenadorPorPromedio extends OrdenadorDeJugadores {
 	
+	@Property String nombre
 	def BigDecimal promedio(List<Calificacion> calificaciones) {
 		calcularPromedio(calificaciones.map[ c | BigDecimal.valueOf(c.nota) ])
 	}
