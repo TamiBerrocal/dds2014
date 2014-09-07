@@ -11,7 +11,7 @@ class JugadoresHome {
 
 	List<Jugador> jugadoresAprobados
 	List<Jugador> jugadoresPendientesDeAprobacion
-
+	
 	List<Rechazo> rechazos
 
 	def void recomendarNuevoJugador(Jugador jugador) {
