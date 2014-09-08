@@ -13,7 +13,6 @@ import org.uqbar.arena.bindings.PropertyAdapter
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import org.uqbar.arena.widgets.TextBox
-import org.apache.commons.collections.functors.NotNullPredicate
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
@@ -87,6 +86,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		listaEquipo2.bindItemsToProperty("equipo2")
 		listaEquipo2.width = 125
 		listaEquipo2.height = 200
+		
+		this.crearActionPanelConfirmarEquipos(mainPanel)
 	}
 	
 	def crearPanelDerecho (Panel mainPanel){
@@ -106,8 +107,18 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		actionsPanel.setLayout(new HorizontalLayout)
 		
 		new Button(actionsPanel)
-			.setCaption("GenerarEquipos")
+			.setCaption("Generar Equipos")
 			.onClick[|modelObject.generarEquipos]
+	}
+	
+	def crearActionPanelConfirmarEquipos(Panel mainPanel){
+		
+		var actionsPanel = new Panel(mainPanel)
+		actionsPanel.setLayout(new HorizontalLayout)
+		
+		new Button(actionsPanel)
+			.setCaption("Confirmar Equipos")
+			.onClick[|modelObject.confirmarEquipos]
 	}
 
 	override protected addActions(Panel actionsPanel) {

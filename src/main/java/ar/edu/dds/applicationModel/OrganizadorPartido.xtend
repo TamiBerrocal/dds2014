@@ -47,4 +47,8 @@ class OrganizadorPartido implements Serializable{
 		equipo1 = partido.equipos.equipo1
 		equipo2 = partido.equipos.equipo2
 	}
+
+	def confirmarEquipos(){
+		partido.confirmar
+	}
 }
