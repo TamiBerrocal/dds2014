@@ -13,7 +13,6 @@ import org.uqbar.arena.bindings.PropertyAdapter
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 
@@ -21,11 +20,12 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 	new(WindowOwner parent) {
 		super(parent, new OrganizadorPartido)
-		modelObject.search()
+		modelObject.inicializarSelectors()
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
 		title = "Organizador de partidos"
+		taskDescription = "Ingrese datos para generar"
 
 		super.createMainTemplate(mainPanel)
 	}
@@ -52,20 +52,19 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		labelTituloIzq.text = "Generar Equipos"
 		
 		var comboCriterio = new Selector(mainPanel)
+		comboCriterio.allowNull = false
 		comboCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(typeof(GeneradorDeEquipos), "nombre"))
 		comboCriterio.bindValueToProperty("criterioSeleccionado")
 		
 		var comboOrdenamiento = new Selector(mainPanel)
+		comboOrdenamiento.allowNull = false
 		comboOrdenamiento.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
 		comboOrdenamiento.bindValueToProperty("ordenadorSeleccionado")
-
-		var ordenadorSelec = new NotNullObservable("ordenadorSeleccionado")
 
 		var labelCantCalif = new Label(mainPanel)
 		labelCantCalif.setText("Cant de calificaciones:")
 		
 		var cantDeCalificaciones = new TextBox(mainPanel)
-		cantDeCalificaciones.bindEnabled(ordenadorSelec)
 		cantDeCalificaciones.bindValueToProperty("cantCalificaciones")
 		
 		this.crearActionPanelGenerarEquipos(mainPanel)
@@ -82,6 +81,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		listaEquipo1.bindItemsToProperty("equipo1")
 		listaEquipo1.width = 125
 		listaEquipo1.height = 200
+		
 		var listaEquipo2 = new List(panelEquipos)
 		listaEquipo2.bindItemsToProperty("equipo2")
 		listaEquipo2.width = 125
@@ -106,9 +106,13 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		var actionsPanel = new Panel(mainPanel)
 		actionsPanel.setLayout(new HorizontalLayout)
 		
-		new Button(actionsPanel)
-			.setCaption("Generar Equipos")
-			.onClick[|modelObject.generarEquipos]
+		new Button(actionsPanel) => [			
+			setCaption("Generar Equipos")
+			setAsDefault
+			onClick[|modelObject.generarEquipos]			
+			bindEnabledToProperty("puedeGenerar")
+			disableOnError			
+		]
 	}
 	
 	def crearActionPanelConfirmarEquipos(Panel mainPanel){
@@ -119,6 +123,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		new Button(actionsPanel)
 			.setCaption("Confirmar Equipos")
 			.onClick[|modelObject.confirmarEquipos]
+			.setAsDefault
+			.disableOnError
 	}
 
 	override protected addActions(Panel actionsPanel) {

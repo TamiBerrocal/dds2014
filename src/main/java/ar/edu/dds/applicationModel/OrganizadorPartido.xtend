@@ -14,6 +14,7 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeUltimasNCalifica
 import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Jugador
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -28,7 +29,7 @@ class OrganizadorPartido implements Serializable{
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
 	
-	def void search(){
+	def void inicializarSelectors(){
 		
 		criterios = new ArrayList<GeneradorDeEquipos>
 		criterios.add(new GeneradorDeEquipos14589Vs236710)
@@ -42,10 +43,39 @@ class OrganizadorPartido implements Serializable{
 		
 	}
 	
+
+	def isPuedeGenerar(){
+		cantCalificaciones > 0 &&
+		criterioSeleccionado != null &&
+		ordenadorSeleccionado != null		
+	}
+	
+	
+	def cambioPuedeGenerar() {
+		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
+	}
+	
+	def setCantCalificaciones(int cantCalificaciones){
+		this._cantCalificaciones = cantCalificaciones
+		cambioPuedeGenerar		
+	}
+	
+	def setCriterioSeleccionado(GeneradorDeEquipos criterioSeleccionado){
+		this._criterioSeleccionado = criterioSeleccionado
+		cambioPuedeGenerar		
+	}
+	
+	def setOrdenadorDeJugadores(OrdenadorDeJugadores ordenadorSeleccionado){
+		this._ordenadorSeleccionado = ordenadorSeleccionado
+		cambioPuedeGenerar		
+	}
+	
 	def generarEquipos(){
+		
 		partido.generarEquiposTentativos(ordenadorSeleccionado,criterioSeleccionado)
 		equipo1 = partido.equipos.equipo1
 		equipo2 = partido.equipos.equipo2
+		
 	}
 
 	def confirmarEquipos(){
