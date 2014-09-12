@@ -20,7 +20,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 	new(WindowOwner parent) {
 		super(parent, new OrganizadorPartido)
-		modelObject.inicializarSelectors()
+		modelObject.inicializar()
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
