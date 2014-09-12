@@ -77,18 +77,26 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		var labelEq2 = new Label(panelEquipos)
 		labelEq2.setText("Equipo 2")
 		
-		var listaEquipo1 = new List(panelEquipos)
-		listaEquipo1.bindItemsToProperty("equipo1")
-		listaEquipo1.width = 125
-		listaEquipo1.height = 200
+		new List(panelEquipos) => [
+			bindItemsToProperty("equipo1")
+			bindValueToProperty("jugadorSeleccionado")
+			width = 125
+			height = 200
+			onSelection[| this.visualizarDatosJugador
+			]
+		]
 		
-		var listaEquipo2 = new List(panelEquipos)
-		listaEquipo2.bindItemsToProperty("equipo2")
-		listaEquipo2.width = 125
-		listaEquipo2.height = 200
+		new List(panelEquipos) => [
+			bindItemsToProperty("equipo2")
+			bindValueToProperty("jugadorSeleccionado")
+			width = 125
+			height = 200
+			onSelection[| this.visualizarDatosJugador]
+		]
 		
 		this.crearActionPanelConfirmarEquipos(mainPanel)
 	}
+	
 	
 	def crearPanelDerecho (Panel mainPanel){
 		
@@ -120,14 +128,21 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		var actionsPanel = new Panel(mainPanel)
 		actionsPanel.setLayout(new HorizontalLayout)
 		
-		new Button(actionsPanel)
-			.setCaption("Confirmar Equipos")
-			.onClick[|modelObject.confirmarEquipos]
-			.setAsDefault
-			.disableOnError
+		new Button(actionsPanel) => [	
+			setCaption("Confirmar Equipos")
+			setAsDefault
+			onClick[|modelObject.confirmarEquipos]
+			//bindEnabledToProperty("puedeConfirmar")
+			disableOnError
+		]
 	}
 
 	override protected addActions(Panel actionsPanel) {
 	}
-
+	
+	def visualizarDatosJugador(){
+		new VisualizadorJugadorWindows(this, modelObject).open
+	}
+	
+	
 }

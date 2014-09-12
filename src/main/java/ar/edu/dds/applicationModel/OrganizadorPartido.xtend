@@ -32,6 +32,7 @@ class OrganizadorPartido implements Serializable{
 	@Property Partido partido
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
+	@Property Jugador jugadorSeleccionado
 	
 	def isPuedeGenerar(){
 		cantCalificaciones > 0 &&
