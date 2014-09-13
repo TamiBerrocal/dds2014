@@ -1,8 +1,7 @@
-package ar.edu.dds.view
+package ar.edu.dds.ui.view
 
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ar.edu.dds.applicationModel.OrganizadorPartido
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label
@@ -15,6 +14,7 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
+import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -47,29 +47,29 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		
 	}
 	
-	def crearPanelIzquierdo(Panel mainPanel){
-		var labelTituloIzq = new Label(mainPanel)
+	def crearPanelIzquierdo(Panel panelPadre){
+		var labelTituloIzq = new Label(panelPadre)
 		labelTituloIzq.text = "Generar Equipos"
 		
-		var comboCriterio = new Selector(mainPanel)
+		var comboCriterio = new Selector(panelPadre)
 		comboCriterio.allowNull = false
 		comboCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(typeof(GeneradorDeEquipos), "nombre"))
 		comboCriterio.bindValueToProperty("criterioSeleccionado")
 		
-		var comboOrdenamiento = new Selector(mainPanel)
+		var comboOrdenamiento = new Selector(panelPadre)
 		comboOrdenamiento.allowNull = false
 		comboOrdenamiento.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
 		comboOrdenamiento.bindValueToProperty("ordenadorSeleccionado")
 
-		var labelCantCalif = new Label(mainPanel)
+		var labelCantCalif = new Label(panelPadre)
 		labelCantCalif.setText("Cant de calificaciones:")
 		
-		var cantDeCalificaciones = new TextBox(mainPanel)
+		var cantDeCalificaciones = new TextBox(panelPadre)
 		cantDeCalificaciones.bindValueToProperty("cantCalificaciones")
 		
-		this.crearActionPanelGenerarEquipos(mainPanel)
+		this.crearActionPanelGenerarEquipos(panelPadre)
 		
-		var panelEquipos = new Panel(mainPanel)
+		var panelEquipos = new Panel(panelPadre)
 		panelEquipos.setLayout(new ColumnLayout(2))
 		
 		var labelEq1 = new Label(panelEquipos)
@@ -94,7 +94,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			onSelection[| this.visualizarDatosJugador]
 		]
 		
-		this.crearActionPanelConfirmarEquipos(mainPanel)
+		this.crearActionPanelConfirmarEquipos(panelPadre)
 	}
 	
 	

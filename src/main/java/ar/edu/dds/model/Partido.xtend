@@ -51,6 +51,9 @@ class Partido {
 		this.jugadores = new ArrayList
 		this.equipos = null
 	}
+	
+	new() {
+	}
 
 	def void confirmar() {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")

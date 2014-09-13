@@ -1,6 +1,5 @@
-package ar.edu.dds.view
+package ar.edu.dds.ui.view
 
-import ar.edu.dds.applicationModel.OrganizadorPartido
 import ar.edu.dds.model.Infraccion
 import ar.edu.dds.model.Jugador
 import org.uqbar.arena.layout.ColumnLayout
@@ -11,6 +10,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
+import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 
 class VisualizadorJugadorWindows extends Dialog<OrganizadorPartido>{
 	
