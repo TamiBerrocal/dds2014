@@ -20,6 +20,10 @@ class JugadoresHome {
 	List<Jugador> jugadoresPendientesDeAprobacion
 	
 	List<Rechazo> rechazos
+	
+	def List<Jugador> buscarPorNombre(String s) {
+		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
+	}
 
 	def void recomendarNuevoJugador(Jugador jugador) {
 		this.jugadoresPendientesDeAprobacion.add(jugador)
@@ -37,7 +41,6 @@ class JugadoresHome {
 
 	def boolean estaRechazado(Jugador jugador) {
 		this.jugadoresRechazados().contains(jugador)
-		
 	}
 
 	def boolean estaAprobado(Jugador jugador) {
@@ -85,6 +88,16 @@ class JugadoresHome {
 		this.rechazos
 	}
 	
+		def List<Jugador> todosLosJugadores() {
+		val result = new ArrayList<Jugador>
+		result.addAll(jugadoresAprobados)
+		result.addAll(jugadoresPendientesDeAprobacion)
+		result.addAll(jugadoresRechazados)
+		
+		result
+	}
+	
+
 	def inicializarStub() {
 		
 		val matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
@@ -205,5 +218,4 @@ class JugadoresHome {
 								  simon,
 								  patricio)
 	}
-
 }

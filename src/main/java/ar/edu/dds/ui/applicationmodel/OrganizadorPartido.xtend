@@ -16,6 +16,7 @@ import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Jugador
 import org.uqbar.commons.model.ObservableUtils
 import ar.edu.dds.home.PartidosHome
+import ar.edu.dds.home.JugadoresHome
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -30,6 +31,12 @@ class OrganizadorPartido implements Serializable{
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
 	@Property Jugador jugadorSeleccionado
+	@Property String busquedaNombreJugador
+	@Property List<Jugador> jugadoresDeBusqueda
+	
+	new() {
+		this.inicializar
+	}
 	
 	def isPuedeGenerar(){
 		cantCalificaciones > 0 &&
@@ -84,5 +91,9 @@ class OrganizadorPartido implements Serializable{
 		
 		partido = PartidosHome.getInstance.partidos.head
 		
+		cantCalificaciones = 1
+		
+		busquedaNombreJugador = ""
+		jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(busquedaNombreJugador)
 	}
 }

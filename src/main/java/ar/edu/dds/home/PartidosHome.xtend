@@ -6,7 +6,9 @@ import java.util.ArrayList
 import ar.edu.dds.model.Admin
 import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class PartidosHome {
 	
 	static PartidosHome INSTANCE

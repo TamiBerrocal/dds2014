@@ -12,12 +12,11 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 
-class VisualizadorJugadorWindows extends Dialog<OrganizadorPartido>{
+class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido>{
 	
 	new(WindowOwner owner, OrganizadorPartido organizadorPartido) {
 		super(owner, organizadorPartido)
 		title = "Datos Jugador"
-		
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {

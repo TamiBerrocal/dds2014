@@ -15,12 +15,12 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
+import ar.edu.dds.home.JugadoresHome
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 	new(WindowOwner parent) {
 		super(parent, new OrganizadorPartido)
-		modelObject.inicializar()
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
@@ -32,15 +32,16 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 	override protected createFormPanel(Panel mainPanel) {
 
-		var panelContenedor = new Panel(mainPanel)
+		val panelContenedor = new Panel(mainPanel)
 		panelContenedor.setLayout(new HorizontalLayout)
 
-		var panelIzquierdo = new Panel(panelContenedor)
+		val panelIzquierdo = new Panel(panelContenedor)
 		panelIzquierdo.setLayout(new VerticalLayout)
 		
 		this.crearPanelIzquierdo(panelIzquierdo)
 
-		var panelDerecho = new Panel(panelContenedor)
+		val panelDerecho = new Panel(panelContenedor)
+		panelDerecho.width = 450
 		panelDerecho.setLayout(new VerticalLayout)
 
 		this.crearPanelDerecho(panelDerecho)
@@ -48,33 +49,33 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	}
 	
 	def crearPanelIzquierdo(Panel panelPadre){
-		var labelTituloIzq = new Label(panelPadre)
+		val labelTituloIzq = new Label(panelPadre)
 		labelTituloIzq.text = "Generar Equipos"
 		
-		var comboCriterio = new Selector(panelPadre)
-		comboCriterio.allowNull = false
-		comboCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(typeof(GeneradorDeEquipos), "nombre"))
-		comboCriterio.bindValueToProperty("criterioSeleccionado")
+		val comboCriterios = new Selector(panelPadre)
+		comboCriterios.allowNull = false
+		comboCriterios.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(typeof(GeneradorDeEquipos), "nombre"))
+		comboCriterios.bindValueToProperty("criterioSeleccionado")
 		
-		var comboOrdenamiento = new Selector(panelPadre)
-		comboOrdenamiento.allowNull = false
-		comboOrdenamiento.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
-		comboOrdenamiento.bindValueToProperty("ordenadorSeleccionado")
+		val comboOrdenamientos = new Selector(panelPadre)
+		comboOrdenamientos.allowNull = false
+		comboOrdenamientos.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
+		comboOrdenamientos.bindValueToProperty("ordenadorSeleccionado")
 
-		var labelCantCalif = new Label(panelPadre)
+		val labelCantCalif = new Label(panelPadre)
 		labelCantCalif.setText("Cant de calificaciones:")
 		
-		var cantDeCalificaciones = new TextBox(panelPadre)
+		val cantDeCalificaciones = new TextBox(panelPadre)
 		cantDeCalificaciones.bindValueToProperty("cantCalificaciones")
 		
 		this.crearActionPanelGenerarEquipos(panelPadre)
 		
-		var panelEquipos = new Panel(panelPadre)
+		val panelEquipos = new Panel(panelPadre)
 		panelEquipos.setLayout(new ColumnLayout(2))
 		
-		var labelEq1 = new Label(panelEquipos)
+		val labelEq1 = new Label(panelEquipos)
 		labelEq1.setText("Equipo 1")
-		var labelEq2 = new Label(panelEquipos)
+		val labelEq2 = new Label(panelEquipos)
 		labelEq2.setText("Equipo 2")
 		
 		new List(panelEquipos) => [
@@ -82,8 +83,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200
-			onSelection[| this.visualizarDatosJugador
-			]
+			onSelection[| this.verDetalleDeJugador ]
 		]
 		
 		new List(panelEquipos) => [
@@ -91,27 +91,48 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200
-			onSelection[| this.visualizarDatosJugador]
+			onSelection[| this.verDetalleDeJugador]
 		]
 		
 		this.crearActionPanelConfirmarEquipos(panelPadre)
 	}
 	
 	
-	def crearPanelDerecho (Panel mainPanel){
+	def crearPanelDerecho (Panel panelPadre){
 		
-		var labelTituloDer = new Label(mainPanel)
+		val labelTituloDer = new Label(panelPadre)
 		labelTituloDer.text = "BuscarJugador"
+		labelTituloDer.width = 400
+		
+		val cajaDeBusqueda = new Panel(panelPadre)
+		cajaDeBusqueda.layout = new HorizontalLayout
+		
+		val labelNombre = new Label(cajaDeBusqueda)
+		labelNombre.setText("Nombre: ")
+		
+		val textBoxNombre = new TextBox(cajaDeBusqueda)
+		textBoxNombre.width = 180
+		textBoxNombre.bindValueToProperty("busquedaNombreJugador")
+		
+		val botonBuscar = new Button(cajaDeBusqueda)
+		botonBuscar.caption = "Buscar !!"
+		botonBuscar.onClick(this.buscarJugadores)
 
-		var listado2 = new List(mainPanel)
-		listado2.width = 250
-		listado2.height = 385
+		new List(panelPadre) => [
+			bindItemsToProperty("jugadoresDeBusqueda")
+			bindValueToProperty("jugadorSeleccionado")
+			onSelection[| this.verDetalleDeJugador ]
+		]
+		
 	}
 	
-	
+	def buscarJugadores() {
+		[| modelObject.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(modelObject.busquedaNombreJugador) ]
+	}
+
 	def crearActionPanelGenerarEquipos (Panel mainPanel){
 		
-		var actionsPanel = new Panel(mainPanel)
+		val actionsPanel = new Panel(mainPanel)
 		actionsPanel.setLayout(new HorizontalLayout)
 		
 		new Button(actionsPanel) => [			
@@ -125,7 +146,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	
 	def crearActionPanelConfirmarEquipos(Panel mainPanel){
 		
-		var actionsPanel = new Panel(mainPanel)
+		val actionsPanel = new Panel(mainPanel)
 		actionsPanel.setLayout(new HorizontalLayout)
 		
 		new Button(actionsPanel) => [	
@@ -140,8 +161,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	override protected addActions(Panel actionsPanel) {
 	}
 	
-	def visualizarDatosJugador(){
-		new VisualizadorJugadorWindows(this, modelObject).open
+	def verDetalleDeJugador(){
+		new DetalleDeJugadorWindow(this, modelObject).open
 	}
 	
 	
