@@ -31,21 +31,18 @@ class Jugador {
 	@Property
 	int edad
 	
-	@Property
-	int fechaNacimiento
+//	@Property
+//	String fechaNacimiento
 		
 	@Property
 	int handicap
-	
-	@Property
-	int promedioUltPartido
 			
 	@Property
 	List<Infraccion> infracciones
 	
 	@Property
 	List<Calificacion> calificaciones
-		
+	
 	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre
@@ -60,17 +57,17 @@ class Jugador {
 		this.infracciones = new ArrayList
 		this.calificaciones = new ArrayList
 	}
-	
-	def getFechaNacimiento() {
+		
+	def getAnioNacimiento() {
 		val hoy = new LocalDate
-		hoy.minusYears(edad)
+		hoy.minusYears(edad).getYear
 	}
 	
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)
 	}
 	
-	def getPromedioUltPartido() {
+	def getPromedioUltimoPartido() {
 		this.promedioDeCalificaciones(this.calificacionesDelUltimoPartido)
 	}
 	
@@ -78,8 +75,8 @@ class Jugador {
 		if (calificaciones.isEmpty)
 			0
 		else
-			calificaciones.fold(0)[ suma, calificacion | suma + calificacion.nota ] / calificaciones.size
-	} 
+			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
+	}
 	
 	def getPartidosJugados() {
 		PartidosHome.getInstance.partidos.fold(0)[ jugados, partido |

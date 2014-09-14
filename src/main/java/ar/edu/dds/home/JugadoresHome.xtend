@@ -123,6 +123,10 @@ class JugadoresHome {
 		simon.handicap = 6
 		patricio.handicap = 10
 		
+		//fechas de nacimiento
+/* 		matias.fechaNacimiento = "29/02/1992"
+		lucas.fechaNacimiento = "02/07/1992"*/		
+		
 		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		val algunPartidoYaJugado = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
 
@@ -179,14 +183,9 @@ class JugadoresHome {
 		
 		matias.recibirCalificacion(calificacion10)
 		matias.recibirCalificacion(calificacion8)
-		matias.agregateInfraccion
-		matias.agregarAmigo(jorge)
-		matias.agregarAmigo(pablo)
-		matias.agregarAmigo(pedro)
-
+		
 //		jorge.recibirCalificacion(calificacion7)
 //		jorge.recibirCalificacion(calificacion3)
-		jorge.agregateInfraccion
 
 		carlos.recibirCalificacion(calificacion8)
 		carlos.recibirCalificacion(calificacion9)
@@ -211,6 +210,22 @@ class JugadoresHome {
 
 		patricio.recibirCalificacion(calificacion5)
 		patricio.recibirCalificacion(calificacion6)
+		
+		//Infracciones jugadores
+		matias.agregateInfraccion
+		jorge.agregateInfraccion
+		carlos.agregateInfraccion
+		pablo.agregateInfraccion
+		
+		//Amigos jugadores
+		matias.agregarAmigo(jorge)
+		matias.agregarAmigo(pablo)
+		matias.agregarAmigo(pedro)
+		
+		jorge.agregarAmigo(lucas)
+		jorge.agregarAmigo(adrian)
+		jorge.agregarAmigo(matias)
+		jorge.agregarAmigo(pablo)
 		
 		jugadoresAprobados.addAll(matias, 
 								  jorge,
