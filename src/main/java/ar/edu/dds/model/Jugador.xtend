@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
+import org.joda.time.LocalDate
 
 class Jugador {
 
@@ -22,31 +23,51 @@ class Jugador {
 
 	@Property
 	String nombre
-
+	
+	@Property
+	String apodo
+	
 	@Property
 	int edad
 	
 	@Property
+	int fechaNacimiento
+		
+	@Property
 	int handicap
-
+	
+	@Property
+	int promedio
+	
+	@Property
+	int promedioUltPartido
+	
 	@Property
 	List<Infraccion> infracciones
 	
 	@Property
 	List<Calificacion> calificaciones
-	
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail) {
+		
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre
 		this.edad = edad
 		this.modoDeInscripcion = modoDeInscripcion
 		this.mail = direccionMail
+		this.apodo = apodo
+		this.promedio = 0
+		this.promedioUltPartido = 0
 	}
 
 	new() {
 		this.amigos = new ArrayList
 		this.infracciones = new ArrayList
 		this.calificaciones = new ArrayList
+	}
+	
+	def getFechaNacimiento() {
+		val hoy = new LocalDate
+		hoy.minusYears(edad)
 	}
 	
 	def void recomendarAmigo(Jugador jugador) {
@@ -93,7 +114,6 @@ class Jugador {
 		val ultimoPartidoEnElQueFueCalificado = this.calificaciones.sortBy[ c | c.partido.fechaYHora ].head.partido
 		this.calificaciones.filter[ c | c.partido.equals(ultimoPartidoEnElQueFueCalificado)].toList
 	}
-	
 
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {

@@ -13,16 +13,10 @@ class Rechazo {
 	@Property
 	LocalDate fechaDeRechazo
 	
-	Object LocalDate
-	
-	new(Jugador jugador, String motivoDeRechazo) {
+	new (Jugador jugador, String motivoDeRechazo) {
 		this.jugador = jugador
 		this.motivoDeRechazo = motivoDeRechazo
-		this.fechaDeRechazo = LocalDate.now
+		this.fechaDeRechazo = new LocalDate
 	}
-	
-	def getNow(Object object) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
+
 }

@@ -100,16 +100,16 @@ class JugadoresHome {
 
 	def inicializarStub() {
 		
-		val matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
-		val jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com")
-		val carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com")
-		val pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com")
-		val pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com")
-		val franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com")
-		val lucas = new Jugador("lucas", 30, new Estandar, "mail@ejemplo.com")
-		val adrian = new Jugador("adrian", 30, new Estandar, "mail@ejemplo.com")
-		val simon = new Jugador("simon", 30, new Estandar, "mail@ejemplo.com")
-		val patricio = new Jugador("patricio", 30, new Estandar, "mail@ejemplo.com")
+		val matias = new Jugador("Matías", 30, new Estandar, "mail@ejemplo.com", "Matute")
+		val jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com", "Jorgito")
+		val carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com", "Chino")
+		val pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pablo")
+		val pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com", "Pepe")
+		val franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com", "Francho")
+		val lucas = new Jugador("Lucas", 30, new Estandar, "mail@ejemplo.com", "Toto")
+		val adrian = new Jugador("Adrián", 30, new Estandar, "mail@ejemplo.com", "Tano")
+		val simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simón")
+		val patricio = new Jugador("Patricio", 30, new Estandar, "mail@ejemplo.com", "Pato")
 
 		//handicaps
 		matias.handicap = 5
@@ -123,7 +123,7 @@ class JugadoresHome {
 		simon.handicap = 6
 		patricio.handicap = 10
 		
-		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		val algunPartidoYaJugado = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
 
 		//Calificaciones jugadores
@@ -179,9 +179,14 @@ class JugadoresHome {
 		
 		matias.recibirCalificacion(calificacion10)
 		matias.recibirCalificacion(calificacion8)
+		matias.agregateInfraccion
+		matias.agregarAmigo(jorge)
+		matias.agregarAmigo(pablo)
+		matias.agregarAmigo(pedro)
 
 		jorge.recibirCalificacion(calificacion7)
 		jorge.recibirCalificacion(calificacion3)
+		jorge.agregateInfraccion
 
 		carlos.recibirCalificacion(calificacion8)
 		carlos.recibirCalificacion(calificacion9)

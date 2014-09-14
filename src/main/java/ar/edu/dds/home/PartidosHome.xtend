@@ -33,7 +33,7 @@ class PartidosHome {
 	}
 	
 	def inicializarStub() {
-		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		val partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 		
 		JugadoresHome.getInstance.jugadoresAprobados.take(10).forEach[

@@ -6,8 +6,8 @@ import org.joda.time.DateTime
 
 class Admin extends Jugador {
 
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail) {
-		super(nombre, edad, modoDeInscripcion, mail)
+	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail, String apodo) {
+		super(nombre, edad, modoDeInscripcion, mail, apodo)
 	}
 
 	def Partido organizarPartido(DateTime fechaYHora, String lugar) {

@@ -3,6 +3,7 @@ import org.joda.time.LocalDate
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.ToStringBuilder
+import org.joda.time.LocalTime
 
 class Infraccion {
 
@@ -10,13 +11,20 @@ class Infraccion {
 	LocalDate fechaCreacion
 	
 	@Property
+	String hora
+	
+	@Property
 	LocalDate validaHasta
 
 	@Property
 	String causa
 	
+	public static final String PATTERN = "HH:mm"
+	
 	new() {
+		val hora = new LocalTime
 		this.fechaCreacion = new LocalDate
+		this.hora = hora.toString(PATTERN)
 	}
 
 	//Si bien todavía no es un requerimiento que debamos atender, acá tendríamos un método como el siguiente

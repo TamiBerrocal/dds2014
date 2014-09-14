@@ -21,6 +21,10 @@ class Entrega2Tests {
 
 	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario",
 		"Carlos", "Luis", "Esteban", "Nestor", "Jose", "Mariano"]
+		
+	private static final String[] APODOS = #["Matute", "Tincho", "Nico", "Negro", "Andrés", "Gonza", "Marito",
+		"Tito", "Lucho", "Chino", "Nestor", "Pepe", "Mariano"]
+		
 
 	private def void verificarQueElNombreEstaEnElPartido(String nombreJugador, Partido partido) {
 		Assert.assertTrue(partido.jugadores.exists[jugador|jugador.nombre.equals(nombreJugador)])
@@ -37,7 +41,7 @@ class Entrega2Tests {
 	@Before
 	def void init() {
 
-		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 		
 		this.mockedMailSender = mock(MailSender)
@@ -49,7 +53,7 @@ class Entrega2Tests {
 		this.partido.registrarObserverDeBaja(new NotificarAdministradorObserver(this.mockedMailSender))
 
 		for (int i : 0 .. 7) {
-			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com", APODOS.get(i))
 			this.partido.agregarJugadorPartido(jugador)
 		}
 	}
@@ -57,13 +61,13 @@ class Entrega2Tests {
 	@Test
 	def void seCompletaLaListaCon10Jugadores() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
-		val mariano = new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com")
+		val mariano = new Jugador("Mariano", 25, new Estandar, "mail@ejemplo.com", "Mariano")
 		this.partido.agregarJugadorPartido(mariano)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -76,7 +80,7 @@ class Entrega2Tests {
 	@Test
 	def void seInscribeUnoPeroNoLleganADiez() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -89,10 +93,10 @@ class Entrega2Tests {
 	@Test
 	def void JugadorSeInscribeYseAvisaAlosAmigos() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
-		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
+		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com", "Marcos")
 		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -108,13 +112,13 @@ class Entrega2Tests {
 	@Test
 	def void unJugadorSeDaDeBajaDejaReemplazante() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
+		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com", "Marcos")
 
 		this.partido.reemplazarJugador(enrique, marcos)
 
@@ -134,13 +138,13 @@ class Entrega2Tests {
 
 		var hoy = new LocalDate()
 
-		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com")
+		val marcos = new Jugador("Marcos", 42, new Estandar, "mail@ejemplo.com", "Marcos")
 		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Marcos", partido)
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -163,7 +167,7 @@ class Entrega2Tests {
 	@Test
 	def void seDaDeBajaUnoPeroNoEran10() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -184,13 +188,13 @@ class Entrega2Tests {
 	@Test
 	def void seDaDeBajaUnoPeroTodaviaHay10() {
 
-		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		val enrique = new Jugador("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido.agregarJugadorPartido(enrique)
 
 		//verificamos que se haya agregado a la lista de jugadores
 		verificarQueElNombreEstaEnElPartido("Enrique", partido)
 
-		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com")
+		val marcos = new Jugador("Marcos", 25, new Estandar, "mail@ejemplo.com", "Marcos")
 		this.partido.agregarJugadorPartido(marcos)
 
 		//verificamos que se haya agregado a la lista de jugadores
@@ -199,7 +203,7 @@ class Entrega2Tests {
 		//verificamos que le manda un mail al admin por que se llego a los 10 jugadores
 		verify(mockedMailSender, times(1)).mandarMail(any(typeof(Mail)))
 
-		val augusto = new Jugador("Augusto", 25, new Estandar, "mail@ejemplo.com")
+		val augusto = new Jugador("Augusto", 25, new Estandar, "mail@ejemplo.com", "Augusto")
 		this.partido.agregarJugadorPartido(augusto)
 
 		//verificamos que se haya agregado a la lista de jugadores

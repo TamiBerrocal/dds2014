@@ -14,6 +14,9 @@ class Entrega1Tests {
 
 	private static final String[] NOMBRES = #["Matías", "Martín", "Nicolás", "Santiago", "Andrés", "Gonzalo", "Mario",
 		"Carlos", "Luis", "Esteban", "Nestor", "Jose", "Mariano"]
+		
+	private static final String[] APODOS = #["Matute", "Tincho", "Nico", "Negro", "Andrés", "Gonza", "Marito",
+		"Tito", "Lucho", "Chino", "Nestor", "Pepe", "Mariano"]
 
 //	private def void verificarQueElNombreEstaEnElPartido(String nombreJugador, Partido partido) {
 //		Assert.assertTrue(partido.jugadores.exists[jugador|jugador.nombre.equals(nombreJugador)])
@@ -25,11 +28,11 @@ class Entrega1Tests {
 
 	@Before
 	def void init() {
-		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
 		for (int i : 0 .. 4) {
-			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com")
+			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com", APODOS.get(i))
 			this.partido.agregarJugadorPartido(jugador)
 		}
 	}
@@ -45,7 +48,7 @@ class Entrega1Tests {
 //
 //		// Se le agregan 6 jugadores standards más
 //		for (int i : 5 .. 10) {
-//			val jugador = new Jugador(NOMBRES.get(i), 25, new Estandar, "mail@ejemplo.com")
+//			val jugador = new Jugador(NOMBRES.get(i), 25, new Estandar, "mail@ejemplo.com", APODOS.get(i))
 //			this.partido.agregarJugadorPartido(jugador)
 //		}
 //
@@ -68,7 +71,7 @@ class Entrega1Tests {
 //	def void testConfirmarPartido10EstandaresYUnSolidarioQuedaAfueraElSolidario() {
 //
 //		// Inscribo a Marcos solidario
-//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
+//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com", "Marcos")
 //		this.partido.agregarJugadorPartido(marcos)
 //
 //		// Antes de confirmarse el partido, Marcos figura entre los inscriptos
@@ -96,7 +99,7 @@ class Entrega1Tests {
 //	def void testConfirmarPartido10EstandaresYUnCondicionalQuedaAfueraElCondicional() {
 //
 //		// Inscribo a Román condicional
-//		val roman = new Jugador("Roman", 42, new CondicionalPorLugar("Avellaneda"), "mail@ejemplo.com")
+//		val roman = new Jugador("Roman", 42, new CondicionalPorLugar("Avellaneda"), "mail@ejemplo.com", "Roman")
 //		this.partido.agregarJugadorPartido(roman)
 //
 //		// Antes de confirmarse el partido, Román figura entre los inscriptos
@@ -127,11 +130,11 @@ class Entrega1Tests {
 //	def void testConfirmarPartido9Estandare1Condicional1SolidarioPriorizaAlSolidario() {
 //
 //		// Inscribo a Román condicional
-//		val roman = new Jugador("Román", 42, new CondicionalPorLugar("Avellaneda"), "mail@ejemplo.com")
+//		val roman = new Jugador("Román", 42, new CondicionalPorLugar("Avellaneda"), "mail@ejemplo.com", "Román")
 //		this.partido.agregarJugadorPartido(roman)
 //
 //		// Inscribo a Marcos solidario
-//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
+//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com", "Marcos")
 //		this.partido.agregarJugadorPartido(marcos)
 //
 //		// Antes de confirmarse el partido, Román y Marcos figuran entre los inscriptos
@@ -174,7 +177,7 @@ class Entrega1Tests {
 //		}
 //
 //		// Inscribo a Marcos como ultimo solidario
-//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com")
+//		val marcos = new Jugador("Marcos", 42, new Solidaria, "mail@ejemplo.com", "Marcos")
 //		this.partido.agregarJugadorPartido(marcos)
 //
 //		// Antes de confirmarse el partido, Marcos figura entre los inscriptos

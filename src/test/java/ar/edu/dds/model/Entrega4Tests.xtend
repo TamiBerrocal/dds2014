@@ -36,37 +36,37 @@ class Entrega4Tests {
 	@Before
 	def void init() {
 
-		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com")
+		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
-		matias = new Jugador("Matias", 30, new Estandar, "mail@ejemplo.com")
+		matias = new Jugador("Matías", 30, new Estandar, "mail@ejemplo.com", "Matute")
 		this.partido.agregarJugadorPartido(matias)
 
-		jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com")
+		jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com", "Jorgito")
 		this.partido.agregarJugadorPartido(jorge)
 
-		carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com")
+		carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com", "Chino")
 		this.partido.agregarJugadorPartido(carlos)
 
-		pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com")
+		pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pablo")
 		this.partido.agregarJugadorPartido(pablo)
 
-		pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com")
+		pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com", "Pepe")
 		this.partido.agregarJugadorPartido(pedro)
 
-		franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com")
+		franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com", "Francho")
 		this.partido.agregarJugadorPartido(franco)
 
-		lucas = new Jugador("lucas", 30, new Estandar, "mail@ejemplo.com")
+		lucas = new Jugador("Lucas", 30, new Estandar, "mail@ejemplo.com", "Toto")
 		this.partido.agregarJugadorPartido(lucas)
 
-		adrian = new Jugador("adrian", 30, new Estandar, "mail@ejemplo.com")
+		adrian = new Jugador("Adrián", 30, new Estandar, "mail@ejemplo.com", "Tano")
 		this.partido.agregarJugadorPartido(adrian)
 
-		simon = new Jugador("simon", 30, new Estandar, "mail@ejemplo.com")
+		simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simón")
 		this.partido.agregarJugadorPartido(simon)
 
-		patricio = new Jugador("patricio", 30, new Estandar, "mail@ejemplo.com")
+		patricio = new Jugador("Patricio", 30, new Estandar, "mail@ejemplo.com", "Pato")
 		this.partido.agregarJugadorPartido(patricio)
 
 		matias.handicap = 5
