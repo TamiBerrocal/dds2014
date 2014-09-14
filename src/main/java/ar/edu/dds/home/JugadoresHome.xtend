@@ -184,8 +184,8 @@ class JugadoresHome {
 		matias.agregarAmigo(pablo)
 		matias.agregarAmigo(pedro)
 
-		jorge.recibirCalificacion(calificacion7)
-		jorge.recibirCalificacion(calificacion3)
+//		jorge.recibirCalificacion(calificacion7)
+//		jorge.recibirCalificacion(calificacion3)
 		jorge.agregateInfraccion
 
 		carlos.recibirCalificacion(calificacion8)

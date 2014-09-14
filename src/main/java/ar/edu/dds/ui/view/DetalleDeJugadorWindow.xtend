@@ -36,7 +36,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		new Label(panel).text = "Promedio del último partido"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedioUltPartido")
 		
-		new Label(panel).text = "Promedio de todos los partidos jugados"
+		new Label(panel).text = "Promedio general"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedio")
 			
 		new Label(panel).text = "Fecha de nacimiento"
@@ -100,7 +100,6 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 			.setTitle("Promedio")
 //			.setFixedSize(75)
 			.bindContentsToProperty("promedio")
-		
 	}
 	
 	override protected void addActions(Panel actions) {

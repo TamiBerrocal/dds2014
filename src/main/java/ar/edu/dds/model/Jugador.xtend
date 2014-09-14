@@ -37,12 +37,6 @@ class Jugador {
 	int handicap
 	
 	@Property
-	int promedio
-	
-	@Property
-	int promedioUltPartido
-	
-	@Property
 	List<Infraccion> infracciones
 	
 	@Property
@@ -55,8 +49,6 @@ class Jugador {
 		this.modoDeInscripcion = modoDeInscripcion
 		this.mail = direccionMail
 		this.apodo = apodo
-		this.promedio = 0
-		this.promedioUltPartido = 0
 	}
 
 	new() {
@@ -69,6 +61,18 @@ class Jugador {
 		val hoy = new LocalDate
 		hoy.minusYears(edad)
 	}
+	
+ 	def getPromedio() {
+ 		this.promedioDeCalificaciones(calificaciones)
+	}
+	
+	def getPromedioUltPartido() {
+		this.promedioDeCalificaciones(this.calificacionesDelUltimoPartido)
+	}
+	
+	def promedioDeCalificaciones (List<Calificacion> calificaciones) {
+		if (calificaciones.isEmpty) 0 else calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
+	} 
 	
 	def void recomendarAmigo(Jugador jugador) {
 		JugadoresHome.instance.recomendarNuevoJugador(jugador)
