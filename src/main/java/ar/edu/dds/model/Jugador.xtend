@@ -36,6 +36,9 @@ class Jugador {
 		
 	@Property
 	int handicap
+	
+	@Property
+	int promedioUltPartido
 			
 	@Property
 	List<Infraccion> infracciones
@@ -71,11 +74,11 @@ class Jugador {
 		this.promedioDeCalificaciones(this.calificacionesDelUltimoPartido)
 	}
 	
-	def promedioDeCalificaciones (List<Calificacion> calificaciones) {
+	def int promedioDeCalificaciones (List<Calificacion> calificaciones) {
 		if (calificaciones.isEmpty)
-			return 0
+			0
 		else
-			return calificaciones.fold(0)[ suma, calificacion | suma + calificacion.nota ]/ calificaciones.size
+			calificaciones.fold(0)[ suma, calificacion | suma + calificacion.nota ] / calificaciones.size
 	} 
 	
 	def getPartidosJugados() {
@@ -88,7 +91,7 @@ class Jugador {
 	}
 
 	def boolean jugastePartido(Partido partido) {
-		partido.jugadores.exists[ jugador | jugador.equals(this)]
+		partido.jugadores.contains(this)
 	}
 	
 	def void recomendarAmigo(Jugador jugador) {

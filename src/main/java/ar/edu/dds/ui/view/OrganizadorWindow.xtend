@@ -16,9 +16,9 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.home.JugadoresHome
-import org.uqbar.arena.widgets.tables.Column
-import ar.edu.dds.model.Jugador
-import org.uqbar.arena.widgets.tables.Table
+//import org.uqbar.arena.widgets.tables.Column
+//import ar.edu.dds.model.Jugador
+//import org.uqbar.arena.widgets.tables.Table
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -100,7 +100,6 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		this.crearActionPanelConfirmarEquipos(panelPadre)
 	}
 	
-	
 	def crearPanelDerecho (Panel panelPadre){
 		
 		val labelTituloDer = new Label(panelPadre)
@@ -133,7 +132,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		[| modelObject.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(modelObject.busquedaNombreJugador) ]
 	}
 	
-	def protected createResultsGrid(Panel panelPadre) {
+/* 	def protected createResultsGrid(Panel panelPadre) {
 		
 		var table = new Table<Jugador>(panelPadre, typeof(Jugador))
 		table.height = 100
@@ -149,7 +148,6 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			.setTitle("Apodo").setFixedSize(150)
 			.bindContentsToProperty("apodo")
 			
-		
 		new Column<Jugador>(table)
 			.setTitle("Handicap").setFixedSize(75)
 			.bindContentsToProperty("handicap")
@@ -159,7 +157,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 //			.setFixedSize(75)
 			.bindContentsToProperty("promedio")
 		
-	}
+	} */
 	
 	def crearActionPanelGenerarEquipos (Panel mainPanel){
 		
