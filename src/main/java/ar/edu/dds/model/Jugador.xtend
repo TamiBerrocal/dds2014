@@ -31,6 +31,9 @@ class Jugador {
 	@Property
 	int edad
 	
+	@Property
+	String nacimiento
+	
 //	@Property
 //	String fechaNacimiento
 		
@@ -148,4 +151,10 @@ class Jugador {
 	override toString() {
 		nombre
 	}
+	
+	
+	
+	
+	
+	
 }

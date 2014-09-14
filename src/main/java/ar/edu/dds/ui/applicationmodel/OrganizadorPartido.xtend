@@ -37,6 +37,9 @@ class OrganizadorPartido implements Serializable{
 	@Property Infraccion infraccionSeleccionada
 	@Property Jugador amigoSeleccionado
 	@Property List<Jugador> resultados
+	@Property String busquedaApodoJugador
+
+	
 	
 	new() {
 		this.inicializar
@@ -99,5 +102,14 @@ class OrganizadorPartido implements Serializable{
 		
 		busquedaNombreJugador = ""
 		jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(busquedaNombreJugador)
-	}
-}
+		
+	
+		busquedaApodoJugador = ""
+	    jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorApodo(busquedaApodoJugador)
+	    
+	  
+
+	}}
+	
+	
+	
