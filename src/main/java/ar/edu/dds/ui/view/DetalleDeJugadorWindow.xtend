@@ -38,10 +38,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		
 		new Label(panel).text = "Promedio general"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedio")
-			
-//		new Label(panel).text = "Año de nacimiento"
-//		new Label(panel).bindValueToProperty("jugadorSeleccionado.anioNacimiento")
-		
+					
 		new Label(panel).text = "Fecha de nacimiento"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
 		
@@ -51,10 +48,8 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 				
 		var labelEq1 = new Label(panel)
 		labelEq1.setText("Amigos:")
-//		labelEq1.fontSize = 10
 		var labelEq2 = new Label(panel)
 		labelEq2.setText("Infracciones:")
-//		labelEq2.fontSize = 10
 		
 		this.crearGridAmigos(panel)
 		this.crearGridInfracciones(panel)

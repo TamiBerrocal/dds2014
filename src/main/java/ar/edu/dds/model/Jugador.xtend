@@ -62,12 +62,7 @@ class Jugador {
 		val hoy = new LocalDate
 		this.fechaNacimiento = new LocalDate(hoy.minusYears(edad).getYear, mes, dia)
 	}
-		
-//	def getAnioNacimiento() {
-//		val hoy = new LocalDate
-//		hoy.minusYears(edad).getYear
-//	}
-	
+			
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)
 	}

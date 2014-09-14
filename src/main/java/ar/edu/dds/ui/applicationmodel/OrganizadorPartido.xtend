@@ -77,6 +77,10 @@ class OrganizadorPartido implements Serializable{
 		equipo2 = partido.equipos.equipo2
 		
 	}
+	
+	def buscarJugadores() {
+		this.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(this.busquedaNombreJugador)
+	}
 
 	def confirmarEquipos(){
 		partido.confirmar

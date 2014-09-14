@@ -15,7 +15,7 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
-import ar.edu.dds.home.JugadoresHome
+//import ar.edu.dds.home.JugadoresHome
 //import org.uqbar.arena.widgets.tables.Column
 //import ar.edu.dds.model.Jugador
 //import org.uqbar.arena.widgets.tables.Table
@@ -103,7 +103,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	def crearPanelDerecho (Panel panelPadre){
 		
 		val labelTituloDer = new Label(panelPadre)
-		labelTituloDer.text = "BuscarJugador"
+		labelTituloDer.text = "Buscar Jugador"
 		labelTituloDer.width = 400
 		
 		val cajaDeBusqueda = new Panel(panelPadre)
@@ -116,20 +116,17 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxNombre.width = 180
 		textBoxNombre.bindValueToProperty("busquedaNombreJugador")
 		
-		val botonBuscar = new Button(cajaDeBusqueda)
-		botonBuscar.caption = "Buscar !!"
-		botonBuscar.onClick(this.buscarJugadores)
-
+		new Button(cajaDeBusqueda) => [
+			setCaption = "Buscar"
+			onClick[|modelObject.buscarJugadores]	
+		]
+		
 		new List(panelPadre) => [
 			bindItemsToProperty("jugadoresDeBusqueda")
 			bindValueToProperty("jugadorSeleccionado")
 			onSelection[| this.verDetalleDeJugador ]
 		]
 		
-	}
-	
-	def buscarJugadores() {
-		[| modelObject.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(modelObject.busquedaNombreJugador) ]
 	}
 	
 	def crearActionPanelGenerarEquipos (Panel mainPanel){
