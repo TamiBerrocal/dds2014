@@ -23,8 +23,10 @@ class JugadoresHome {
 	
 	def List<Jugador> buscarPorNombre(String s) {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
-	}
+		
+		
 
+}
 	def void recomendarNuevoJugador(Jugador jugador) {
 		this.jugadoresPendientesDeAprobacion.add(jugador)
 	}
@@ -87,6 +89,13 @@ class JugadoresHome {
 	def List<Rechazo> rechazos() {
 		this.rechazos
 	}
+	
+		def buscarPorApodo(String string) {
+			todosLosJugadores.filter[ j | j.nombre.contains(string) ].toList
+	}
+	
+
+	
 	
 		def List<Jugador> todosLosJugadores() {
 		val result = new ArrayList<Jugador>
@@ -238,4 +247,7 @@ class JugadoresHome {
 								  simon,
 								  patricio)
 	}
+	
+
+	
 }
