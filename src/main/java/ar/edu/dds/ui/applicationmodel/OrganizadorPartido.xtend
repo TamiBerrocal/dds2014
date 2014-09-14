@@ -36,6 +36,7 @@ class OrganizadorPartido implements Serializable{
 	@Property List<Jugador> jugadoresDeBusqueda
 	@Property Infraccion infraccionSeleccionada
 	@Property Jugador amigoSeleccionado
+	@Property List<Jugador> resultados
 	
 	new() {
 		this.inicializar

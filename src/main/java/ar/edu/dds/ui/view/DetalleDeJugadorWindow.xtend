@@ -41,6 +41,9 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 			
 		new Label(panel).text = "Fecha de nacimiento"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
+		
+		new Label(panel).text = "Cantidad de partidos jugados"
+		new Label(panel).bindValueToProperty("jugadorSeleccionado.partidosJugados")
 				
 		var labelEq1 = new Label(panel)
 		labelEq1.setText("Amigos:")

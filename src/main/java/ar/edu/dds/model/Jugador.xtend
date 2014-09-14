@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import org.joda.time.LocalDate
+import ar.edu.dds.home.PartidosHome
 
 class Jugador {
 
@@ -35,7 +36,7 @@ class Jugador {
 		
 	@Property
 	int handicap
-	
+			
 	@Property
 	List<Infraccion> infracciones
 	
@@ -71,8 +72,24 @@ class Jugador {
 	}
 	
 	def promedioDeCalificaciones (List<Calificacion> calificaciones) {
-		if (calificaciones.isEmpty) 0 else calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
+		if (calificaciones.isEmpty)
+			return 0
+		else
+			return calificaciones.fold(0)[ suma, calificacion | suma + calificacion.nota ]/ calificaciones.size
 	} 
+	
+	def getPartidosJugados() {
+		PartidosHome.getInstance.partidos.fold(0)[ jugados, partido |
+			if (this.jugastePartido(partido))
+				jugados + 1
+			else
+				jugados
+		]
+	}
+
+	def boolean jugastePartido(Partido partido) {
+		partido.jugadores.exists[ jugador | jugador.equals(this)]
+	}
 	
 	def void recomendarAmigo(Jugador jugador) {
 		JugadoresHome.instance.recomendarNuevoJugador(jugador)
