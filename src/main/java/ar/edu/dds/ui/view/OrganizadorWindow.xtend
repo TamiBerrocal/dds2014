@@ -132,33 +132,6 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		[| modelObject.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(modelObject.busquedaNombreJugador) ]
 	}
 	
-/* 	def protected createResultsGrid(Panel panelPadre) {
-		
-		var table = new Table<Jugador>(panelPadre, typeof(Jugador))
-		table.height = 100
-		table.width = 450
-		table.bindItemsToProperty("resultados")
-		table.bindValueToProperty("jugadorSeleccionado")
-		
-		new Column<Jugador>(table)
-			.setTitle("Nombre").setFixedSize(150)
-			.bindContentsToProperty("nombre")
-
-		new Column<Jugador>(table) 
-			.setTitle("Apodo").setFixedSize(150)
-			.bindContentsToProperty("apodo")
-			
-		new Column<Jugador>(table)
-			.setTitle("Handicap").setFixedSize(75)
-			.bindContentsToProperty("handicap")
-		
-		new Column<Jugador>(table)
-			.setTitle("Promedio")
-//			.setFixedSize(75)
-			.bindContentsToProperty("promedio")
-		
-	} */
-	
 	def crearActionPanelGenerarEquipos (Panel mainPanel){
 		
 		val actionsPanel = new Panel(mainPanel)

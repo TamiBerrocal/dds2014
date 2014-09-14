@@ -133,8 +133,16 @@ class JugadoresHome {
 		patricio.handicap = 10
 		
 		//fechas de nacimiento
-/* 		matias.fechaNacimiento = "29/02/1992"
-		lucas.fechaNacimiento = "02/07/1992"*/		
+ 		matias.agregarFechaDeNacimiento(29, 05)
+ 		jorge.agregarFechaDeNacimiento(29, 05)
+ 		carlos.agregarFechaDeNacimiento(29, 05)
+ 		pablo.agregarFechaDeNacimiento(29, 05)
+ 		pedro.agregarFechaDeNacimiento(29, 05)
+ 		franco.agregarFechaDeNacimiento(29, 05)
+ 		lucas.agregarFechaDeNacimiento(29, 05)
+ 		adrian.agregarFechaDeNacimiento(29, 05)
+ 		simon.agregarFechaDeNacimiento(29, 05)
+ 		patricio.agregarFechaDeNacimiento(29, 05)
 		
 		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
 		val algunPartidoYaJugado = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)

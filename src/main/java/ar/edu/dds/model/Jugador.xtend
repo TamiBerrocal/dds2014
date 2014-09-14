@@ -32,10 +32,7 @@ class Jugador {
 	int edad
 	
 	@Property
-	String nacimiento
-	
-//	@Property
-//	String fechaNacimiento
+	LocalDate fechaNacimiento
 		
 	@Property
 	int handicap
@@ -60,11 +57,16 @@ class Jugador {
 		this.infracciones = new ArrayList
 		this.calificaciones = new ArrayList
 	}
-		
-	def getAnioNacimiento() {
+	
+	def void agregarFechaDeNacimiento (int dia, int mes) {
 		val hoy = new LocalDate
-		hoy.minusYears(edad).getYear
+		this.fechaNacimiento = new LocalDate(hoy.minusYears(edad).getYear, mes, dia)
 	}
+		
+//	def getAnioNacimiento() {
+//		val hoy = new LocalDate
+//		hoy.minusYears(edad).getYear
+//	}
 	
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)

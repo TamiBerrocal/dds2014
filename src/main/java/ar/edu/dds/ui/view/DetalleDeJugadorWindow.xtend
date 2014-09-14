@@ -39,11 +39,11 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		new Label(panel).text = "Promedio general"
 		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedio")
 			
-		new Label(panel).text = "Año de nacimiento"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.anioNacimiento")
+//		new Label(panel).text = "Año de nacimiento"
+//		new Label(panel).bindValueToProperty("jugadorSeleccionado.anioNacimiento")
 		
-//		new Label(panel).text = "Fecha de nacimiento"
-//		new Label(panel).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
+		new Label(panel).text = "Fecha de nacimiento"
+		new Label(panel).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
 		
 		
 		new Label(panel).text = "Cantidad de partidos jugados"
