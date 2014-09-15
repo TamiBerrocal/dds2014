@@ -12,13 +12,16 @@ class GrillaDeJugadoresFactory {
 		val table = new Table<Jugador>(panelPadre, typeof(Jugador)) => [
 			bindItemsToProperty(elementosProperty)
 			bindValueToProperty(seleccionadoProperty)
+			height = 100
+			width = 450
+		
 		]
 		
 		new Column<Jugador>(table) //
 			.setTitle("Nombre")
 			.setFixedSize(150)
 			.bindContentsToProperty("nombre")
-			
+						
 		new Column<Jugador>(table) //
 			.setTitle("Apodo")
 			.setFixedSize(150)
@@ -26,12 +29,11 @@ class GrillaDeJugadoresFactory {
 			
 		new Column<Jugador>(table) //
 			.setTitle("Handicap")
-			.setFixedSize(150)
+			.setFixedSize(80)
 			.bindContentsToProperty("handicap")
 			
 		new Column<Jugador>(table) //
 			.setTitle("Promedio")
-			.setFixedSize(150)
 			.bindContentsToProperty("promedioUltimoPartido")
 	}
 }
