@@ -32,11 +32,12 @@ class OrganizadorPartido implements Serializable{
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
 	@Property Jugador jugadorSeleccionado
-	@Property List<Jugador> jugadoresDeBusqueda
 	@Property Infraccion infraccionSeleccionada
 	@Property Jugador amigoSeleccionado
 	@Property List<Jugador> resultados
-	
+
+	// BUSQUEDA	
+	@Property List<Jugador> jugadoresDeBusqueda
 	@Property String busquedaNombreJugador
 	@Property String busquedaApodoJugador 
 	@Property Integer busquedaPromedioMinJugador
@@ -119,7 +120,7 @@ class OrganizadorPartido implements Serializable{
 		busquedaNombreJugador = ""
 		busquedaApodoJugador = ""
 	    
-	    jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(busquedaNombreJugador)
+	    jugadoresDeBusqueda = JugadoresHome.getInstance.todosLosJugadores
 	  
 	}}
 	
