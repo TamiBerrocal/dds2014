@@ -15,9 +15,7 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
-import org.uqbar.arena.widgets.tables.Table
-import ar.edu.dds.model.Jugador
-import org.uqbar.arena.widgets.tables.Column
+import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -110,17 +108,17 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		cajaDeBusquedaRenglon1.layout = new HorizontalLayout
 		
 		val labelNombre = new Label(cajaDeBusquedaRenglon1)
-		labelNombre.setText("Nombre: ")
+		labelNombre.setText("Nombre (empieza con): ")
 		
 		val textBoxNombre = new TextBox(cajaDeBusquedaRenglon1)
-		textBoxNombre.width = 180
+		textBoxNombre.width = 90
 		textBoxNombre.bindValueToProperty("busquedaNombreJugador")
 		
 		val labelApodo= new Label(cajaDeBusquedaRenglon1)
-		labelApodo.setText("Apodo: ")
+		labelApodo.setText("Apodo (contiene): ")
 		
 		val textBoxApodo = new TextBox(cajaDeBusquedaRenglon1)
-		textBoxApodo.width = 180
+		textBoxApodo.width = 90
 		textBoxApodo.bindValueToProperty("busquedaApodoJugador")
 		
 		
@@ -129,36 +127,36 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		cajaDeBusquedaRenglon2.layout = new HorizontalLayout
 		
 		val labelHandicapMin = new Label(cajaDeBusquedaRenglon2)
-		labelHandicapMin.setText("Handicap Min: ")
+		labelHandicapMin.setText("Handicap: (Min - Max) ")
 		
 		val textBoxHandicapMin = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxHandicapMin.width = 80
+		textBoxHandicapMin.width = 30
 		textBoxHandicapMin.bindValueToProperty("busquedaHandicapMinJugador")
 		
 		val labelHandicapMax= new Label(cajaDeBusquedaRenglon2)
-		labelHandicapMax.setText("Handicap Max: ")
+		labelHandicapMax.setText("-")
 		
 		val textBoxHandicapMax = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxHandicapMax.width = 80
+		textBoxHandicapMax.width = 30
 		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
 		
 		
-		// Rengón 3
+		// Rengón 2
 		val cajaDeBusquedaRenglon3 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon3.layout = new HorizontalLayout
 		
 		val labelPromedioMin = new Label(cajaDeBusquedaRenglon3)
-		labelPromedioMin.setText("Promedio Min: ")
+		labelPromedioMin.setText("Promedio Min: (Min - Max) ")
 		
 		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon3)
-		textBoxPromedioMin.width = 80
+		textBoxPromedioMin.width = 30
 		textBoxPromedioMin.bindValueToProperty("busquedaPromedioMinJugador")
 		
 		val labelPromedioMax= new Label(cajaDeBusquedaRenglon3)
-		labelPromedioMax.setText("Promedio Max: ")
+		labelPromedioMax.setText("-")
 		
 		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon3)
-		textBoxPromedioMax.width = 80
+		textBoxPromedioMax.width = 30
 		textBoxPromedioMax.bindValueToProperty("busquedaPromedioMaxJugador")
 		
 		// Botón
@@ -167,30 +165,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			onClick[|modelObject.buscarJugadores]	
 		]
 		
-		val table = new Table<Jugador>(panelPadre, typeof(Jugador)) => [
-			bindItemsToProperty("jugadoresDeBusqueda")
-			bindValueToProperty("jugadorSeleccionado")
-		]
-		
-		new Column<Jugador>(table) //
-			.setTitle("Nombre")
-			.setFixedSize(150)
-			.bindContentsToProperty("nombre")
-			
-		new Column<Jugador>(table) //
-			.setTitle("Apodo")
-			.setFixedSize(150)
-			.bindContentsToProperty("apodo")
-			
-		new Column<Jugador>(table) //
-			.setTitle("Handicap")
-			.setFixedSize(150)
-			.bindContentsToProperty("handicap")
-			
-		new Column<Jugador>(table) //
-			.setTitle("Promedio")
-			.setFixedSize(150)
-			.bindContentsToProperty("promedioUltimoPartido")
+		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panelPadre, "jugadoresDeBusqueda", "jugadorSeleccionado")
 		
 	}
 	
