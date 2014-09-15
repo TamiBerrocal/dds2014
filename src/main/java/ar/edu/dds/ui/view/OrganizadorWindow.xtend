@@ -204,5 +204,4 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		new DetalleDeJugadorWindow(this, modelObject).open
 	}
 	
-	
 }
