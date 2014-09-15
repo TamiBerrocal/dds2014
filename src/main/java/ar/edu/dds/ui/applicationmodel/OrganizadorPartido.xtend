@@ -17,7 +17,7 @@ import ar.edu.dds.model.Jugador
 import org.uqbar.commons.model.ObservableUtils
 import ar.edu.dds.home.PartidosHome
 import ar.edu.dds.home.JugadoresHome
-import ar.edu.dds.model.Infraccion
+import ar.edu.dds.model.Infraccionimport org.joda.time.LocalDate
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -32,12 +32,17 @@ class OrganizadorPartido implements Serializable{
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
 	@Property Jugador jugadorSeleccionado
-	@Property String busquedaNombreJugador
 	@Property List<Jugador> jugadoresDeBusqueda
 	@Property Infraccion infraccionSeleccionada
 	@Property Jugador amigoSeleccionado
 	@Property List<Jugador> resultados
-	@Property String busquedaApodoJugador
+	
+	@Property String busquedaNombreJugador
+	@Property String busquedaApodoJugador 
+	@Property Integer busquedaPromedioMinJugador
+	@Property Integer busquedaPromedioMaxJugador
+	@Property Integer busquedaHandicapMinJugador
+	@Property Integer busquedaHandicapMaxJugador
 
 	
 	
@@ -79,7 +84,14 @@ class OrganizadorPartido implements Serializable{
 	}
 	
 	def buscarJugadores() {
-		this.jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(this.busquedaNombreJugador)
+		this.jugadoresDeBusqueda = 
+			JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
+												       this.busquedaApodoJugador,
+												       LocalDate.now,
+												       this.busquedaHandicapMinJugador,
+												       this.busquedaHandicapMaxJugador,
+												       this.busquedaPromedioMinJugador,
+												       this.busquedaPromedioMaxJugador)
 	}
 
 	def confirmarEquipos(){
@@ -105,14 +117,10 @@ class OrganizadorPartido implements Serializable{
 		cantCalificaciones = 1
 		
 		busquedaNombreJugador = ""
-		jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(busquedaNombreJugador)
-		
-	
 		busquedaApodoJugador = ""
-	    jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorApodo(busquedaApodoJugador)
 	    
+	    jugadoresDeBusqueda = JugadoresHome.getInstance.buscarPorNombre(busquedaNombreJugador)
 	  
-
 	}}
 	
 	

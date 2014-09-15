@@ -12,9 +12,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
+import org.uqbar.commons.utils.Observable
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ParDeEquipos
 
+@Observable
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"

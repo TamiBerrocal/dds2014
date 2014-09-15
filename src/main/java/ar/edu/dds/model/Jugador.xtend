@@ -8,9 +8,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
-import org.joda.time.LocalDate
+import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
 import ar.edu.dds.home.PartidosHome
 
+@Observable
 class Jugador {
 
 	@Property
@@ -78,6 +79,28 @@ class Jugador {
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
 	}
 	
+	def boolean estaEnRangoDeHandicap(Integer min, Integer max) {
+		estaEnRango(min, max, handicap)
+	}
+	
+	def boolean estaEnRangoDePromedio(Integer min, Integer max) {
+		estaEnRango(min, max, promedioUltimoPartido)
+	}
+	
+	def estaEnRango(Integer min, Integer max, Integer valor) {
+		var minOk = true
+		var maxOk = true
+		
+		if (min != null) {
+			minOk = min <= valor
+		}
+		if (max != null) {
+			maxOk = max >= valor
+		}
+		
+		minOk && maxOk
+	}
+	
 	def getPartidosJugados() {
 		PartidosHome.getInstance.partidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
@@ -132,8 +155,12 @@ class Jugador {
 	}
 	
 	def List<Calificacion> calificacionesDelUltimoPartido() {
-		val ultimoPartidoEnElQueFueCalificado = this.calificaciones.sortBy[ c | c.partido.fechaYHora ].head.partido
-		this.calificaciones.filter[ c | c.partido.equals(ultimoPartidoEnElQueFueCalificado)].toList
+		val ultimaCalificacion = this.calificaciones.sortBy[ c | c.partido.fechaYHora ].head
+		if (ultimaCalificacion == null) {
+			new ArrayList		
+		} else {
+			this.calificaciones.filter[ c | c.partido.equals(ultimaCalificacion.partido)].toList
+		}
 	}
 
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //

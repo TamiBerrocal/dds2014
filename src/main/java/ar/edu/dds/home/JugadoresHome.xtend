@@ -10,6 +10,7 @@ import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Admin
 import org.joda.time.DateTime
+import org.joda.time.LocalDate
 
 @Observable
 class JugadoresHome {
@@ -23,10 +24,23 @@ class JugadoresHome {
 	
 	def List<Jugador> buscarPorNombre(String s) {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
+	}
+	
+	def List<Jugador> busquedaCompleta(String nombreEmpieza, String apodoContiene, LocalDate fechaNacAnteriorA,
+									   Integer handicapMinimo, Integer hanicapMaximo, Integer promedioMinimo, Integer promedioMaximo) {
+									   	
+									   
+		todosLosJugadores.filter [ 
+			
+			j | j.nombre.startsWith(nombreEmpieza) &&
+				j.apodo.contains(apodoContiene) &&
+				j.estaEnRangoDeHandicap(handicapMinimo, hanicapMaximo) &&
+				j.estaEnRangoDePromedio(promedioMinimo, promedioMaximo)
 		
-		
-
-}
+		].toList
+	}
+	
+	
 	def void recomendarNuevoJugador(Jugador jugador) {
 		this.jugadoresPendientesDeAprobacion.add(jugador)
 	}
@@ -112,12 +126,12 @@ class JugadoresHome {
 		val matias = new Jugador("Matías", 30, new Estandar, "mail@ejemplo.com", "Matute")
 		val jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com", "Jorgito")
 		val carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com", "Chino")
-		val pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pablo")
+		val pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pol")
 		val pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com", "Pepe")
 		val franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com", "Francho")
 		val lucas = new Jugador("Lucas", 30, new Estandar, "mail@ejemplo.com", "Toto")
 		val adrian = new Jugador("Adrián", 30, new Estandar, "mail@ejemplo.com", "Tano")
-		val simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simón")
+		val simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simba")
 		val patricio = new Jugador("Patricio", 30, new Estandar, "mail@ejemplo.com", "Pato")
 
 		//handicaps
