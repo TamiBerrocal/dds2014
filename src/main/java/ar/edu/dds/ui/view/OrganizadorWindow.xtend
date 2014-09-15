@@ -122,7 +122,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxApodo.bindValueToProperty("busquedaApodoJugador")
 		
 		
-		// Rengón 2
+		// Renglón 2
 		val cajaDeBusquedaRenglon2 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon2.layout = new HorizontalLayout
 		
@@ -141,7 +141,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
 		
 		
-		// Rengón 2
+		// Renglón 3
 		val cajaDeBusquedaRenglon3 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon3.layout = new HorizontalLayout
 		

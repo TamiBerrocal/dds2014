@@ -1,7 +1,6 @@
 package ar.edu.dds.ui.view
 
 import ar.edu.dds.model.Infraccion
-import ar.edu.dds.model.Jugador
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -11,6 +10,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
+import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
 
 class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		
@@ -51,7 +51,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		var labelEq2 = new Label(panel)
 		labelEq2.setText("Infracciones:")
 		
-		this.crearGridAmigos(panel)
+		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panel, "jugadorSeleccionado.amigos", "amigoSeleccionado")
 		this.crearGridInfracciones(panel)
 		
 	}
@@ -78,33 +78,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 
 	}
 	
-	def crearGridAmigos(Panel panel) {
-		var table = new Table<Jugador>(panel, typeof(Jugador))
-		table.height = 100
-		table.width = 450
-		table.bindItemsToProperty("jugadorSeleccionado.amigos")
-		table.bindValueToProperty("amigoSeleccionado")
-		
-		new Column<Jugador>(table)
-			.setTitle("Nombre").setFixedSize(150)
-			.bindContentsToProperty("nombre")
-
-		new Column<Jugador>(table) 
-			.setTitle("Apodo").setFixedSize(150)
-			.bindContentsToProperty("apodo")
-			
-		
-		new Column<Jugador>(table)
-			.setTitle("Handicap").setFixedSize(75)
-			.bindContentsToProperty("handicap")
-		
-		new Column<Jugador>(table)
-			.setTitle("Promedio")
-//			.setFixedSize(75)
-			.bindContentsToProperty("promedio")
-	}
-	
-	override protected void addActions(Panel actions) {
+		override protected void addActions(Panel actions) {
 		new Button(actions)
 			.setCaption("Volver")
 			.onClick [|this.accept]
