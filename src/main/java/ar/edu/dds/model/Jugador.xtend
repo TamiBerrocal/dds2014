@@ -64,12 +64,6 @@ class Jugador {
 		this.fechaNacimiento = new LocalDate(hoy.minusYears(edad).getYear, mes, dia)
 	}
 	
-	def boolean esFechaDeNacimientoAnterior(int dia, int mes, int anio) {
-		val fecha = new LocalDate(anio, mes, dia)
-		
-		fecha.compareTo(fechaNacimiento) > 0
-	}
-			
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)
 	}
@@ -83,6 +77,12 @@ class Jugador {
 			0
 		else
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
+	}
+
+	def boolean esFechaDeNacimientoAnterior(int dia, int mes, int anio) {
+		val fecha = new LocalDate(anio, mes, dia)
+		
+		fecha.compareTo(fechaNacimiento) > 0
 	}
 	
 	def boolean estaEnRangoDeHandicap(Integer min, Integer max) {
