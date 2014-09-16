@@ -126,6 +126,30 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		val cajaDeBusquedaRenglon2 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon2.layout = new HorizontalLayout
 		
+		val labelFecha= new Label(cajaDeBusquedaRenglon2)
+		labelFecha.setText("Fecha (anterior a): ")
+		
+		val labelDia= new Label(cajaDeBusquedaRenglon2)
+		labelDia.setText("DD")
+		
+		val textBoxFechaDia = new TextBox(cajaDeBusquedaRenglon2)
+		textBoxFechaDia.width = 30
+		textBoxFechaDia.bindValueToProperty("busquedaFechaDia")
+		
+		val labelMes= new Label(cajaDeBusquedaRenglon2)
+		labelMes.setText("MM")
+				
+		val textBoxFechaMes = new TextBox(cajaDeBusquedaRenglon2)
+		textBoxFechaMes.width = 30
+		textBoxFechaMes.bindValueToProperty("busquedaFechaMes")
+		
+		val labelAnio= new Label(cajaDeBusquedaRenglon2)
+		labelAnio.setText("AAAA")
+				
+		val textBoxFechaAnio = new TextBox(cajaDeBusquedaRenglon2)
+		textBoxFechaAnio.width = 30
+		textBoxFechaAnio.bindValueToProperty("busquedaFechaAnio")
+				
 		val labelHandicapMin = new Label(cajaDeBusquedaRenglon2)
 		labelHandicapMin.setText("Handicap: (Min - Max) ")
 		

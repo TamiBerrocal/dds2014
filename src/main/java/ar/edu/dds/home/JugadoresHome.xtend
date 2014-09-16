@@ -10,7 +10,7 @@ import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Admin
 import org.joda.time.DateTime
-import org.joda.time.LocalDate
+//import org.joda.time.LocalDate
 
 @Observable
 class JugadoresHome {
@@ -26,7 +26,7 @@ class JugadoresHome {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
 	}
 	
-	def List<Jugador> busquedaCompleta(String nombreEmpieza, String apodoContiene, LocalDate fechaNacAnteriorA,
+	def List<Jugador> busquedaCompleta(String nombreEmpieza, String apodoContiene, Integer dia, Integer mes, Integer anio,
 									   Integer handicapMinimo, Integer hanicapMaximo, Integer promedioMinimo, Integer promedioMaximo) {
 									   	
 									   
@@ -34,6 +34,7 @@ class JugadoresHome {
 			
 			j | j.nombre.startsWith(nombreEmpieza) &&
 				j.apodo.contains(apodoContiene) &&
+				j.esFechaDeNacimientoAnterior(dia, mes, anio) &&
 				j.estaEnRangoDeHandicap(handicapMinimo, hanicapMaximo) &&
 				j.estaEnRangoDePromedio(promedioMinimo, promedioMaximo)
 		

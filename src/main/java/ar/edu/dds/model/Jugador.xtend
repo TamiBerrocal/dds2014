@@ -63,6 +63,12 @@ class Jugador {
 		val hoy = new LocalDate
 		this.fechaNacimiento = new LocalDate(hoy.minusYears(edad).getYear, mes, dia)
 	}
+	
+	def boolean esFechaDeNacimientoAnterior(int dia, int mes, int anio) {
+		val fecha = new LocalDate(anio, mes, dia)
+		
+		fecha.compareTo(fechaNacimiento) > 0
+	}
 			
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)
