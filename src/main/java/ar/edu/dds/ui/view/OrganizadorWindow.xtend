@@ -103,7 +103,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		labelTituloDer.text = "Buscar Jugador"
 		labelTituloDer.width = 400
 		
-		// Renglón 1
+		// Renglón 1		
 		val cajaDeBusquedaRenglon1 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon1.layout = new HorizontalLayout
 		
@@ -122,64 +122,69 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxApodo.bindValueToProperty("busquedaApodoJugador")
 		
 		
-		// Renglón 2
+		// Renglón 2		
 		val cajaDeBusquedaRenglon2 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon2.layout = new HorizontalLayout
 		
 		val labelFecha= new Label(cajaDeBusquedaRenglon2)
 		labelFecha.setText("Fecha (anterior a): ")
 		
-		val labelDia= new Label(cajaDeBusquedaRenglon2)
-		labelDia.setText("DD")
-		
 		val textBoxFechaDia = new TextBox(cajaDeBusquedaRenglon2)
 		textBoxFechaDia.width = 30
 		textBoxFechaDia.bindValueToProperty("busquedaFechaDia")
 		
-		val labelMes= new Label(cajaDeBusquedaRenglon2)
-		labelMes.setText("MM")
+		val labelGuion1= new Label(cajaDeBusquedaRenglon2)
+		labelGuion1.setText("-")
 				
 		val textBoxFechaMes = new TextBox(cajaDeBusquedaRenglon2)
 		textBoxFechaMes.width = 30
 		textBoxFechaMes.bindValueToProperty("busquedaFechaMes")
 		
-		val labelAnio= new Label(cajaDeBusquedaRenglon2)
-		labelAnio.setText("AAAA")
+		val labelGuion2= new Label(cajaDeBusquedaRenglon2)
+		labelGuion2.setText("-")
 				
 		val textBoxFechaAnio = new TextBox(cajaDeBusquedaRenglon2)
 		textBoxFechaAnio.width = 30
 		textBoxFechaAnio.bindValueToProperty("busquedaFechaAnio")
-				
-		val labelHandicapMin = new Label(cajaDeBusquedaRenglon2)
-		labelHandicapMin.setText("Handicap: (Min - Max) ")
 		
-		val textBoxHandicapMin = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxHandicapMin.width = 30
-		textBoxHandicapMin.bindValueToProperty("busquedaHandicapMinJugador")
-		
-		val labelHandicapMax= new Label(cajaDeBusquedaRenglon2)
-		labelHandicapMax.setText("-")
-		
-		val textBoxHandicapMax = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxHandicapMax.width = 30
-		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
+		val labelFormatoFecha= new Label(cajaDeBusquedaRenglon2)
+		labelFormatoFecha.setText("(DD-MM-AAAA)")
 		
 		
 		// Renglón 3
 		val cajaDeBusquedaRenglon3 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon3.layout = new HorizontalLayout
+				
+		val labelHandicapMin = new Label(cajaDeBusquedaRenglon3)
+		labelHandicapMin.setText("Handicap: (Min - Max) ")
 		
-		val labelPromedioMin = new Label(cajaDeBusquedaRenglon3)
+		val textBoxHandicapMin = new TextBox(cajaDeBusquedaRenglon3)
+		textBoxHandicapMin.width = 30
+		textBoxHandicapMin.bindValueToProperty("busquedaHandicapMinJugador")
+		
+		val labelHandicapMax= new Label(cajaDeBusquedaRenglon3)
+		labelHandicapMax.setText("-")
+		
+		val textBoxHandicapMax = new TextBox(cajaDeBusquedaRenglon3)
+		textBoxHandicapMax.width = 30
+		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
+		
+		
+		// Renglón 4
+		val cajaDeBusquedaRenglon4 = new Panel(panelPadre)
+		cajaDeBusquedaRenglon4.layout = new HorizontalLayout
+		
+		val labelPromedioMin = new Label(cajaDeBusquedaRenglon4)
 		labelPromedioMin.setText("Promedio Min: (Min - Max) ")
 		
-		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon3)
+		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon4)
 		textBoxPromedioMin.width = 30
 		textBoxPromedioMin.bindValueToProperty("busquedaPromedioMinJugador")
 		
-		val labelPromedioMax= new Label(cajaDeBusquedaRenglon3)
+		val labelPromedioMax= new Label(cajaDeBusquedaRenglon4)
 		labelPromedioMax.setText("-")
 		
-		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon3)
+		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon4)
 		textBoxPromedioMax.width = 30
 		textBoxPromedioMax.bindValueToProperty("busquedaPromedioMaxJugador")
 		
