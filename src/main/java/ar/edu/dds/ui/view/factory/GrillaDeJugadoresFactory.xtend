@@ -13,7 +13,7 @@ class GrillaDeJugadoresFactory {
 		val table = new Table<Jugador>(panelPadre, typeof(Jugador)) => [
 			bindItemsToProperty(elementosProperty)
 			bindValueToProperty(seleccionadoProperty)
-			height = 250
+			height = 230
 			width = 620
 		]
 		

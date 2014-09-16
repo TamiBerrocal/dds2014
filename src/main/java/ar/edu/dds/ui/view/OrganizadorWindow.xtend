@@ -189,17 +189,22 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		comboFiltros.bindValueToProperty("filtroDeInfraccionesSeleccionado")
 		
 		// Botón
-		new Button(panelPadre) => [
-			setCaption = "Buscar"
+		new Button(cajaDeBusquedaRenglon4) => [
+			setCaption = "Buscar !!"
+			setWidth(75)
 			onClick[|modelObject.buscarJugadores]	
 		]
 		
 		//Crea grilla de busquedad jugadores
 		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panelPadre, "jugadoresDeBusqueda", "jugadorSeleccionado")
 		
+		val panelDeDetalles = new Panel(panelPadre)
+		panelDeDetalles.setLayout(new HorizontalLayout)
+		
 		//Botón para ver detalle
-		new Button(panelPadre) => [
-			setCaption = "ver detalle"
+		new Button(panelDeDetalles) => [
+			setCaption = "Ver detalle"
+			setWidth(90)
 			setAsDefault
 			onClick[|this.verDetalleDeJugador]
 			disableOnError		
