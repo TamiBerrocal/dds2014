@@ -10,44 +10,28 @@ import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
 import ar.edu.dds.home.PartidosHome
+import org.joda.time.Period
 
 @Observable
 class Jugador {
 
-	@Property
-	ModoDeInscripcion modoDeInscripcion
-
-	@Property
-	List<Jugador> amigos
-
-	@Property
-	String mail
-
-	@Property
-	String nombre
-	
-	@Property
-	String apodo
-	
-	@Property
-	int edad
-	
-	@Property
-	LocalDate fechaNacimiento
-		
-	@Property
-	int handicap
-			
+	@Property ModoDeInscripcion modoDeInscripcion
+	@Property List<Jugador> amigos
+	@Property String mail
+	@Property String nombre
+	@Property String apodo
+	@Property LocalDate fechaNacimiento
+	@Property int handicap
 	@Property
 	List<Infraccion> infracciones
 	
 	@Property
 	List<Calificacion> calificaciones
 	
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
+	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre
-		this.edad = edad
+		this.fechaNacimiento = fechaNac
 		this.modoDeInscripcion = modoDeInscripcion
 		this.mail = direccionMail
 		this.apodo = apodo
@@ -59,13 +43,12 @@ class Jugador {
 		this.calificaciones = new ArrayList
 	}
 	
-	def void agregarFechaDeNacimiento (int dia, int mes) {
-		val hoy = new LocalDate
-		this.fechaNacimiento = new LocalDate(hoy.minusYears(edad).getYear, mes, dia)
-	}
-	
  	def getPromedio() {
  		this.promedioDeCalificaciones(calificaciones)
+	}
+	
+	def edad() {
+		new Period(fechaNacimiento, LocalDate.now).years
 	}
 	
 	def getPromedioUltimoPartido() {
@@ -79,9 +62,8 @@ class Jugador {
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
 	}
 
-	def boolean esFechaDeNacimientoAnterior(LocalDate fecha) {
-		
-		fecha.compareTo(fechaNacimiento) > 0
+	def boolean fechaDeNacimientoAnteriorA(LocalDate fecha) {
+		fecha.isAfter(fechaNacimiento)
 	}
 	
 	def boolean estaEnRangoDeHandicap(Integer min, Integer max) {

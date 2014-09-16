@@ -16,7 +16,8 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
-import ar.edu.dds.ui.view.LocalDateAdapter
+import ar.edu.dds.ui.view.adapters.LocalDateAdapter
+import ar.edu.dds.ui.filtros.FiltroDeJugadores
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -135,7 +136,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxFecha.bindValueToProperty("busquedaFechaNacimientoJugador").setTransformer(new LocalDateAdapter)
 
 		val labelFormatoFecha= new Label(cajaDeBusquedaRenglon2)
-		labelFormatoFecha.setText("(DD/MM/AAAA)")
+		labelFormatoFecha.setText("(AAAA-MM-DD)")
 		
 		
 		// Renglón 3
@@ -156,30 +157,36 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		textBoxHandicapMax.width = 30
 		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
 		
+		val labelPromedioMin = new Label(cajaDeBusquedaRenglon3)
+		labelPromedioMin.setText("     Promedio Min: (Min - Max) ")
+		
+		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon3)
+		textBoxPromedioMin.width = 30
+		textBoxPromedioMin.bindValueToProperty("busquedaPromedioMinJugador")
+		
+		val labelPromedioMax= new Label(cajaDeBusquedaRenglon3)
+		labelPromedioMax.setText("-")
+		
+		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon3)
+		textBoxPromedioMax.width = 30
+		textBoxPromedioMax.bindValueToProperty("busquedaPromedioMaxJugador")
 		
 		// Renglón 4
 		val cajaDeBusquedaRenglon4 = new Panel(panelPadre)
 		cajaDeBusquedaRenglon4.layout = new HorizontalLayout
 		
-		val labelPromedioMin = new Label(cajaDeBusquedaRenglon4)
-		labelPromedioMin.setText("Promedio Min: (Min - Max) ")
+		val labelInfracciones = new Label(cajaDeBusquedaRenglon4)
+		labelInfracciones.setText("Infracciones: ")
 		
-		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon4)
-		textBoxPromedioMin.width = 30
-		textBoxPromedioMin.bindValueToProperty("busquedaPromedioMinJugador")
-		
-		val labelPromedioMax= new Label(cajaDeBusquedaRenglon4)
-		labelPromedioMax.setText("-")
-		
-		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon4)
-		textBoxPromedioMax.width = 30
-		textBoxPromedioMax.bindValueToProperty("busquedaPromedioMaxJugador")
+		val comboFiltros = new Selector(cajaDeBusquedaRenglon4)
+		comboFiltros.allowNull = false
+		comboFiltros.bindItemsToProperty("filtrosDeInfracciones").setAdapter(new PropertyAdapter(typeof(FiltroDeJugadores), "nombre"))
+		comboFiltros.bindValueToProperty("filtroDeInfraccionesSeleccionado")
 		
 		// Botón
 		new Button(panelPadre) => [
 			setCaption = "Buscar"
 			onClick[|modelObject.buscarJugadores]	
-		
 		]
 		
 		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panelPadre, "jugadoresDeBusqueda", "jugadorSeleccionado")

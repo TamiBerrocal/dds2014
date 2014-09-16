@@ -21,7 +21,7 @@ class CondicionalPorEdades extends ModoDeInscripcion {
 	}
 
 	def cantidadDeJovenes(Partido partido) {
-		partido.getJugadores.filter[integrante | integrante.getEdad <= edadHasta].size
+		partido.getJugadores.filter[integrante | integrante.edad <= edadHasta].size
 	}
 
 }

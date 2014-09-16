@@ -10,7 +10,7 @@ import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Admin
 import org.joda.time.DateTime
-import org.joda.time.LocalDate
+import org.joda.time.LocalDateimport ar.edu.dds.ui.filtros.FiltroDeJugadores
 
 @Observable
 class JugadoresHome {
@@ -27,16 +27,18 @@ class JugadoresHome {
 	}
 	
 	def List<Jugador> busquedaCompleta(String nombreEmpieza, String apodoContiene, LocalDate fecha,
-									   Integer handicapMinimo, Integer handicapMaximo, Integer promedioMinimo, Integer promedioMaximo) {
+									   Integer handicapMinimo, Integer handicapMaximo, Integer promedioMinimo, 
+									   Integer promedioMaximo, FiltroDeJugadores filtroDeInfracciones) {
 									   	
 									   
 		todosLosJugadores.filter [ 
 			
 			j | j.nombre.startsWith(nombreEmpieza) &&
 				j.apodo.contains(apodoContiene) &&
-				j.esFechaDeNacimientoAnterior(fecha) &&
+				(fecha == null || j.fechaDeNacimientoAnteriorA(fecha)) &&
 				j.estaEnRangoDeHandicap(handicapMinimo, handicapMaximo) &&
-				j.estaEnRangoDePromedio(promedioMinimo, promedioMaximo)
+				j.estaEnRangoDePromedio(promedioMinimo, promedioMaximo) &&
+				filtroDeInfracciones.aplica(j)
 		
 		].toList
 	}
@@ -124,16 +126,16 @@ class JugadoresHome {
 
 	def inicializarStub() {
 		
-		val matias = new Jugador("Matías", 30, new Estandar, "mail@ejemplo.com", "Matute")
-		val jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com", "Jorgito")
-		val carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com", "Chino")
-		val pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pol")
-		val pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com", "Pepe")
-		val franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com", "Francho")
-		val lucas = new Jugador("Lucas", 30, new Estandar, "mail@ejemplo.com", "Toto")
-		val adrian = new Jugador("Adrián", 30, new Estandar, "mail@ejemplo.com", "Tano")
-		val simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simba")
-		val patricio = new Jugador("Patricio", 30, new Estandar, "mail@ejemplo.com", "Pato")
+		val matias = new Jugador("Matías", new LocalDate(1989, 5, 17), new Estandar, "mail@ejemplo.com", "Matute")
+		val jorge = new Jugador("Jorge", new LocalDate(1988, 12, 12), new Estandar, "mail@ejemplo.com", "Jorgito")
+		val carlos = new Jugador("Carlos", new LocalDate(1987, 9, 21), new Estandar, "mail@ejemplo.com", "Chino")
+		val pablo = new Jugador("Pablo", new LocalDate(1978, 3, 7), new Estandar, "mail@ejemplo.com", "Pol")
+		val pedro = new Jugador("Pedro", new LocalDate(1988, 2, 13), new Estandar, "mail@ejemplo.com", "Pepe")
+		val franco = new Jugador("Franco", new LocalDate(1984, 12, 4), new Estandar, "mail@ejemplo.com", "Francho")
+		val lucas = new Jugador("Lucas", new LocalDate(1992, 6, 24), new Estandar, "mail@ejemplo.com", "Toto")
+		val adrian = new Jugador("Adrián", new LocalDate(1995, 12, 12), new Estandar, "mail@ejemplo.com", "Tano")
+		val simon = new Jugador("Simón", new LocalDate(1982, 12, 12), new Estandar, "mail@ejemplo.com", "Simba")
+		val patricio = new Jugador("Patricio", new LocalDate(1985, 12, 12), new Estandar, "mail@ejemplo.com", "Pato")
 
 		//handicaps
 		matias.handicap = 5
@@ -147,19 +149,7 @@ class JugadoresHome {
 		simon.handicap = 6
 		patricio.handicap = 10
 		
-		//fechas de nacimiento
- 		matias.agregarFechaDeNacimiento(29, 05)
- 		jorge.agregarFechaDeNacimiento(29, 05)
- 		carlos.agregarFechaDeNacimiento(29, 05)
- 		pablo.agregarFechaDeNacimiento(29, 05)
- 		pedro.agregarFechaDeNacimiento(29, 05)
- 		franco.agregarFechaDeNacimiento(29, 05)
- 		lucas.agregarFechaDeNacimiento(29, 05)
- 		adrian.agregarFechaDeNacimiento(29, 05)
- 		simon.agregarFechaDeNacimiento(29, 05)
- 		patricio.agregarFechaDeNacimiento(29, 05)
-		
-		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
+		val admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Quique")
 		val algunPartidoYaJugado = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
 
 		//Calificaciones jugadores

@@ -6,6 +6,7 @@ import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
 import org.junit.Before
 import org.junit.Test
+import org.joda.time.LocalDate
 
 class Entrega1Tests {
 
@@ -28,11 +29,11 @@ class Entrega1Tests {
 
 	@Before
 	def void init() {
-		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
+		this.admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
 		for (int i : 0 .. 4) {
-			val jugador = new Jugador(NOMBRES.get(i), 30, new Estandar, "mail@ejemplo.com", APODOS.get(i))
+			val jugador = new Jugador(NOMBRES.get(i), new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", APODOS.get(i))
 			this.partido.agregarJugadorPartido(jugador)
 		}
 	}

@@ -7,6 +7,7 @@ import ar.edu.dds.model.Admin
 import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
+import org.joda.time.LocalDate
 
 @Observable
 class PartidosHome {
@@ -33,7 +34,7 @@ class PartidosHome {
 	}
 	
 	def inicializarStub() {
-		val admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
+		val admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Quique")
 		val partido = admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 		
 		JugadoresHome.getInstance.jugadoresAprobados.take(10).forEach[

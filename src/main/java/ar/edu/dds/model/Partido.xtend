@@ -51,7 +51,7 @@ class Partido {
 		this.inscripcionObservers = new ArrayList
 		this.bajaObservers = new ArrayList
 		this.jugadores = new ArrayList
-		this.equipos = null
+		this.equipos = new ParDeEquipos
 	}
 	
 	new() {

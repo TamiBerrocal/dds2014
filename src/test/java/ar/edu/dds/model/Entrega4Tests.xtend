@@ -16,6 +16,7 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import java.util.List
 import java.util.ArrayList
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
+import org.joda.time.LocalDate
 
 class Entrega4Tests {
 
@@ -36,37 +37,37 @@ class Entrega4Tests {
 	@Before
 	def void init() {
 
-		this.admin = new Admin("Enrique", 25, new Estandar, "mail@ejemplo.com", "Quique")
+		this.admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
-		matias = new Jugador("Matías", 30, new Estandar, "mail@ejemplo.com", "Matute")
+		matias = new Jugador("Matías", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Matute")
 		this.partido.agregarJugadorPartido(matias)
 
-		jorge = new Jugador("Jorge", 30, new Estandar, "mail@ejemplo.com", "Jorgito")
+		jorge = new Jugador("Jorge", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Jorgito")
 		this.partido.agregarJugadorPartido(jorge)
 
-		carlos = new Jugador("Carlos", 30, new Estandar, "mail@ejemplo.com", "Chino")
+		carlos = new Jugador("Carlos", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Chino")
 		this.partido.agregarJugadorPartido(carlos)
 
-		pablo = new Jugador("Pablo", 30, new Estandar, "mail@ejemplo.com", "Pablo")
+		pablo = new Jugador("Pablo", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Pablo")
 		this.partido.agregarJugadorPartido(pablo)
 
-		pedro = new Jugador("Pedro", 30, new Estandar, "mail@ejemplo.com", "Pepe")
+		pedro = new Jugador("Pedro", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Pepe")
 		this.partido.agregarJugadorPartido(pedro)
 
-		franco = new Jugador("Franco", 30, new Estandar, "mail@ejemplo.com", "Francho")
+		franco = new Jugador("Franco", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Francho")
 		this.partido.agregarJugadorPartido(franco)
 
-		lucas = new Jugador("Lucas", 30, new Estandar, "mail@ejemplo.com", "Toto")
+		lucas = new Jugador("Lucas", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Toto")
 		this.partido.agregarJugadorPartido(lucas)
 
-		adrian = new Jugador("Adrián", 30, new Estandar, "mail@ejemplo.com", "Tano")
+		adrian = new Jugador("Adrián", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Tano")
 		this.partido.agregarJugadorPartido(adrian)
 
-		simon = new Jugador("Simón", 30, new Estandar, "mail@ejemplo.com", "Simón")
+		simon = new Jugador("Simón", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Simón")
 		this.partido.agregarJugadorPartido(simon)
 
-		patricio = new Jugador("Patricio", 30, new Estandar, "mail@ejemplo.com", "Pato")
+		patricio = new Jugador("Patricio", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Pato")
 		this.partido.agregarJugadorPartido(patricio)
 
 		matias.handicap = 5

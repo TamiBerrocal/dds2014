@@ -3,11 +3,12 @@ package ar.edu.dds.model
 import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import org.joda.time.DateTime
+import org.joda.time.LocalDate
 
 class Admin extends Jugador {
 
-	new(String nombre, int edad, ModoDeInscripcion modoDeInscripcion, String mail, String apodo) {
-		super(nombre, edad, modoDeInscripcion, mail, apodo)
+	new(String nombre, LocalDate fechaDeNac, ModoDeInscripcion modoDeInscripcion, String mail, String apodo) {
+		super(nombre, fechaDeNac, modoDeInscripcion, mail, apodo)
 	}
 
 	def Partido organizarPartido(DateTime fechaYHora, String lugar) {

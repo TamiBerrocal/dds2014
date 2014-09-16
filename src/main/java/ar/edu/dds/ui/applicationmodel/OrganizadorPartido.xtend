@@ -17,7 +17,10 @@ import ar.edu.dds.model.Jugador
 import org.uqbar.commons.model.ObservableUtils
 import ar.edu.dds.home.PartidosHome
 import ar.edu.dds.home.JugadoresHome
-import ar.edu.dds.model.Infraccionimport org.joda.time.LocalDate
+import ar.edu.dds.model.Infraccionimport org.joda.time.LocalDateimport ar.edu.dds.ui.filtros.FiltroDeJugadores
+import ar.edu.dds.ui.filtros.SoloConInfracciones
+import ar.edu.dds.ui.filtros.SoloSinInfracciones
+import ar.edu.dds.ui.filtros.TodosLosJugadores
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -45,10 +48,9 @@ class OrganizadorPartido implements Serializable{
 	@Property Integer busquedaHandicapMinJugador
 	@Property Integer busquedaHandicapMaxJugador
 	@Property LocalDate busquedaFechaNacimientoJugador
-//	@Property Integer busquedaFechaDia
-//	@Property Integer busquedaFechaMes
-//	@Property Integer busquedaFechaAnio
-
+	
+	@Property List<FiltroDeJugadores> filtrosDeInfracciones
+	@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
 	
 	
 	new() {
@@ -92,14 +94,12 @@ class OrganizadorPartido implements Serializable{
 		this.jugadoresDeBusqueda = 
 			JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
 												       this.busquedaApodoJugador,
-												       LocalDate.now,
-//													   this.busquedaFechaDia,
-//													   this.busquedaFechaMes,
-//													   this.busquedaFechaAnio,
+												       this.busquedaFechaNacimientoJugador,
 												       this.busquedaHandicapMinJugador,
 												       this.busquedaHandicapMaxJugador,
 												       this.busquedaPromedioMinJugador,
-												       this.busquedaPromedioMaxJugador)
+												       this.busquedaPromedioMaxJugador,
+												       this.filtroDeInfraccionesSeleccionado)
 	}
 
 	def confirmarEquipos(){
@@ -109,16 +109,24 @@ class OrganizadorPartido implements Serializable{
 	def void inicializar(){
 		
 		//Criterios
-		criterios = new ArrayList<GeneradorDeEquipos>
+		criterios = new ArrayList
 		criterios.add(new GeneradorDeEquipos14589Vs236710)
 		criterios.add(new GeneradorDeEquiposParesContraImpares)
 		
 		//Ordenamientos
-		ordenamientos = new ArrayList<OrdenadorDeJugadores>
+		ordenamientos = new ArrayList
 		ordenamientos.add(new OrdenadorPorHandicap)
 		ordenamientos.add(new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido)
 		ordenamientos.add(new OrdenadorPorPromedioDeUltimasNCalificaciones(cantCalificaciones))
 		ordenamientos.add(new OrdenadorCompuesto(ordenamientosMixtos))
+		
+		// Filtros de infracciones
+		filtrosDeInfracciones = new ArrayList
+		filtrosDeInfracciones.add(new TodosLosJugadores())
+		filtrosDeInfracciones.add(new SoloConInfracciones())
+		filtrosDeInfracciones.add(new SoloSinInfracciones())
+		
+		filtroDeInfraccionesSeleccionado = new TodosLosJugadores()
 		
 		partido = PartidosHome.getInstance.partidos.head
 		
