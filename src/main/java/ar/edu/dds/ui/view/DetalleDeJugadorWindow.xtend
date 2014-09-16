@@ -58,7 +58,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 	
 	def crearGridInfracciones(Panel panel) {
 		var table = new Table<Infraccion>(panel, typeof(Infraccion))
-		table.height = 100
+		table.height = 250
 		table.width = 450
 		table.bindItemsToProperty("jugadorSeleccionado.infracciones")
 		table.bindValueToProperty("infraccionSeleccionada")

@@ -18,6 +18,7 @@ import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
 import ar.edu.dds.ui.view.adapters.LocalDateAdapter
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
+import org.uqbar.arena.bindings.NotNullObservable
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -51,6 +52,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	}
 	
 	def crearPanelIzquierdo(Panel panelPadre){
+		
+		//Controles para generar equipos
 		val labelTituloIzq = new Label(panelPadre)
 		labelTituloIzq.text = "Generar Equipos"
 		
@@ -69,9 +72,12 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		
 		val cantDeCalificaciones = new TextBox(panelPadre)
 		cantDeCalificaciones.bindValueToProperty("cantCalificaciones")
+		cantDeCalificaciones.bindEnabled(new NotNullObservable("ordenadorSeleccionado"))
 		
+		//Genera equipo
 		this.crearActionPanelGenerarEquipos(panelPadre)
 		
+		//Listas de los equipos
 		val panelEquipos = new Panel(panelPadre)
 		panelEquipos.setLayout(new ColumnLayout(2))
 		
@@ -96,6 +102,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			onSelection[| this.verDetalleDeJugador]
 		]
 		
+		//Confirma equipo
 		this.crearActionPanelConfirmarEquipos(panelPadre)
 	}
 	
@@ -189,7 +196,16 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			onClick[|modelObject.buscarJugadores]	
 		]
 		
+		//Crea grilla de busquedad jugadores
 		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panelPadre, "jugadoresDeBusqueda", "jugadorSeleccionado")
+		
+		//Botón para ver detalle
+		new Button(panelPadre) => [
+			setCaption = "ver detalle"
+			setAsDefault
+			onClick[|this.verDetalleDeJugador]
+			disableOnError		
+		]
 		
 	}
 	

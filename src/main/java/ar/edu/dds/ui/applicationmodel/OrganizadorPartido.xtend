@@ -22,6 +22,7 @@ import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 
+
 @Observable
 class OrganizadorPartido implements Serializable{
 	
@@ -57,29 +58,28 @@ class OrganizadorPartido implements Serializable{
 		this.inicializar
 	}
 	
-	def isPuedeGenerar(){
-		cantCalificaciones > 0 &&
-		criterioSeleccionado != null &&
-		ordenadorSeleccionado != null		
-	}
-	
-	def cambioPuedeGenerar() {
-		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
-	}
-	
-	def setCantCalificaciones(int cantCalificaciones){
-		this._cantCalificaciones = cantCalificaciones
-		cambioPuedeGenerar		
-	}
+//	def setCantCalificaciones(int cantCalificaciones){
+//		this._cantCalificaciones = cantCalificaciones
+//		
+//	}
 	
 	def setCriterioSeleccionado(GeneradorDeEquipos criterioSeleccionado){
 		this._criterioSeleccionado = criterioSeleccionado
 		cambioPuedeGenerar		
 	}
 	
-	def setOrdenadorDeJugadores(OrdenadorDeJugadores ordenadorSeleccionado){
+	def setOrdenadorSeleccionado(OrdenadorDeJugadores ordenadorSeleccionado){
 		this._ordenadorSeleccionado = ordenadorSeleccionado
 		cambioPuedeGenerar		
+	}
+	
+	
+	def isPuedeGenerar(){
+		criterioSeleccionado != null &&
+		ordenadorSeleccionado != null		
+	}
+	def cambioPuedeGenerar() {
+		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
 	}
 	
 	def generarEquipos(){
@@ -130,12 +130,15 @@ class OrganizadorPartido implements Serializable{
 		
 		partido = PartidosHome.getInstance.partidos.head
 		
-		cantCalificaciones = 1
+		//cantCalificaciones = 1
 		
 		busquedaNombreJugador = ""
 		busquedaApodoJugador = ""
 	    
 	    jugadoresDeBusqueda = JugadoresHome.getInstance.todosLosJugadores
+	    
+	    ordenadorSeleccionado = null
+	    criterioSeleccionado = null
 	  
 	}
 
