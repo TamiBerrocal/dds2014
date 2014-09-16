@@ -5,6 +5,7 @@ import java.util.List
 import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Jugador
 import org.uqbar.commons.utils.Observable
+import java.math.RoundingMode
 
 @Observable
 abstract class OrdenadorPorPromedio extends OrdenadorDeJugadores {
@@ -22,7 +23,7 @@ abstract class OrdenadorPorPromedio extends OrdenadorDeJugadores {
 		val cant = numeros.size
 		if (cant == 0) return BigDecimal.ZERO
 		
-		numeros.fold(BigDecimal.ZERO, [ sem, num | sem.add(num) ]).divide(BigDecimal.valueOf(cant))
+		numeros.fold(BigDecimal.ZERO, [ sem, num | sem.add(num) ]).divide(BigDecimal.valueOf(cant), 2, RoundingMode.HALF_UP)
 	}
 	
 }

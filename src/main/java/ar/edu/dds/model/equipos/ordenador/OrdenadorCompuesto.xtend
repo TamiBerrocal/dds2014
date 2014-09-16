@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class OrdenadorCompuesto extends OrdenadorPorPromedio {
 	
-	@Property String nombre = "Promedio Mixto"
+	@Property String nombre = "Promedio de todos los anteriores"
 	@Property
 	List<OrdenadorDeJugadores> ordenadoresDeJugadores
 	

@@ -22,16 +22,19 @@ import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 
-
 @Observable
 class OrganizadorPartido implements Serializable{
 	
+	// CRITERIOS DE GENERACION
 	@Property List<GeneradorDeEquipos> criterios
 	@Property GeneradorDeEquipos criterioSeleccionado
+	
+	// ORDENADORES
 	@Property List<OrdenadorDeJugadores> ordenamientos
 	@Property OrdenadorDeJugadores ordenadorSeleccionado
-	@Property int cantCalificaciones
-	@Property List<OrdenadorDeJugadores> ordenamientosMixtos
+	@Property OrdenadorPorPromedioDeUltimasNCalificaciones porPromedioDeUltimasN = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
+	
+	@Property Integer cantCalificaciones
 	@Property Partido partido
 	@Property List<Jugador> equipo1
 	@Property List<Jugador> equipo2
@@ -115,10 +118,14 @@ class OrganizadorPartido implements Serializable{
 		
 		//Ordenamientos
 		ordenamientos = new ArrayList
-		ordenamientos.add(new OrdenadorPorHandicap)
-		ordenamientos.add(new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido)
-		ordenamientos.add(new OrdenadorPorPromedioDeUltimasNCalificaciones(cantCalificaciones))
-		ordenamientos.add(new OrdenadorCompuesto(ordenamientosMixtos))
+		
+		val porHandicap = new OrdenadorPorHandicap
+		val porPromedioUltimoPartido = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
+		
+		ordenamientos.add(porHandicap)
+		ordenamientos.add(porPromedioUltimoPartido)
+		ordenamientos.add(porPromedioDeUltimasN)
+		ordenamientos.add(new OrdenadorCompuesto(newArrayList(porHandicap, porPromedioUltimoPartido, porPromedioDeUltimasN)))
 		
 		// Filtros de infracciones
 		filtrosDeInfracciones = new ArrayList
@@ -129,8 +136,6 @@ class OrganizadorPartido implements Serializable{
 		filtroDeInfraccionesSeleccionado = new TodosLosJugadores()
 		
 		partido = PartidosHome.getInstance.partidos.head
-		
-		//cantCalificaciones = 1
 		
 		busquedaNombreJugador = ""
 		busquedaApodoJugador = ""

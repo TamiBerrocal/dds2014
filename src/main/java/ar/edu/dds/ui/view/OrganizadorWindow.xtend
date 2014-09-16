@@ -75,7 +75,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		labelCantCalif.setText("Cantidad de calificaciones:")
 		
 		val cantDeCalificaciones = new TextBox(panelPadre)
-		cantDeCalificaciones.bindValueToProperty("cantCalificaciones")
+		cantDeCalificaciones.bindValueToProperty("porPromedioDeUltimasN.n")
 		cantDeCalificaciones.bindEnabled(new NotNullObservable("ordenadorSeleccionado"))
 		
 		//Genera equipo

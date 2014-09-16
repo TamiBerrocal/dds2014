@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 class OrdenadorPorPromedioDeUltimasNCalificaciones extends OrdenadorPorPromedio {
 	
 	@Property String nombre = "Promedio de Ultimas n Calificaciones"
-	int n
+	@Property Integer n
 	
 	new(int n) {
 		this.n = n
