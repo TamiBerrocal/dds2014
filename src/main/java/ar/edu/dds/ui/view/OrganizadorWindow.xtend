@@ -55,11 +55,17 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		val labelTituloIzq = new Label(panelPadre)
 		labelTituloIzq.text = "Generar Equipos"
 		
+		val labelCriterioSeleccion = new Label(panelPadre)
+		labelCriterioSeleccion.text = "Determine el criterio de selección:"
+		
 		val comboCriterios = new Selector(panelPadre)
 		comboCriterios.allowNull = false
 		comboCriterios.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(typeof(GeneradorDeEquipos), "nombre"))
 		comboCriterios.bindValueToProperty("criterioSeleccionado")
 		
+		val labelCriterioOrdenamiento = new Label(panelPadre)
+		labelCriterioOrdenamiento.text = "Determine el criterio de ordenamiento:"
+				
 		val comboOrdenamientos = new Selector(panelPadre)
 		comboOrdenamientos.allowNull = false
 		comboOrdenamientos.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
