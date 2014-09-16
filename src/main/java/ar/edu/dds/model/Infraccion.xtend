@@ -3,8 +3,9 @@ import org.joda.time.LocalDate
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.ToStringBuilder
-import org.joda.time.LocalTime
+import org.joda.time.LocalTimeimport org.uqbar.commons.utils.Observable
 
+@Observable
 class Infraccion {
 
 	@Property

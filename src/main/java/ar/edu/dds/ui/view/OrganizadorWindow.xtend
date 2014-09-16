@@ -16,7 +16,7 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
-import ar.edu.dds.ui.view.adapter.LocalDateAdapter
+import ar.edu.dds.ui.view.LocalDateAdapter
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
