@@ -17,7 +17,7 @@ import ar.edu.dds.model.Jugador
 import org.uqbar.commons.model.ObservableUtils
 import ar.edu.dds.home.PartidosHome
 import ar.edu.dds.home.JugadoresHome
-import ar.edu.dds.model.Infraccion//import org.joda.time.LocalDate
+import ar.edu.dds.model.Infraccionimport org.joda.time.LocalDate
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -44,9 +44,10 @@ class OrganizadorPartido implements Serializable{
 	@Property Integer busquedaPromedioMaxJugador
 	@Property Integer busquedaHandicapMinJugador
 	@Property Integer busquedaHandicapMaxJugador
-	@Property Integer busquedaFechaDia
-	@Property Integer busquedaFechaMes
-	@Property Integer busquedaFechaAnio
+	@Property LocalDate busquedaFechaNacimientoJugador
+//	@Property Integer busquedaFechaDia
+//	@Property Integer busquedaFechaMes
+//	@Property Integer busquedaFechaAnio
 
 	
 	
@@ -91,10 +92,10 @@ class OrganizadorPartido implements Serializable{
 		this.jugadoresDeBusqueda = 
 			JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
 												       this.busquedaApodoJugador,
-//												       LocalDate.now,
-													   this.busquedaFechaDia,
-													   this.busquedaFechaMes,
-													   this.busquedaFechaAnio,
+												       LocalDate.now,
+//													   this.busquedaFechaDia,
+//													   this.busquedaFechaMes,
+//													   this.busquedaFechaAnio,
 												       this.busquedaHandicapMinJugador,
 												       this.busquedaHandicapMaxJugador,
 												       this.busquedaPromedioMinJugador,
@@ -128,7 +129,6 @@ class OrganizadorPartido implements Serializable{
 	    
 	    jugadoresDeBusqueda = JugadoresHome.getInstance.todosLosJugadores
 	  
-	}}
-	
-	
-	
+	}
+
+}

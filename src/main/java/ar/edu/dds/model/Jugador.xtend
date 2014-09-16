@@ -79,8 +79,7 @@ class Jugador {
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
 	}
 
-	def boolean esFechaDeNacimientoAnterior(int dia, int mes, int anio) {
-		val fecha = new LocalDate(anio, mes, dia)
+	def boolean esFechaDeNacimientoAnterior(LocalDate fecha) {
 		
 		fecha.compareTo(fechaNacimiento) > 0
 	}
@@ -181,10 +180,5 @@ class Jugador {
 	override toString() {
 		nombre
 	}
-	
-	
-	
-	
-	
-	
+		
 }

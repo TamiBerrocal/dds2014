@@ -16,6 +16,7 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
+import ar.edu.dds.ui.view.adapter.LocalDateAdapter
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -129,26 +130,12 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		val labelFecha= new Label(cajaDeBusquedaRenglon2)
 		labelFecha.setText("Fecha (anterior a): ")
 		
-		val textBoxFechaDia = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxFechaDia.width = 30
-		textBoxFechaDia.bindValueToProperty("busquedaFechaDia")
-		
-		val labelGuion1= new Label(cajaDeBusquedaRenglon2)
-		labelGuion1.setText("-")
-				
-		val textBoxFechaMes = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxFechaMes.width = 30
-		textBoxFechaMes.bindValueToProperty("busquedaFechaMes")
-		
-		val labelGuion2= new Label(cajaDeBusquedaRenglon2)
-		labelGuion2.setText("-")
-				
-		val textBoxFechaAnio = new TextBox(cajaDeBusquedaRenglon2)
-		textBoxFechaAnio.width = 30
-		textBoxFechaAnio.bindValueToProperty("busquedaFechaAnio")
-		
+		val textBoxFecha = new TextBox(cajaDeBusquedaRenglon2)
+		textBoxFecha.width = 90
+		textBoxFecha.bindValueToProperty("busquedaFechaNacimientoJugador").setTransformer(new LocalDateAdapter)
+
 		val labelFormatoFecha= new Label(cajaDeBusquedaRenglon2)
-		labelFormatoFecha.setText("(DD-MM-AAAA)")
+		labelFormatoFecha.setText("(DD/MM/AAAA)")
 		
 		
 		// Renglón 3
@@ -192,6 +179,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		new Button(panelPadre) => [
 			setCaption = "Buscar"
 			onClick[|modelObject.buscarJugadores]	
+		
 		]
 		
 		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panelPadre, "jugadoresDeBusqueda", "jugadorSeleccionado")

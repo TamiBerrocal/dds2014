@@ -73,12 +73,11 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		
 		new Column<Infraccion>(table)
 			.setTitle("Motivo")
-//			.setFixedSize(200)
 			.bindContentsToProperty("causa")
 
 	}
 	
-		override protected void addActions(Panel actions) {
+	override protected void addActions(Panel actions) {
 		new Button(actions)
 			.setCaption("Volver")
 			.onClick [|this.accept]
