@@ -126,16 +126,16 @@ class JugadoresHome {
 
 	def inicializarStub() {
 		
-		val matias = new Jugador("Matías", new LocalDate(1989, 5, 17), new Estandar, "mail@ejemplo.com", "Matute")
-		val jorge = new Jugador("Jorge", new LocalDate(1988, 12, 12), new Estandar, "mail@ejemplo.com", "Jorgito")
-		val carlos = new Jugador("Carlos", new LocalDate(1987, 9, 21), new Estandar, "mail@ejemplo.com", "Chino")
+		val matias = new Jugador("Matías", new LocalDate(1989, 5, 7), new Estandar, "mail@ejemplo.com", "Matute")
+		val jorge = new Jugador("Jorge", new LocalDate(1988, 12, 2), new Estandar, "mail@ejemplo.com", "Jorgito")
+		val carlos = new Jugador("Carlos", new LocalDate(1987, 9, 9), new Estandar, "mail@ejemplo.com", "Chino")
 		val pablo = new Jugador("Pablo", new LocalDate(1978, 3, 7), new Estandar, "mail@ejemplo.com", "Pol")
-		val pedro = new Jugador("Pedro", new LocalDate(1988, 2, 13), new Estandar, "mail@ejemplo.com", "Pepe")
-		val franco = new Jugador("Franco", new LocalDate(1984, 12, 4), new Estandar, "mail@ejemplo.com", "Francho")
-		val lucas = new Jugador("Lucas", new LocalDate(1992, 6, 24), new Estandar, "mail@ejemplo.com", "Toto")
-		val adrian = new Jugador("Adrián", new LocalDate(1995, 12, 12), new Estandar, "mail@ejemplo.com", "Tano")
-		val simon = new Jugador("Simón", new LocalDate(1982, 12, 12), new Estandar, "mail@ejemplo.com", "Simba")
-		val patricio = new Jugador("Patricio", new LocalDate(1985, 12, 12), new Estandar, "mail@ejemplo.com", "Pato")
+		val pedro = new Jugador("Pedro", new LocalDate(1988, 2, 11), new Estandar, "mail@ejemplo.com", "Pepe")
+		val franco = new Jugador("Franco", new LocalDate(1984, 12, 7), new Estandar, "mail@ejemplo.com", "Francho")
+		val lucas = new Jugador("Lucas", new LocalDate(1992, 6, 8), new Estandar, "mail@ejemplo.com", "Toto")
+		val adrian = new Jugador("Adrián", new LocalDate(1995, 12, 4), new Estandar, "mail@ejemplo.com", "Tano")
+		val simon = new Jugador("Simón", new LocalDate(1982, 12, 9), new Estandar, "mail@ejemplo.com", "Simba")
+		val patricio = new Jugador("Patricio", new LocalDate(1985, 12, 10), new Estandar, "mail@ejemplo.com", "Pato")
 
 		//handicaps
 		matias.handicap = 5

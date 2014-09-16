@@ -52,8 +52,6 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	}
 	
 	def crearPanelIzquierdo(Panel panelPadre){
-		
-		//Controles para generar equipos
 		val labelTituloIzq = new Label(panelPadre)
 		labelTituloIzq.text = "Generar Equipos"
 		
