@@ -14,7 +14,7 @@ class GrillaDeJugadoresFactory {
 			bindItemsToProperty(elementosProperty)
 			bindValueToProperty(seleccionadoProperty)
 			height = 230
-			width = 593
+			width = 560
 		]
 		
 		new Column<Jugador>(table) 
