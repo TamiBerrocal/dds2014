@@ -61,28 +61,32 @@ class OrganizadorPartido implements Serializable{
 		this.inicializar
 	}
 	
-//	def setCantCalificaciones(int cantCalificaciones){
-//		this._cantCalificaciones = cantCalificaciones
-//		
-//	}
-	
 	def setCriterioSeleccionado(GeneradorDeEquipos criterioSeleccionado){
 		this._criterioSeleccionado = criterioSeleccionado
-		cambioPuedeGenerar		
+		cambioPuedeGenerar
+		cambioPuedeOrdenar		
 	}
 	
 	def setOrdenadorSeleccionado(OrdenadorDeJugadores ordenadorSeleccionado){
 		this._ordenadorSeleccionado = ordenadorSeleccionado
-		cambioPuedeGenerar		
+		cambioPuedeGenerar
+		cambioPuedeOrdenar		
 	}
-	
 	
 	def isPuedeGenerar(){
 		criterioSeleccionado != null &&
-		ordenadorSeleccionado != null		
+		ordenadorSeleccionado != null
 	}
+	def isPuedeOrdenarPorLasNUltimas(){
+		ordenadorSeleccionado != null &&
+		ordenadorSeleccionado.nombre == "Promedio de Ultimas n Calificaciones"
+	}
+
 	def cambioPuedeGenerar() {
 		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
+	}
+	def cambioPuedeOrdenar() {
+		ObservableUtils.firePropertyChanged(this, "puedeOrdenarPorLasNUltimas", puedeOrdenarPorLasNUltimas)
 	}
 	
 	def generarEquipos(){
@@ -90,7 +94,7 @@ class OrganizadorPartido implements Serializable{
 		partido.generarEquiposTentativos(ordenadorSeleccionado,criterioSeleccionado)
 		equipo1 = partido.equipos.equipo1
 		equipo2 = partido.equipos.equipo2
-		
+			
 	}
 	
 	def buscarJugadores() {

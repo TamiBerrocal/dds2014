@@ -1,24 +1,22 @@
 package ar.edu.dds.ui.view
 
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.List
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Selector
-import org.uqbar.arena.bindings.PropertyAdapter
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
-import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
-import ar.edu.dds.ui.view.adapters.LocalDateAdapter
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
-import org.uqbar.arena.bindings.NotNullObservable
+import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -76,7 +74,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		
 		val cantDeCalificaciones = new TextBox(panelPadre)
 		cantDeCalificaciones.bindValueToProperty("porPromedioDeUltimasN.n")
-		cantDeCalificaciones.bindEnabled(new NotNullObservable("ordenadorSeleccionado"))
+		cantDeCalificaciones.bindEnabledToProperty("puedeOrdenarPorLasNUltimas")
 		
 		//Genera equipo
 		this.crearActionPanelGenerarEquipos(panelPadre)
@@ -144,7 +142,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		
 		val textBoxFecha = new TextBox(cajaDeBusquedaRenglon2)
 		textBoxFecha.width = 90
-		textBoxFecha.bindValueToProperty("busquedaFechaNacimientoJugador").setTransformer(new LocalDateAdapter)
+		textBoxFecha.bindValueToProperty("busquedaFechaNacimientoJugador").setTransformer(new ar.edu.dds.ui.view.adapters.LocalDateAdapter)
 
 		val labelFormatoFecha= new Label(cajaDeBusquedaRenglon2)
 		labelFormatoFecha.setText("(AAAA-MM-DD)")
