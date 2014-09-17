@@ -82,7 +82,7 @@ class OrganizadorPartido implements Serializable{
 		ordenadorSeleccionado.conNUltimas
 	}
 	def isPuedeConfirmar(){
-		enabledConfirmarButton == true
+		enabledConfirmarButton.booleanValue
 	}
 
 	def cambioPuedeGenerar() {
