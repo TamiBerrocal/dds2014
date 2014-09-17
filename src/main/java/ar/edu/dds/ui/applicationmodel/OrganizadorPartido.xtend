@@ -23,6 +23,7 @@ import ar.edu.dds.ui.filtros.FiltroDeJugadores
 import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
+import ar.edu.dds.model.EstadoDePartido
 
 @Observable
 class OrganizadorPartido implements Serializable {
@@ -34,13 +35,9 @@ class OrganizadorPartido implements Serializable {
 	// ORDENADORES
 	@Property List<OrdenadorDeJugadores> ordenamientos
 	@Property OrdenadorDeJugadores ordenadorSeleccionado
-	@Property OrdenadorPorPromedioDeUltimasNCalificaciones porPromedioDeUltimasN = new OrdenadorPorPromedioDeUltimasNCalificaciones(
-		2)
-
-	@Property Integer cantCalificaciones
+	@Property OrdenadorPorPromedioDeUltimasNCalificaciones porPromedioDeUltimasN = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
+	
 	@Property Partido partido
-	@Property List<Jugador> equipo1
-	@Property List<Jugador> equipo2
 	@Property Jugador jugadorSeleccionado
 	@Property Infraccion infraccionSeleccionada
 	@Property Jugador amigoSeleccionado
@@ -58,7 +55,6 @@ class OrganizadorPartido implements Serializable {
 
 	@Property List<FiltroDeJugadores> filtrosDeInfracciones
 	@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
-	@Property Boolean enabledConfirmarButton
 
 	new() {
 		this.inicializar
@@ -75,9 +71,15 @@ class OrganizadorPartido implements Serializable {
 		cambioPuedeGenerar
 		cambioPuedeOrdenar
 	}
-
-	def isPuedeGenerar() {
-		criterioSeleccionado != null && ordenadorSeleccionado != null
+	
+	def isPuedeGenerar(){
+		criterioSeleccionado != null &&
+		ordenadorSeleccionado != null &&
+		(!puedeOrdenarPorLasNUltimas || porPromedioDeUltimasN.n != null)
+	}
+	
+	def partidoYaConfirmado() {
+		EstadoDePartido.CONFIRMADO.equals(partido.estadoDePartido)
 	}
 
 	def isPuedeOrdenarPorLasNUltimas() {
@@ -85,9 +87,10 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def isPuedeConfirmar() {
-		enabledConfirmarButton.booleanValue
+		EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(partido.estadoDePartido) &&
+		partido.equipos.estanOk
 	}
-
+	
 	def cambioPuedeGenerar() {
 		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
 	}
@@ -101,27 +104,25 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def generarEquipos() {
-
 		partido.generarEquiposTentativos(ordenadorSeleccionado, criterioSeleccionado)
-		equipo1 = partido.equipos.equipo1
-		equipo2 = partido.equipos.equipo2
 
-		enabledConfirmarButton = true
-		cambioPuedeConfirmar
+		cambioPuedeConfirmar			
 	}
 
-
 	def buscarJugadores() {
-		this.jugadoresDeBusqueda = JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
-			this.busquedaApodoJugador, this.busquedaFechaNacimientoJugador,
-			this.busquedaHandicapMinJugador, this.busquedaHandicapMaxJugador,
-			this.busquedaPromedioMinJugador, this.busquedaPromedioMaxJugador,
-			this.filtroDeInfraccionesSeleccionado)
+		this.jugadoresDeBusqueda = 
+			JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
+												       this.busquedaApodoJugador,
+												       this.busquedaFechaNacimientoJugador,
+												       this.busquedaHandicapMinJugador,
+												       this.busquedaHandicapMaxJugador,
+												       this.busquedaPromedioMinJugador,
+												       this.busquedaPromedioMaxJugador,
+												       this.filtroDeInfraccionesSeleccionado)
 	}
 
 	def confirmarEquipos() {
 		partido.confirmar
-		enabledConfirmarButton = false
 		cambioPuedeConfirmar
 	}
 
@@ -141,9 +142,8 @@ class OrganizadorPartido implements Serializable {
 		ordenamientos.add(porHandicap)
 		ordenamientos.add(porPromedioUltimoPartido)
 		ordenamientos.add(porPromedioDeUltimasN)
-		ordenamientos.add(
-			new OrdenadorCompuesto(newArrayList(porHandicap, porPromedioUltimoPartido, porPromedioDeUltimasN)))
-
+		ordenamientos.add(new OrdenadorCompuesto(newArrayList(porHandicap, porPromedioUltimoPartido, porPromedioDeUltimasN)))
+		
 		// Filtros de infracciones
 		filtrosDeInfracciones = new ArrayList
 		filtrosDeInfracciones.add(new TodosLosJugadores())
@@ -161,9 +161,6 @@ class OrganizadorPartido implements Serializable {
 
 		ordenadorSeleccionado = null
 		criterioSeleccionado = null
-
-		enabledConfirmarButton = false
-
 	}
-
+	
 }

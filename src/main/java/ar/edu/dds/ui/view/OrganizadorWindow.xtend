@@ -17,7 +17,6 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ar.edu.dds.model.EstadoDePartido
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -97,7 +96,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		labelEq2.setText("Equipo 2")
 
 		new List(panelEquipos) => [
-			bindItemsToProperty("equipo1")
+			bindItemsToProperty("partido.equipos.equipo1")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200
@@ -105,7 +104,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		]
 
 		new List(panelEquipos) => [
-			bindItemsToProperty("equipo2")
+			bindItemsToProperty("partido.equipos.equipo2")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200
@@ -248,6 +247,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			setAsDefault
 			onClick[ |
 				modelObject.confirmarEquipos
+				modelObject.cambioPuedeGenerar
 				showInfo("Los equipos se confirmaron correctamente!")
 			]
 			bindEnabledToProperty("puedeConfirmar")
@@ -264,7 +264,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 	
 	
 	def generarEquipos(){
-		if (modelObject.partido.estadoDePartido.equals(EstadoDePartido.CONFIRMADO)) {
+		if (modelObject.partidoYaConfirmado) {
 			showInfo("Ya generaste los equipos")
 		} else {
 			modelObject.generarEquipos

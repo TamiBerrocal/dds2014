@@ -3,7 +3,9 @@ package ar.edu.dds.model.equipos
 import ar.edu.dds.model.Jugador
 import java.util.List
 import java.util.ArrayList
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class ParDeEquipos {
 	
 	@Property
