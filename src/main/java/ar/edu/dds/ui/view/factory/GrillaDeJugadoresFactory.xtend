@@ -20,13 +20,13 @@ class GrillaDeJugadoresFactory {
 		new Column<Jugador>(table) 
 			.setTitle("Nombre")
 			.bindBackground("handicap", new CracksColorTransformer)
-			.setFixedSize(150)
+			.setFixedSize(125)
 			.bindContentsToProperty("nombre")
 						
 		new Column<Jugador>(table) 
 			.setTitle("Apodo")
 			.bindBackground("handicap", new CracksColorTransformer)
-			.setFixedSize(150)
+			.setFixedSize(125)
 			.bindContentsToProperty("apodo")
 		
 		new Column<Jugador>(table) 
