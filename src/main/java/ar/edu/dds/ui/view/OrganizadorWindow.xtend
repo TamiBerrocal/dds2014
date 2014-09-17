@@ -69,11 +69,15 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		comboOrdenamientos.bindItemsToProperty("ordenamientos").setAdapter(new PropertyAdapter(typeof(OrdenadorDeJugadores), "nombre"))
 		comboOrdenamientos.bindValueToProperty("ordenadorSeleccionado")
 
-		val labelCantCalif = new Label(panelPadre)
+		val panelCalifs = new Panel(panelPadre)
+		panelCalifs.setLayout(new HorizontalLayout)
+
+		val labelCantCalif = new Label(panelCalifs)
 		labelCantCalif.setText("Cantidad de calificaciones:")
 		labelCantCalif.bindVisibleToProperty("puedeOrdenarPorLasNUltimas")
 		
-		val cantDeCalificaciones = new TextBox(panelPadre)
+		val cantDeCalificaciones = new TextBox(panelCalifs)
+		cantDeCalificaciones.setWidth(15)
 		cantDeCalificaciones.bindValueToProperty("porPromedioDeUltimasN.n")
 		cantDeCalificaciones.bindVisibleToProperty("puedeOrdenarPorLasNUltimas")
 		
