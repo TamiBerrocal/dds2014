@@ -55,7 +55,7 @@ class OrganizadorPartido implements Serializable{
 	
 	@Property List<FiltroDeJugadores> filtrosDeInfracciones
 	@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
-	
+	@Property Boolean enabledConfirmarButton
 	
 	new() {
 		this.inicializar
@@ -81,6 +81,9 @@ class OrganizadorPartido implements Serializable{
 		ordenadorSeleccionado != null &&
 		ordenadorSeleccionado.conNUltimas
 	}
+	def isPuedeConfirmar(){
+		enabledConfirmarButton == true
+	}
 
 	def cambioPuedeGenerar() {
 		ObservableUtils.firePropertyChanged(this, "puedeGenerar", puedeGenerar)
@@ -88,12 +91,18 @@ class OrganizadorPartido implements Serializable{
 	def cambioPuedeOrdenar() {
 		ObservableUtils.firePropertyChanged(this, "puedeOrdenarPorLasNUltimas", puedeOrdenarPorLasNUltimas)
 	}
+	def cambioPuedeConfirmar(){
+		ObservableUtils.firePropertyChanged(this, "puedeConfirmar", puedeConfirmar)
+	}
 	
 	def generarEquipos(){
 		
 		partido.generarEquiposTentativos(ordenadorSeleccionado,criterioSeleccionado)
 		equipo1 = partido.equipos.equipo1
 		equipo2 = partido.equipos.equipo2
+		
+		enabledConfirmarButton = true
+		cambioPuedeConfirmar
 			
 	}
 	
@@ -148,6 +157,8 @@ class OrganizadorPartido implements Serializable{
 	    
 	    ordenadorSeleccionado = null
 	    criterioSeleccionado = null
+	    
+	    enabledConfirmarButton = false
 	  
 	}
 

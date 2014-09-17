@@ -244,7 +244,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			setCaption("Confirmar Equipos")
 			setAsDefault
 			onClick[|modelObject.confirmarEquipos]
-			//bindEnabledToProperty("puedeConfirmar")
+			bindEnabledToProperty("puedeConfirmar")
 			disableOnError
 		]
 	}
