@@ -21,6 +21,7 @@ import ar.edu.dds.model.Infraccionimport org.joda.time.LocalDateimport ar.edu.
 import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
+import ar.edu.dds.model.EstadoDePartido
 
 @Observable
 class OrganizadorPartido implements Serializable{
@@ -97,6 +98,12 @@ class OrganizadorPartido implements Serializable{
 	
 	def generarEquipos(){
 		
+		if (equipo1 !=null && equipo2 != null){
+			equipo1.clear	
+			equipo2.clear
+			partido.estadoDePartido = EstadoDePartido.ABIERTA_LA_INSCRIPCION
+		}
+		
 		partido.generarEquiposTentativos(ordenadorSeleccionado,criterioSeleccionado)
 		equipo1 = partido.equipos.equipo1
 		equipo2 = partido.equipos.equipo2
@@ -120,6 +127,8 @@ class OrganizadorPartido implements Serializable{
 
 	def confirmarEquipos(){
 		partido.confirmar
+		enabledConfirmarButton = false
+		cambioPuedeConfirmar
 	}
 	
 	def void inicializar(){
