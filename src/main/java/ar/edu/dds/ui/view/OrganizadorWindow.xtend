@@ -17,6 +17,7 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import ar.edu.dds.model.EstadoDePartido
 
 class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
@@ -231,7 +232,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		new Button(actionsPanel) => [
 			setCaption("Generar Equipos")
 			setAsDefault
-			onClick[|modelObject.generarEquipos]
+			onClick[|generarEquipos]
 			bindEnabledToProperty("puedeGenerar")
 			disableOnError
 		]
@@ -259,6 +260,15 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 	def verDetalleDeJugador() {
 		new DetalleDeJugadorWindow(this, modelObject).open
+	}
+	
+	
+	def generarEquipos(){
+		if (modelObject.partido.estadoDePartido.equals(EstadoDePartido.CONFIRMADO)) {
+			showInfo("Ya generaste los equipos")
+		} else {
+			modelObject.generarEquipos
+		}
 	}
 
 }
