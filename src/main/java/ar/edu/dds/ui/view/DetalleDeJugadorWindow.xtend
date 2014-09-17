@@ -1,7 +1,7 @@
 package ar.edu.dds.ui.view
 
 import ar.edu.dds.model.Infraccion
-import org.uqbar.arena.layout.ColumnLayout
+//import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -11,6 +11,8 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import ar.edu.dds.ui.view.factory.GrillaDeJugadoresFactory
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.layout.HorizontalLayout
 
 class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 		
@@ -22,44 +24,71 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 	override protected createFormPanel(Panel mainPanel) {
 		
 		val panel = new Panel(mainPanel)
-		panel.setLayout(new ColumnLayout(2))
+		panel.setLayout(new VerticalLayout)
 		
-		new Label(panel).text = "Nombre"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.nombre")
+		// Renglón 1
+		val renglon1 = new Panel(panel)
+		renglon1.layout = new HorizontalLayout
 		
-		new Label(panel).text = "Apodo"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.apodo")
+		new Label(renglon1).text = "Nombre:"
+		new Label(renglon1).bindValueToProperty("jugadorSeleccionado.nombre")
 		
-		new Label(panel).text = "Handicap"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.handicap")
+		// Renglón 2
+		val renglon2 = new Panel(panel)
+		renglon2.layout = new HorizontalLayout
 		
-		new Label(panel).text = "Promedio del último partido"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedioUltimoPartido")
+		new Label(renglon2).text = "Apodo:"
+		new Label(renglon2).bindValueToProperty("jugadorSeleccionado.apodo")
 		
-		new Label(panel).text = "Promedio general"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.promedio")
+		// Renglón 3
+		val renglon3 = new Panel(panel)
+		renglon3.layout = new HorizontalLayout
+		
+		new Label(renglon3).text = "Handicap:"
+		new Label(renglon3).bindValueToProperty("jugadorSeleccionado.handicap")
+		
+		// Renglón 4
+		val renglon4 = new Panel(panel)
+		renglon4.layout = new HorizontalLayout
+		
+		new Label(renglon4).text = "Promedio del último partido:"
+		new Label(renglon4).bindValueToProperty("jugadorSeleccionado.promedioUltimoPartido")
+		
+		// Renglón 5
+		val renglon5 = new Panel(panel)
+		renglon5.layout = new HorizontalLayout
+		
+		new Label(renglon5).text = "Promedio general:"
+		new Label(renglon5).bindValueToProperty("jugadorSeleccionado.promedio")
 					
-		new Label(panel).text = "Fecha de nacimiento"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
+		// Renglón 6
+		val renglon6 = new Panel(panel)
+		renglon6.layout = new HorizontalLayout
+					
+		new Label(renglon6).text = "Fecha de nacimiento:"
+		new Label(renglon6).bindValueToProperty("jugadorSeleccionado.fechaNacimiento")
 		
+		// Renglón 7
+		val renglon7 = new Panel(panel)
+		renglon7.layout = new HorizontalLayout
 		
-		new Label(panel).text = "Cantidad de partidos jugados"
-		new Label(panel).bindValueToProperty("jugadorSeleccionado.partidosJugados")
-				
-		var labelEq1 = new Label(panel)
-		labelEq1.setText("Amigos:")
-		var labelEq2 = new Label(panel)
-		labelEq2.setText("Infracciones:")
+		new Label(renglon7).text = "Cantidad de partidos jugados:"
+		new Label(renglon7).bindValueToProperty("jugadorSeleccionado.partidosJugados")
 		
+		// Grilla de amigos		
+		new Label(panel).text = "Amigos"
 		GrillaDeJugadoresFactory.crearGrillaDeJugadores(panel, "jugadorSeleccionado.amigos", "amigoSeleccionado")
+		
+		// Grilla de infracciones
+		new Label(panel).text = "Infracciones"		
 		this.crearGridInfracciones(panel)
 		
 	}
 	
 	def crearGridInfracciones(Panel panel) {
 		var table = new Table<Infraccion>(panel, typeof(Infraccion))
-		table.height = 250
-		table.width = 450
+		table.height = 100
+		table.width = 560
 		table.bindItemsToProperty("jugadorSeleccionado.infracciones")
 		table.bindValueToProperty("infraccionSeleccionada")
 		
@@ -72,7 +101,7 @@ class DetalleDeJugadorWindow extends Dialog<OrganizadorPartido> {
 			.bindContentsToProperty("hora")	
 		
 		new Column<Infraccion>(table)
-			.setTitle("Motivo")
+			.setTitle("Motivo").setFixedSize(310)
 			.bindContentsToProperty("causa")
 
 	}
