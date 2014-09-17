@@ -79,7 +79,7 @@ class OrganizadorPartido implements Serializable{
 	}
 	def isPuedeOrdenarPorLasNUltimas(){
 		ordenadorSeleccionado != null &&
-		ordenadorSeleccionado.nombre == "Promedio de Ultimas n Calificaciones"
+		ordenadorSeleccionado.conNUltimas
 	}
 
 	def cambioPuedeGenerar() {

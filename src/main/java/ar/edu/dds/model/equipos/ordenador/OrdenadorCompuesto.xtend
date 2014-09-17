@@ -19,4 +19,8 @@ class OrdenadorCompuesto extends OrdenadorPorPromedio {
 		ordenadoresDeJugadores.promedio(jugador)
 	}
 	
+	override conNUltimas() {
+		ordenadoresDeJugadores.exists[ o | o.conNUltimas ]
+	}
+	
 }

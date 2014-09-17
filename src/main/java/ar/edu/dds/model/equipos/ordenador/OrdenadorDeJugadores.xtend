@@ -17,4 +17,9 @@ abstract class OrdenadorDeJugadores {
 	}
 	
 	def BigDecimal valuar(Jugador jugador)
+	
+	def boolean conNUltimas() {
+		false
+	}
+	
 }

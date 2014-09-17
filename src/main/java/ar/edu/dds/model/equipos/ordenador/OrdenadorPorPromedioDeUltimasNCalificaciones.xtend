@@ -16,5 +16,8 @@ class OrdenadorPorPromedioDeUltimasNCalificaciones extends OrdenadorPorPromedio 
 	override valuar(Jugador jugador) {
 		jugador.ultimasNCalificaciones(n).promedio
 	}
-	
+
+	override conNUltimas() {
+		true
+	}
 }

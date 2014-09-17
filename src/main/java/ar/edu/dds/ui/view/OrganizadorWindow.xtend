@@ -71,10 +71,11 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 		val labelCantCalif = new Label(panelPadre)
 		labelCantCalif.setText("Cantidad de calificaciones:")
+		labelCantCalif.bindVisibleToProperty("puedeOrdenarPorLasNUltimas")
 		
 		val cantDeCalificaciones = new TextBox(panelPadre)
 		cantDeCalificaciones.bindValueToProperty("porPromedioDeUltimasN.n")
-		cantDeCalificaciones.bindEnabledToProperty("puedeOrdenarPorLasNUltimas")
+		cantDeCalificaciones.bindVisibleToProperty("puedeOrdenarPorLasNUltimas")
 		
 		//Genera equipo
 		this.crearActionPanelGenerarEquipos(panelPadre)
