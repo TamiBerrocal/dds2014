@@ -163,4 +163,9 @@ class Jugador {
 		nombre
 	}
 		
+	def isEsCrack(){
+		handicap >= 8
+	}
+
 }
+
