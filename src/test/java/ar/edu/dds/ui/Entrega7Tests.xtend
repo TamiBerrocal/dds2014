@@ -10,6 +10,10 @@ import junit.framework.Assert
 import ar.edu.dds.home.JugadoresHome
 import java.util.Arrays
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
+import ar.edu.dds.ui.filtros.TodosLosJugadores
+import ar.edu.dds.ui.filtros.SoloConInfracciones
+import java.util.List
+import ar.edu.dds.model.Jugador
 
 class Entrega7Tests {
 	
@@ -108,5 +112,28 @@ class Entrega7Tests {
 		Assert.assertFalse(appModel.puedeGenerar)
 	}
 	
+	@Test
+	def void filtrarGrillaPorTodosLosJugadores(){
+		
+		appModel.filtroDeInfraccionesSeleccionado = new TodosLosJugadores
+		appModel.buscarJugadores
+		
+		Assert.assertEquals(homeJugadores.todosLosJugadores ,appModel.jugadoresDeBusqueda)
+		
+	}
 	
+	@Test
+	def void filtrarGrillaSoloPorJugadoresConInfracciones(){
+		
+		appModel.filtroDeInfraccionesSeleccionado = new SoloConInfracciones
+		appModel.buscarJugadores
+		
+		var List<Jugador> jugadoresConInfracciones = homeJugadores.todosLosJugadores.filter(j|!j.infracciones.nullOrEmpty).toList
+		
+		Assert.assertEquals(jugadoresConInfracciones, appModel.jugadoresDeBusqueda)
+	}
 }
+
+
+
+
