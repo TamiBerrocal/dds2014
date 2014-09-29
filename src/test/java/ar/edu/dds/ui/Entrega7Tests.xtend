@@ -14,6 +14,7 @@ import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.ui.filtros.SoloConInfracciones
 import java.util.List
 import ar.edu.dds.model.Jugador
+import ar.edu.dds.ui.filtros.SoloSinInfracciones
 
 class Entrega7Tests {
 	
@@ -131,6 +132,17 @@ class Entrega7Tests {
 		var List<Jugador> jugadoresConInfracciones = homeJugadores.todosLosJugadores.filter(j|!j.infracciones.nullOrEmpty).toList
 		
 		Assert.assertEquals(jugadoresConInfracciones, appModel.jugadoresDeBusqueda)
+	}
+	
+	@Test
+	def void filtrarGrillaSoloPorJugadoresSinJugadores(){
+		
+		appModel.filtroDeInfraccionesSeleccionado = new SoloSinInfracciones
+		appModel.buscarJugadores
+		
+		var List<Jugador> jugadoresSinInfracciones = homeJugadores.todosLosJugadores.filter(j|j.infracciones.nullOrEmpty).toList
+		
+		Assert.assertEquals(jugadoresSinInfracciones, appModel.jugadoresDeBusqueda)
 	}
 }
 
