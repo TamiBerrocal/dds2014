@@ -30,7 +30,7 @@ class JugadoresHome {
 									   Integer handicapMinimo, Integer handicapMaximo, Integer promedioMinimo, 
 									   Integer promedioMaximo, FiltroDeJugadores filtroDeInfracciones) {
 									   	
-									   
+		//utilizar los metodos buscarPorNombre, buscarPorApodo							   
 		todosLosJugadores.filter [ 
 			
 			j | j.nombre.startsWith(nombreEmpieza) &&
@@ -107,8 +107,8 @@ class JugadoresHome {
 		this.rechazos
 	}
 	
-		def buscarPorApodo(String string) {
-			todosLosJugadores.filter[ j | j.nombre.contains(string) ].toList
+	def buscarPorApodo(String string) {
+			todosLosJugadores.filter[ j | j.apodo.contains(string) ].toList
 	}
 	
 
