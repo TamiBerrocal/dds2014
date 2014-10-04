@@ -1,6 +1,5 @@
 package ar.edu.dds.model
 
-import ar.edu.dds.exception.EquiposNoGeneradosException
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
 import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
@@ -195,10 +194,10 @@ class Entrega1Tests {
 //		// Marcos quedó afuera por ser el primer solidario anotado
 //		verificarQueElNombreNoEstaEnElPartido("Marcos", this.partido)
 //	}
-	
-	@Test(expected = EquiposNoGeneradosException)
-	def void testNoSePuedeConfirmarPartidoConMenosDe10Jugadores() {
-		this.partido.confirmar;
-	}
+//	
+//	@Test(expected = EquiposNoGeneradosException)
+//	def void testNoSePuedeConfirmarPartidoConMenosDe10Jugadores() {
+//		this.partido.confirmar;
+//	}
 	
 }

@@ -1,8 +1,6 @@
 package ar.edu.dds.model
 
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
-import ar.edu.dds.exception.NoHaySuficientesJugadoresException
-import ar.edu.dds.exception.EquiposNoGeneradosException
 import ar.edu.dds.observer.baja.BajaDeJugadorObserver
 import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
 import java.util.ArrayList
@@ -11,9 +9,7 @@ import org.joda.time.DateTime
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
-import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import org.uqbar.commons.utils.Observable
-import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ParDeEquipos
 
 @Observable
@@ -21,23 +17,13 @@ class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
 
-	@Property
-	List<Jugador> jugadores
-
-	@Property
-	DateTime fechaYHora
-
-	@Property
-	String lugar
-
-	@Property
-	EstadoDePartido estadoDePartido
-
-	@Property
-	Admin administrador
-	
-	@Property
-	ParDeEquipos equipos
+	@Property List<Jugador> jugadores
+	@Property DateTime fechaYHora
+	@Property String lugar
+	@Property EstadoDePartido estadoDePartido
+	@Property Admin administrador
+	@Property ParDeEquipos equipos
+	@Property ArmadorEquipos armadorDeEquipos
 
 	List<InscripcionDeJugadorObserver> inscripcionObservers
 	List<BajaDeJugadorObserver> bajaObservers
@@ -52,11 +38,12 @@ class Partido {
 		this.bajaObservers = new ArrayList
 		this.jugadores = new ArrayList
 		this.equipos = new ParDeEquipos
+		this.armadorDeEquipos = new ArmadorEquipos(this)
 	}
 	
 	new() {
 	}
-
+/* 
 	def void confirmar() {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
 		
@@ -65,10 +52,24 @@ class Partido {
 		} else {
 			throw new EquiposNoGeneradosException("Generar equipos antes de confirmar")
 		}
+	}*/
+	/* 
+	def void confirmar(){
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
+		armadorDeEquipos.confirmarEquipos
+	}*/
+	/* 
+	def void generarEquiposTentativos(){
+		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible generar equipos para partido con estado: ")
+		armadorDeEquipos.armarTentativos
+	}*/
+	
+	def void cerrarInscripcion(){
+		estadoDePartido = EstadoDePartido.CONFIRMADO
 	}
 
 	// MÉTODOS DE EQUIPOS
-	def void generarEquiposTentativos(OrdenadorDeJugadores ordenador, GeneradorDeEquipos generadorDeEquipos) {
+	/*def void generarEquiposTentativos(OrdenadorDeJugadores ordenador, GeneradorDeEquipos generadorDeEquipos) {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible generar equipos para partido con estado: ")
 		
 		// Me quedo con los 10 Jugadores con más prioridad
@@ -81,7 +82,7 @@ class Partido {
 		} else {
 			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + cantidadDeConfirmados + "jugadores...")
 		}
-	}
+	}*/
 	
 	
 	// MÉTODOS DE JUGADORES
@@ -137,11 +138,11 @@ class Partido {
 		this.jugadores.size
 	}
 	
-	private def List<Jugador> jugadoresQueJugarian() {
+	def List<Jugador> jugadoresQueJugarian() {
 		jugadores.filter[integrante | integrante.leSirveElPartido(this)].toList
 	}
 	
-	private def validarEstadoDePartido(EstadoDePartido estadoEsperado, String mensajeDeError) {
+	def validarEstadoDePartido(EstadoDePartido estadoEsperado, String mensajeDeError) {
 		if (!estadoEsperado.equals(this.estadoDePartido)) {
 			throw new EstadoDePartidoInvalidoException(mensajeDeError + this.estadoDePartido)
 		}

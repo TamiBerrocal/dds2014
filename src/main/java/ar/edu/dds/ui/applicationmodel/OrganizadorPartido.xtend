@@ -25,6 +25,7 @@ import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.model.EstadoDePartido
 import ar.edu.dds.home.Busqueda
+import ar.edu.dds.model.ArmadorEquipos
 
 @Observable
 class OrganizadorPartido implements Serializable {
@@ -41,6 +42,8 @@ class OrganizadorPartido implements Serializable {
 	@Property OrdenadorDeJugadores ordenadorSeleccionado
 	@Property OrdenadorPorPromedioDeUltimasNCalificaciones porPromedioDeUltimasN = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
 	
+	@Property ArmadorEquipos armador
+	
 	@Property Partido partido
 	@Property Jugador jugadorSeleccionado
 	@Property Infraccion infraccionSeleccionada
@@ -49,16 +52,7 @@ class OrganizadorPartido implements Serializable {
 
 	// BUSQUEDA	
 	@Property List<Jugador> jugadoresDeBusqueda
-	//@Property String busquedaNombreJugador
-	//@Property String busquedaApodoJugador
-	//@Property Integer busquedaPromedioMinJugador
-	//@Property Integer busquedaPromedioMaxJugador
-	//@Property Integer busquedaHandicapMinJugador
-	//Property Integer busquedaHandicapMaxJugador
-	//@Property LocalDate busquedaFechaNacimientoJugador
-
 	@Property List<FiltroDeJugadores> filtrosDeInfracciones
-	//@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
 
 	new() {
 		this.inicializar
@@ -92,7 +86,9 @@ class OrganizadorPartido implements Serializable {
 
 	def isPuedeConfirmar() {
 		EstadoDePartido.ABIERTA_LA_INSCRIPCION.equals(partido.estadoDePartido) &&
-		partido.equipos.estanOk
+		armador.ordenador != null &&
+		armador.generador != null &&
+		armador.equipos.estanOk 
 	}
 	
 	def cambioPuedeGenerar() {
@@ -108,8 +104,12 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def generarEquipos() {
-		partido.generarEquiposTentativos(ordenadorSeleccionado, criterioSeleccionado)
-
+		
+		//partido.generarEquiposTentativos(ordenadorSeleccionado, criterioSeleccionado)
+		armador.generador = criterioSeleccionado
+		armador.ordenador = ordenadorSeleccionado
+		//partido.armadorDeEquipos = armador
+		armador.armarTentativos
 		cambioPuedeConfirmar			
 	}
 
@@ -118,7 +118,7 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def confirmarEquipos() {
-		partido.confirmar
+		armador.confirmarEquipos
 		cambioPuedeConfirmar
 	}
 	
@@ -188,8 +188,12 @@ class OrganizadorPartido implements Serializable {
 
 	def void inicializar() {
 
+		partido = PartidosHome.getInstance.partidos.head
+		
 		//inicializo la busqueda
 		busqueda = new Busqueda
+		
+		armador = new ArmadorEquipos(partido)
 
 		//Criterios
 		criterios = new ArrayList
@@ -215,7 +219,6 @@ class OrganizadorPartido implements Serializable {
 
 		filtroDeInfraccionesSeleccionado = new TodosLosJugadores()
 
-		partido = PartidosHome.getInstance.partidos.head
 
 		busquedaNombreJugador = ""
 		busquedaApodoJugador = ""

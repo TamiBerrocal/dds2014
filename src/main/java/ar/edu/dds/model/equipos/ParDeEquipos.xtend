@@ -25,6 +25,7 @@ class ParDeEquipos {
 	}
 	
 	def boolean estanOk() {
-		equipo1.size == 5 && equipo2.size == 5
+		//equipo1.size == 5 && equipo2.size == 5
+		(equipo1.size != 0) && (equipo2.size != 0)
 	}
 }

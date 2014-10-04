@@ -96,7 +96,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		labelEq2.setText("Equipo 2")
 
 		new List(panelEquipos) => [
-			bindItemsToProperty("partido.equipos.equipo1")
+			//bindItemsToProperty("partido.equipos.equipo1")
+			bindItemsToProperty("armador.equipos.equipo1")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200
@@ -104,7 +105,8 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		]
 
 		new List(panelEquipos) => [
-			bindItemsToProperty("partido.equipos.equipo2")
+			//bindItemsToProperty("partido.equipos.equipo2")
+			bindItemsToProperty("armador.equipos.equipo2")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
 			height = 200

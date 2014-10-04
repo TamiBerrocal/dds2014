@@ -54,7 +54,7 @@ class Entrega7Tests {
 		appModel.criterioSeleccionado = new GeneradorDeEquiposParesContraImpares
 		
 		appModel.generarEquipos
-		var equipos = partido.equipos
+		var equipos = appModel.armador.equipos
 		var equipo1 = equipos.equipo1
 		var equipo2 = equipos.equipo2
 		
@@ -73,7 +73,7 @@ class Entrega7Tests {
 		
 		appModel.generarEquipos
 		
-		var equipos = partido.equipos
+		var equipos = appModel.armador.equipos
 		var equipo1 = equipos.equipo1
 		var equipo2 = equipos.equipo2
 		
