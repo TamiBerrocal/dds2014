@@ -18,7 +18,7 @@ import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import org.joda.time.LocalDate
 import java.util.ArrayList
 
-class Entrega7OrganizadorTests {
+class Entrega7Tests {
 	
 	@Property Partido partido
 	
