@@ -61,6 +61,16 @@ class Jugador {
 		else
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
 	}
+	
+	
+
+	def tieneNombreQueEmpieza(String comienzo){
+		nombre.startsWith(comienzo)
+	}
+	
+	def tieneApodoCon(String cuasiApodo){
+		apodo.contains(cuasiApodo)
+	}
 
 	def boolean fechaDeNacimientoAnteriorA(LocalDate fecha) {
 		fecha.isAfter(fechaNacimiento)
@@ -149,6 +159,8 @@ class Jugador {
 			this.calificaciones.filter[ c | c.partido.equals(ultimaCalificacion.partido)].toList
 		}
 	}
+
+
 
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {

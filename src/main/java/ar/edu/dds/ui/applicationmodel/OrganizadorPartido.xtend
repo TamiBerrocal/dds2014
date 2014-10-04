@@ -24,9 +24,13 @@ import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.model.EstadoDePartido
+import ar.edu.dds.home.Busqueda
 
 @Observable
 class OrganizadorPartido implements Serializable {
+	
+	//Busqueda
+	@Property Busqueda busqueda
 
 	// CRITERIOS DE GENERACION
 	@Property List<GeneradorDeEquipos> criterios
@@ -45,21 +49,21 @@ class OrganizadorPartido implements Serializable {
 
 	// BUSQUEDA	
 	@Property List<Jugador> jugadoresDeBusqueda
-	@Property String busquedaNombreJugador
-	@Property String busquedaApodoJugador
-	@Property Integer busquedaPromedioMinJugador
-	@Property Integer busquedaPromedioMaxJugador
-	@Property Integer busquedaHandicapMinJugador
-	@Property Integer busquedaHandicapMaxJugador
-	@Property LocalDate busquedaFechaNacimientoJugador
+	//@Property String busquedaNombreJugador
+	//@Property String busquedaApodoJugador
+	//@Property Integer busquedaPromedioMinJugador
+	//@Property Integer busquedaPromedioMaxJugador
+	//@Property Integer busquedaHandicapMinJugador
+	//Property Integer busquedaHandicapMaxJugador
+	//@Property LocalDate busquedaFechaNacimientoJugador
 
 	@Property List<FiltroDeJugadores> filtrosDeInfracciones
-	@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
+	//@Property FiltroDeJugadores filtroDeInfraccionesSeleccionado
 
 	new() {
 		this.inicializar
 	}
-
+	
 	def setCriterioSeleccionado(GeneradorDeEquipos criterioSeleccionado) {
 		this._criterioSeleccionado = criterioSeleccionado
 		cambioPuedeGenerar
@@ -110,23 +114,82 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def buscarJugadores() {
-		this.jugadoresDeBusqueda = 
-			JugadoresHome.getInstance.busquedaCompleta(this.busquedaNombreJugador,
-												       this.busquedaApodoJugador,
-												       this.busquedaFechaNacimientoJugador,
-												       this.busquedaHandicapMinJugador,
-												       this.busquedaHandicapMaxJugador,
-												       this.busquedaPromedioMinJugador,
-												       this.busquedaPromedioMaxJugador,
-												       this.filtroDeInfraccionesSeleccionado)
+		this.jugadoresDeBusqueda = busqueda.efectuar
 	}
 
 	def confirmarEquipos() {
 		partido.confirmar
 		cambioPuedeConfirmar
 	}
+	
+	def setBusquedaNombreJugador(String nombre){
+		this.busqueda.nombreJugador = nombre
+	}
+	def getBusquedaNombreJugador(){
+		this.busqueda.nombreJugador
+	}
+	
+	
+	def setBusquedaApodoJugador(String apodo){
+		this.busqueda.apodoJugador = apodo
+	}	
+	
+	def getBusquedaApodoJugador(){
+		this.busqueda.apodoJugador
+	}
+		
+	
+	def setBusquedaPromedioMaxJugador(Integer promedio){
+		this.busqueda.maxPromedioJugador = promedio
+	}
+	def getBusquedaPromedioMaxJugador(){
+		this.busqueda.maxPromedioJugador
+	}
+	
+	
+	def setBusquedaPromedioMinJugador(Integer promedio){
+		this.busqueda.minPromedioJugador = promedio
+	}
+	def getBusquedaPromedioMinJugador(){
+		this.busqueda.minPromedioJugador
+	}
+	
+	
+	def setBusquedaHandicapMaxJugador(Integer handicap){
+		this.busqueda.maxHandicapJugador = handicap
+	}
+	def getBusquedaHandicapMaxJugador(){
+		this.busqueda.maxHandicapJugador
+	}
+	
+	
+	def setBusquedaHandicapMinJugador(Integer handicap){
+		this.busqueda.minHandicapJugador = handicap
+	}
+	def getBusquedaHandicapMinJugador(){
+		this.busqueda.minHandicapJugador
+	}
+	
+	
+	def setBusquedaFechaNacimientoJugador(LocalDate fecha){
+		this.busqueda.fechaNacJugador = fecha
+	}
+	def getBusquedaFechaNacimientoJugador(){
+		this.busqueda.fechaNacJugador
+	}
+	
+	
+	def setFiltroDeInfraccionesSeleccionado(FiltroDeJugadores filtro){
+		this.busqueda.filtroDeInfracciones = filtro
+	}
+	def getFiltroDeInfraccionesSeleccionado(){
+		this.busqueda.filtroDeInfracciones
+	}
 
 	def void inicializar() {
+
+		//inicializo la busqueda
+		busqueda = new Busqueda
 
 		//Criterios
 		criterios = new ArrayList

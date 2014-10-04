@@ -10,8 +10,7 @@ import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Admin
 import org.joda.time.DateTime
-import org.joda.time.LocalDateimport ar.edu.dds.ui.filtros.FiltroDeJugadores
-
+import org.joda.time.LocalDate
 @Observable
 class JugadoresHome {
 
@@ -26,21 +25,15 @@ class JugadoresHome {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
 	}
 	
-	def List<Jugador> busquedaCompleta(String nombreEmpieza, String apodoContiene, LocalDate fecha,
-									   Integer handicapMinimo, Integer handicapMaximo, Integer promedioMinimo, 
-									   Integer promedioMaximo, FiltroDeJugadores filtroDeInfracciones) {
-									   	
-		//utilizar los metodos buscarPorNombre, buscarPorApodo							   
-		todosLosJugadores.filter [ 
-			
-			j | j.nombre.startsWith(nombreEmpieza) &&
-				j.apodo.contains(apodoContiene) &&
-				(fecha == null || j.fechaDeNacimientoAnteriorA(fecha)) &&
-				j.estaEnRangoDeHandicap(handicapMinimo, handicapMaximo) &&
-				j.estaEnRangoDePromedio(promedioMinimo, promedioMaximo) &&
-				filtroDeInfracciones.aplica(j)
-		
-		].toList
+	def List<Jugador> busquedaCompleta(Busqueda busqueda){
+		todosLosJugadores.filter[ j|
+			j.tieneNombreQueEmpieza(busqueda.nombreJugador) &&
+			j.tieneApodoCon(busqueda.apodoJugador) &&
+			(busqueda.fechaNacJugador == null || 
+				j.fechaDeNacimientoAnteriorA(busqueda.fechaNacJugador)) &&
+			j.estaEnRangoDeHandicap(busqueda.minHandicapJugador, busqueda.maxHandicapJugador) &&
+			j.estaEnRangoDePromedio(busqueda.minPromedioJugador, busqueda.maxPromedioJugador) &&
+			busqueda.filtroDeInfracciones.aplica(j)].toList
 	}
 	
 	
