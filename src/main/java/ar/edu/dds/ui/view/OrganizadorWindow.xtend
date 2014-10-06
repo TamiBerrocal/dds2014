@@ -132,14 +132,14 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 		val textBoxNombre = new TextBox(cajaDeBusquedaRenglon1)
 		textBoxNombre.width = 90
-		textBoxNombre.bindValueToProperty("busquedaNombreJugador")
+		textBoxNombre.bindValueToProperty("busquedaDeJugadores.nombreJugador")
 
 		val labelApodo = new Label(cajaDeBusquedaRenglon1)
 		labelApodo.setText("Apodo (contiene): ")
 
 		val textBoxApodo = new TextBox(cajaDeBusquedaRenglon1)
 		textBoxApodo.width = 90
-		textBoxApodo.bindValueToProperty("busquedaApodoJugador")
+		textBoxApodo.bindValueToProperty("busquedaDeJugadores.apodoJugador")
 
 		// Renglón 2		
 		val cajaDeBusquedaRenglon2 = new Panel(panelPadre)
@@ -150,7 +150,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 		val textBoxFecha = new TextBox(cajaDeBusquedaRenglon2)
 		textBoxFecha.width = 90
-		textBoxFecha.bindValueToProperty("busquedaFechaNacimientoJugador").setTransformer(
+		textBoxFecha.bindValueToProperty("busquedaDeJugadores.fechaNacJugador").setTransformer(
 			new ar.edu.dds.ui.view.adapters.LocalDateAdapter)
 
 		val labelFormatoFecha = new Label(cajaDeBusquedaRenglon2)
@@ -165,28 +165,28 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 
 		val textBoxHandicapMin = new TextBox(cajaDeBusquedaRenglon3)
 		textBoxHandicapMin.width = 30
-		textBoxHandicapMin.bindValueToProperty("busquedaHandicapMinJugador")
+		textBoxHandicapMin.bindValueToProperty("busquedaDeJugadores.minHandicapJugador")
 
 		val labelHandicapMax = new Label(cajaDeBusquedaRenglon3)
 		labelHandicapMax.setText("-")
 
 		val textBoxHandicapMax = new TextBox(cajaDeBusquedaRenglon3)
 		textBoxHandicapMax.width = 30
-		textBoxHandicapMax.bindValueToProperty("busquedaHandicapMaxJugador")
+		textBoxHandicapMax.bindValueToProperty("busquedaDeJugadores.maxHandicapJugador")
 
 		val labelPromedioMin = new Label(cajaDeBusquedaRenglon3)
 		labelPromedioMin.setText("     Promedio Min: (Min - Max) ")
 
 		val textBoxPromedioMin = new TextBox(cajaDeBusquedaRenglon3)
 		textBoxPromedioMin.width = 30
-		textBoxPromedioMin.bindValueToProperty("busquedaPromedioMinJugador")
+		textBoxPromedioMin.bindValueToProperty("busquedaDeJugadores.minPromedioJugador")
 
 		val labelPromedioMax = new Label(cajaDeBusquedaRenglon3)
 		labelPromedioMax.setText("-")
 
 		val textBoxPromedioMax = new TextBox(cajaDeBusquedaRenglon3)
 		textBoxPromedioMax.width = 30
-		textBoxPromedioMax.bindValueToProperty("busquedaPromedioMaxJugador")
+		textBoxPromedioMax.bindValueToProperty("busquedaDeJugadores.maxPromedioJugador")
 
 		// Renglón 4
 		val cajaDeBusquedaRenglon4 = new Panel(panelPadre)
@@ -199,7 +199,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 		comboFiltros.allowNull = false
 		comboFiltros.bindItemsToProperty("filtrosDeInfracciones").setAdapter(
 			new PropertyAdapter(typeof(FiltroDeJugadores), "nombre"))
-		comboFiltros.bindValueToProperty("filtroDeInfraccionesSeleccionado")
+		comboFiltros.bindValueToProperty("busquedaDeJugadores.filtroDeInfracciones")
 
 		// Botón
 		new Button(cajaDeBusquedaRenglon4) => [

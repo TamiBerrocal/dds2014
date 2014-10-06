@@ -18,21 +18,19 @@ import org.uqbar.commons.model.ObservableUtils
 import ar.edu.dds.home.PartidosHome
 import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.model.Infraccion
-import org.joda.time.LocalDate
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
 import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.model.EstadoDePartido
-import ar.edu.dds.home.Busqueda
 import ar.edu.dds.model.ArmadorEquipos
+import ar.edu.dds.home.BusquedaDeJugadores
 
 @Observable
 class OrganizadorPartido implements Serializable {
 	
-	//Busqueda
-	@Property Busqueda busqueda
-
+	@Property JugadoresHome repositorioDeJugadores = JugadoresHome.instance
+	
 	// CRITERIOS DE GENERACION
 	@Property List<GeneradorDeEquipos> criterios
 	@Property GeneradorDeEquipos criterioSeleccionado
@@ -51,6 +49,7 @@ class OrganizadorPartido implements Serializable {
 	@Property List<Jugador> resultados
 
 	// BUSQUEDA	
+	@Property BusquedaDeJugadores busquedaDeJugadores
 	@Property List<Jugador> jugadoresDeBusqueda
 	@Property List<FiltroDeJugadores> filtrosDeInfracciones
 
@@ -114,7 +113,7 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def buscarJugadores() {
-		this.jugadoresDeBusqueda = busqueda.efectuar
+		this.jugadoresDeBusqueda = repositorioDeJugadores.busquedaCompleta(busquedaDeJugadores)
 	}
 
 	def confirmarEquipos() {
@@ -122,76 +121,12 @@ class OrganizadorPartido implements Serializable {
 		cambioPuedeConfirmar
 	}
 	
-	def setBusquedaNombreJugador(String nombre){
-		this.busqueda.nombreJugador = nombre
-	}
-	def getBusquedaNombreJugador(){
-		this.busqueda.nombreJugador
-	}
-	
-	
-	def setBusquedaApodoJugador(String apodo){
-		this.busqueda.apodoJugador = apodo
-	}	
-	
-	def getBusquedaApodoJugador(){
-		this.busqueda.apodoJugador
-	}
-		
-	
-	def setBusquedaPromedioMaxJugador(Integer promedio){
-		this.busqueda.maxPromedioJugador = promedio
-	}
-	def getBusquedaPromedioMaxJugador(){
-		this.busqueda.maxPromedioJugador
-	}
-	
-	
-	def setBusquedaPromedioMinJugador(Integer promedio){
-		this.busqueda.minPromedioJugador = promedio
-	}
-	def getBusquedaPromedioMinJugador(){
-		this.busqueda.minPromedioJugador
-	}
-	
-	
-	def setBusquedaHandicapMaxJugador(Integer handicap){
-		this.busqueda.maxHandicapJugador = handicap
-	}
-	def getBusquedaHandicapMaxJugador(){
-		this.busqueda.maxHandicapJugador
-	}
-	
-	
-	def setBusquedaHandicapMinJugador(Integer handicap){
-		this.busqueda.minHandicapJugador = handicap
-	}
-	def getBusquedaHandicapMinJugador(){
-		this.busqueda.minHandicapJugador
-	}
-	
-	
-	def setBusquedaFechaNacimientoJugador(LocalDate fecha){
-		this.busqueda.fechaNacJugador = fecha
-	}
-	def getBusquedaFechaNacimientoJugador(){
-		this.busqueda.fechaNacJugador
-	}
-	
-	
-	def setFiltroDeInfraccionesSeleccionado(FiltroDeJugadores filtro){
-		this.busqueda.filtroDeInfracciones = filtro
-	}
-	def getFiltroDeInfraccionesSeleccionado(){
-		this.busqueda.filtroDeInfracciones
-	}
-
 	def void inicializar() {
 
 		partido = PartidosHome.getInstance.partidos.head
 		
 		//inicializo la busqueda
-		busqueda = new Busqueda
+		busquedaDeJugadores = new BusquedaDeJugadores
 		
 		armador = new ArmadorEquipos(partido)
 
@@ -216,12 +151,6 @@ class OrganizadorPartido implements Serializable {
 		filtrosDeInfracciones.add(new TodosLosJugadores())
 		filtrosDeInfracciones.add(new SoloConInfracciones())
 		filtrosDeInfracciones.add(new SoloSinInfracciones())
-
-		filtroDeInfraccionesSeleccionado = new TodosLosJugadores()
-
-
-		busquedaNombreJugador = ""
-		busquedaApodoJugador = ""
 
 		jugadoresDeBusqueda = JugadoresHome.getInstance.todosLosJugadores
 

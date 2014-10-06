@@ -31,6 +31,7 @@ class PartidosHome {
 	
 	def static void reset() {
 		INSTANCE = new PartidosHome
+		INSTANCE.inicializarStub
 	}
 	
 	def inicializarStub() {

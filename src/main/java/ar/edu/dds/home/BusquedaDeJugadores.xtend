@@ -2,12 +2,11 @@ package ar.edu.dds.home
 
 import org.joda.time.LocalDate
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
-import java.util.List
-import ar.edu.dds.model.Jugador
+import org.uqbar.commons.utils.Observable
+import ar.edu.dds.ui.filtros.TodosLosJugadores
 
-class Busqueda {
-	
-	@Property JugadoresHome repositorio = JugadoresHome.instance
+@Observable
+class BusquedaDeJugadores {
 	
 	@Property String nombreJugador
 	@Property String apodoJugador
@@ -18,8 +17,9 @@ class Busqueda {
 	@Property Integer maxPromedioJugador
 	@Property FiltroDeJugadores filtroDeInfracciones
 	
-	def List<Jugador> efectuar(){
-		repositorio.busquedaCompleta(this)
+	new() {
+		filtroDeInfracciones = new TodosLosJugadores()
+		nombreJugador = ""
+		apodoJugador = ""
 	}
-		
 }

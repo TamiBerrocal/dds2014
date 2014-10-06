@@ -5,7 +5,6 @@ import ar.edu.dds.ui.applicationmodel.OrganizadorPartido
 import org.junit.Test
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorHandicap
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquiposParesContraImpares
-import ar.edu.dds.model.Partido
 import junit.framework.Assert
 import ar.edu.dds.home.JugadoresHome
 import java.util.Arrays
@@ -17,10 +16,9 @@ import ar.edu.dds.model.Jugador
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import org.joda.time.LocalDate
 import java.util.ArrayList
+import ar.edu.dds.home.PartidosHome
 
 class Entrega7Tests {
-	
-	@Property Partido partido
 	
 	var appModel = new OrganizadorPartido
 	val homeJugadores = JugadoresHome.instance
@@ -41,10 +39,9 @@ class Entrega7Tests {
 	
 	@Before
 	def void init(){
+		PartidosHome.reset
 		appModel.inicializar
-		partido = appModel.partido
 		jugadoresEncontrados = new ArrayList
-		
 	}
 	
 	@Test
@@ -123,7 +120,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarGrillaPorTodosLosJugadores(){
 		
-		appModel.filtroDeInfraccionesSeleccionado = new TodosLosJugadores
+		appModel.busquedaDeJugadores.filtroDeInfracciones = new TodosLosJugadores
 		appModel.buscarJugadores
 		
 		Assert.assertEquals(homeJugadores.todosLosJugadores ,appModel.jugadoresDeBusqueda)
@@ -133,7 +130,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarGrillaSoloPorJugadoresConInfracciones(){
 		
-		appModel.filtroDeInfraccionesSeleccionado = new SoloConInfracciones
+		appModel.busquedaDeJugadores.filtroDeInfracciones = new SoloConInfracciones
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -145,7 +142,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarGrillaSoloPorJugadoresSinJugadores(){
 		
-		appModel.filtroDeInfraccionesSeleccionado = new SoloSinInfracciones
+		appModel.busquedaDeJugadores.filtroDeInfracciones = new SoloSinInfracciones
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -158,7 +155,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarJugadoresPorNombre(){
 		
-		appModel.busquedaNombreJugador = "Jor"
+		appModel.busquedaDeJugadores.nombreJugador = "Jor"
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.buscarPorNombre("Jor")
@@ -169,7 +166,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarJugadoresPorApodo(){
 		
-		appModel.busquedaApodoJugador = "Pol"
+		appModel.busquedaDeJugadores.apodoJugador = "Pol"
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.buscarPorApodo("Pol")
@@ -180,7 +177,7 @@ class Entrega7Tests {
 	@Test
 	def void filtrarPorFechaAnterior(){
 		val fecha = new LocalDate("1985-12-10")
-		appModel.busquedaFechaNacimientoJugador = fecha
+		appModel.busquedaDeJugadores.fechaNacJugador = fecha
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = 	homeJugadores.todosLosJugadores
@@ -192,7 +189,7 @@ class Entrega7Tests {
 	@Test 
 	def void filtrarSoloPorMinHandicap(){
 		
-		appModel.busquedaHandicapMinJugador = 9
+		appModel.busquedaDeJugadores.minHandicapJugador = 9
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -203,7 +200,7 @@ class Entrega7Tests {
 	
 	@Test 
 	def void filtrarSoloPorMaxHandicap(){
-		appModel.busquedaHandicapMaxJugador = 2
+		appModel.busquedaDeJugadores.maxHandicapJugador = 2
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -216,8 +213,8 @@ class Entrega7Tests {
 	@Test
 	def void filtrarPorHandicapMinYMax(){
 		
-		appModel.busquedaHandicapMaxJugador = 9
-		appModel.busquedaHandicapMinJugador = 5
+		appModel.busquedaDeJugadores.maxHandicapJugador = 9
+		appModel.busquedaDeJugadores.minHandicapJugador = 5
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -229,7 +226,7 @@ class Entrega7Tests {
 	
 	@Test 
 	def void filtrarSoloPorMinPromedio(){
-		appModel.busquedaPromedioMinJugador = 9
+		appModel.busquedaDeJugadores.minPromedioJugador = 9
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -240,7 +237,7 @@ class Entrega7Tests {
 	
 	@Test 
 	def void filtrarSoloPorMaxPromedio(){
-		appModel.busquedaPromedioMaxJugador = 2
+		appModel.busquedaDeJugadores.maxPromedioJugador = 2
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores
@@ -253,8 +250,8 @@ class Entrega7Tests {
 	@Test
 	def void filtrarPorPromedioMinYMax(){
 		
-		appModel.busquedaPromedioMaxJugador = 9
-		appModel.busquedaPromedioMinJugador = 5
+		appModel.busquedaDeJugadores.maxPromedioJugador = 9
+		appModel.busquedaDeJugadores.minPromedioJugador = 5
 		appModel.buscarJugadores
 		
 		jugadoresEncontrados = homeJugadores.todosLosJugadores

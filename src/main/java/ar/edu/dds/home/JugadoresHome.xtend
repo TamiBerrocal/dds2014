@@ -25,7 +25,7 @@ class JugadoresHome {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
 	}
 	
-	def List<Jugador> busquedaCompleta(Busqueda busqueda){
+	def List<Jugador> busquedaCompleta(BusquedaDeJugadores busqueda){
 		todosLosJugadores.filter[ j|
 			j.tieneNombreQueEmpieza(busqueda.nombreJugador) &&
 			j.tieneApodoCon(busqueda.apodoJugador) &&
