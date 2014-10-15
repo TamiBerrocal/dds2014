@@ -74,7 +74,13 @@ INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
 -- EQUIPOS
 CREATE TABLE equipos(id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			         nombre VARCHAR(30) NOT NULL,
-				  	 goles MEDIUMINT); 
+				  	 goles MEDIUMINT);
+
+INSERT INTO equipos(nombre, goles) 
+	VALUES('Nothingam Miedo', 4);
+
+INSERT INTO equipos(nombre, goles) 
+	VALUES('Aston Birra', 2);
 					
 
 -- PARTIDOS
@@ -85,8 +91,51 @@ CREATE TABLE partidos (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 					   lugar VARCHAR (255) NOT NULL,
 					   FOREIGN KEY (equipo1_id) REFERENCES equipos(id),
 					   FOREIGN KEY (equipo2_id) REFERENCES equipos(id));
+
+INSERT INTO partidos (equipo1_id, equipo2_id, fecha, lugar)
+	VALUES (1, 2, '2014-10-14', 'Quintino y autopista');
 			
                                
+                          
+-- JUGADORES-EQUIPOS
+CREATE TABLE jugadores_equipos (jugador_id MEDIUMINT NOT NULL,
+								equipo_id MEDIUMINT NOT NULL,
+								PRIMARY KEY (jugador_id, equipo_id),
+								FOREIGN KEY (jugador_id) REFERENCES jugadores (id),
+								FOREIGN KEY (equipo_id) REFERENCES equipos (id));
+
+INSERT INTO jugadores_equipos VALUES (1, 1);
+INSERT INTO jugadores_equipos VALUES (2, 1);
+INSERT INTO jugadores_equipos VALUES (3, 1);
+INSERT INTO jugadores_equipos VALUES (4, 1);
+INSERT INTO jugadores_equipos VALUES (5, 1);
+INSERT INTO jugadores_equipos VALUES (6, 2);
+INSERT INTO jugadores_equipos VALUES (7, 2);
+INSERT INTO jugadores_equipos VALUES (8, 2);
+INSERT INTO jugadores_equipos VALUES (9, 2);
+INSERT INTO jugadores_equipos VALUES (10, 2);
+
+
+-- INSCRIPCIONES
+CREATE TABLE inscripciones (jugador_id MEDIUMINT NOT NULL,
+							partido_id MEDIUMINT NOT NULL,
+							tipo_inscripcion VARCHAR (255) NOT NULL, 
+							PRIMARY KEY (jugador_id, partido_id),
+							FOREIGN KEY (jugador_id) REFERENCES jugadores (id),
+							FOREIGN KEY (partido_id) REFERENCES equipos (id));
+
+INSERT INTO inscripciones VALUES (1, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (2, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (3, 1, 'CONDICIONAL');
+INSERT INTO inscripciones VALUES (4, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (5, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (6, 1, 'SOLIDARIA');
+INSERT INTO inscripciones VALUES (7, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (8, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (9, 1, 'ESTANDAR');
+INSERT INTO inscripciones VALUES (10, 1, 'ESTANDAR');
+
+
 -- CALIFICACIONES
 CREATE TABLE calificaciones (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							 partido_id MEDIUMINT NOT NULL,
@@ -99,18 +148,15 @@ CREATE TABLE calificaciones (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							 FOREIGN KEY (jugador_id) REFERENCES jugadores(id),
 							 FOREIGN KEY (jugador_autor_id) REFERENCES jugadores(id));
 
-                          
--- JUGADORES-EQUIPOS
-CREATE TABLE jugadores_equipos (jugador_id MEDIUMINT NOT NULL,
-								equipo_id MEDIUMINT NOT NULL,
-								PRIMARY KEY (jugador_id, equipo_id),
-								FOREIGN KEY (jugador_id) REFERENCES jugadores (id),
-								FOREIGN KEY (equipo_id) REFERENCES equipos (id));
-
--- INSCRIPCIONES
-CREATE TABLE inscripciones (jugador_id MEDIUMINT NOT NULL,
-							partido_id MEDIUMINT NOT NULL,
-							tipo_inscripcion VARCHAR (255) NOT NULL, 
-							PRIMARY KEY (jugador_id, partido_id),
-							FOREIGN KEY (jugador_id) REFERENCES jugadores (id),
-							FOREIGN KEY (partido_id) REFERENCES equipos (id));
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 3, 2, 7, 'Buena pegada', '2014-10-15');
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 5, 1, 9, 'Bestia del futbol', '2014-10-15');
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 5, 4, 8, 'Mucha potencia', '2014-10-15');
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 6, 4, 2, 'Sos de cartón hermano', '2014-10-15');
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 2, 5, 4, 'Safa', '2014-10-15');
+INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
+	VALUES (1, 5, 6, 8, 'Muy bien', '2014-10-15');
