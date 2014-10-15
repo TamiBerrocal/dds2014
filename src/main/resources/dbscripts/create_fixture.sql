@@ -47,27 +47,27 @@ INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap)
 CREATE TABLE infracciones (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				           jugador_id MEDIUMINT NOT NULL,
 						   causa VARCHAR(255) NOT NULL,
-						   validaDesde DATETIME NOT NULL,
-						   validaHasta DATETIME NOT NULL,
+						   valida_desde DATETIME NOT NULL,
+						   valida_hasta DATETIME NOT NULL,
 						   FOREIGN KEY (jugador_id) REFERENCES jugadores(id));
              
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(3, 'Por ser malísimo', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(5, 'Por llegar tarde', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(2, 'Por no correr', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(1, 'Por haber errado un gol hecho', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(3, 'Porque me cae mal', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
-INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
+INSERT INTO infracciones (jugador_id, causa, valida_desde, valida_hasta)
 	VALUES(3, 'Por haber faltado sin avisar', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 	
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap)
