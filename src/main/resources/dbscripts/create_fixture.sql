@@ -69,6 +69,9 @@ INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
 
 INSERT INTO infracciones (jugador_id, causa, validaDesde, validaHasta)
 	VALUES(3, 'Por haber faltado sin avisar', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
+	
+INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap)
+	VALUES('Rodrigo', 'Uruguayo', 'rmora@gmail.com', '1988-07-21', 10);
 
 
 -- EQUIPOS
@@ -166,17 +169,4 @@ CREATE TABLE baja_jugadores (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							 jugador_id MEDIUMINT NOT NULL,
 							 partido_id MEDIUMINT NOT NULL,
                              FOREIGN KEY (jugador_id) REFERENCES jugadores(id),
-                             FOREIGN KEY (partido_id) REFERENCES partidos(id));
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                             FOREIGN KEY (partido_id) REFERENCES partidos(id));                            
