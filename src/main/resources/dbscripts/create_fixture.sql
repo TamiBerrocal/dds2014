@@ -161,11 +161,12 @@ INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, come
 INSERT INTO calificaciones (partido_id, jugador_id, jugador_autor_id, nota, comentario, fecha_de_carga)
 	VALUES (1, 5, 6, 8, 'Muy bien', '2014-10-15');
 
+-- BAJA JUGADORES
 CREATE TABLE baja_jugadores (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-							  jugador_id MEDIUMINT NOT NULL,
-							  partido_id MEDIUMINT NOT NULL,
-                              FOREIGN KEY (jugador_id) REFERENCES jugadores(id),
-                              FOREIGN KEY (partido_id) REFERENCES partidos(id));
+							 jugador_id MEDIUMINT NOT NULL,
+							 partido_id MEDIUMINT NOT NULL,
+                             FOREIGN KEY (jugador_id) REFERENCES jugadores(id),
+                             FOREIGN KEY (partido_id) REFERENCES partidos(id));
                             
                             
                             
