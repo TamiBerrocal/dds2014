@@ -68,5 +68,27 @@ INSERT INTO infracciones (jugadorId, causa, validaDesde, validaHasta)
 	VALUES(3, 'Por haber faltado sin avisar', '2014-10-15 20:15:00', '2014-10-20 20:15:00');
 
 
-SELECT * FROM jugadores;
-SELECT * FROM infracciones;
+CREATE TABLE Partido (
+             id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			 Fecha DATE NOT NULL,
+			 lugar VARCHAR (255) NOT NULL,
+			 FOREIGN KEY (id_equipo1)
+				REFERENCES equipo(id),
+			FOREIGN KEY (id_equipo2)
+			       REFERENCES equipo (id));
+			       
+CREATE TABLE inscripcion (
+                  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                  tipo_inscripcion VARCHAR (255) NOT NULL, 
+                  FOREIGN KEY ( id_jugador) REFERENCES jugadores (id),
+                  FOREIGN KEY (id_partido ) REFERENCES partido (id));
+                  
+                  
+CREATE TABLE jugador_equipo ( 
+                               id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                               FOREIGN KEY (id_jugador) REFERENCES jugador (id),
+                               FOREIGN KEY ( id_equipo) REFERENCES equipo (id));
+                               
+                               
+
+
