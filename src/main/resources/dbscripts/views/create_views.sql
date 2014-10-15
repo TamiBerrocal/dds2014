@@ -5,7 +5,7 @@ CREATE VIEW malos AS SELECT * FROM jugadores WHERE handicap < 6;
 CREATE VIEW traicioneros AS SELECT * FROM jugadores j
 									 WHERE (SELECT COUNT(*) FROM infracciones i
 															WHERE i.jugador_id = j.id
-															  AND DATEDIFF(NOW(), i.valida_hasta) < 90) > 3;
+															  AND DATEDIFF(NOW(), i.validaHasta) < 90) > 3;
 
 -- 3.c
 CREATE VIEW pueden_mejorar AS 
