@@ -1,3 +1,4 @@
+-- 3.d
 DELIMITER \\
 CREATE TRIGGER tr_delete_jugador AFTER DELETE ON inscripciones
 FOR EACH ROW
