@@ -69,7 +69,9 @@ INSERT INTO infracciones (jugadorId, causa, validaDesde, validaHasta)
 
 
 CREATE TABLE Partido (
-             id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+             id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+             id_equipo1 MEDIUMINT NOT NULL,
+             id-equipo2 MEDIUMINT NOT NULL,
 			 Fecha DATE NOT NULL,
 			 lugar VARCHAR (255) NOT NULL,
 			 FOREIGN KEY (id_equipo1)
@@ -78,14 +80,18 @@ CREATE TABLE Partido (
 			       REFERENCES equipo (id));
 			       
 CREATE TABLE inscripcion (
-                  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+                  id_jugador MEDIUMINT NOT NULL
+                  id_partido MEDIUMINT NOT NULL,
                   tipo_inscripcion VARCHAR (255) NOT NULL, 
                   FOREIGN KEY ( id_jugador) REFERENCES jugadores (id),
                   FOREIGN KEY (id_partido ) REFERENCES partido (id));
                   
                   
 CREATE TABLE jugador_equipo ( 
-                               id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                               id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+                               id_jugador MEDIUMINT NOT NULL
+                               id_equipo MEDIUMINT NOT NULL,
                                FOREIGN KEY (id_jugador) REFERENCES jugador (id),
                                FOREIGN KEY ( id_equipo) REFERENCES equipo (id));
                                
