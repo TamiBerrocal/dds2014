@@ -1,4 +1,4 @@
-package ar.edu.dds.home
+package ar.edu.dds.repository.inmemory
 
 import ar.edu.dds.model.Partido
 import java.util.List
@@ -8,13 +8,18 @@ import ar.edu.dds.model.inscripcion.Estandar
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import org.joda.time.LocalDate
+import ar.edu.dds.repository.PartidosRepo
 
 @Observable
-class PartidosHome {
+class PartidosHome implements PartidosRepo {
 	
 	static PartidosHome INSTANCE
 	
 	@Property List<Partido> partidos
+	
+	override List<Partido> todosLosPartidos() {
+		partidos
+	}
 	
 	// Singleton
 	new() {

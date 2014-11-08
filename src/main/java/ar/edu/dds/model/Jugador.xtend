@@ -6,27 +6,52 @@ import java.util.List
 import java.util.ArrayList
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
-import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
-import ar.edu.dds.home.PartidosHome
 import org.joda.time.Period
+import ar.edu.dds.repository.PartidosRepo
+import ar.edu.dds.repository.inmemory.JugadoresHome
+import ar.edu.dds.repository.inmemory.PartidosHome
+import javax.persistence.ManyToMany
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.OneToMany
 
+@Entity
 @Observable
 class Jugador {
 
+	@Id
+	@GeneratedValue
+	@Property long id
+
 	@Property ModoDeInscripcion modoDeInscripcion
-	@Property List<Jugador> amigos
-	@Property String mail
-	@Property String nombre
-	@Property String apodo
-	@Property LocalDate fechaNacimiento
-	@Property int handicap
-	@Property
-	List<Infraccion> infracciones
 	
-	@Property
-	List<Calificacion> calificaciones
+	@ManyToMany
+	@Property List<Jugador> amigos
+	
+	@Column
+	@Property String mail
+	
+	@Column
+	@Property String nombre
+	
+	@Column
+	@Property String apodo
+	
+	@Column
+	@Property LocalDate fechaNacimiento
+	
+	@Column
+	@Property int handicap
+	
+	@OneToMany
+	@Property List<Infraccion> infracciones
+	
+	@OneToMany
+	@Property List<Calificacion> calificaciones
 	
 	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
@@ -98,8 +123,8 @@ class Jugador {
 		minOk && maxOk
 	}
 	
-	def getPartidosJugados() {
-		PartidosHome.getInstance.partidos.fold(0)[ jugados, partido |
+	def getPartidosJugados(PartidosRepo partidosRepo) {
+		PartidosHome.getInstance.todosLosPartidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
 				jugados + 1
 			else
@@ -111,8 +136,8 @@ class Jugador {
 		partido.jugadores.contains(this)
 	}
 	
-	def void recomendarAmigo(Jugador jugador) {
-		JugadoresHome.instance.recomendarNuevoJugador(jugador)
+	def void recomendarAmigo(Jugador jugador, JugadoresHome jugadoresHome) {
+		jugadoresHome.recomendarNuevoJugador(jugador)
 	}
 
 	def boolean leSirveElPartido(Partido partido) {

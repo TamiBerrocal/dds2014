@@ -11,18 +11,42 @@ import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.uqbar.commons.utils.Observable
 import ar.edu.dds.model.equipos.ParDeEquipos
+import javax.persistence.Id
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.OneToMany
+import javax.persistence.Column
+import javax.persistence.OneToOne
+import javax.persistence.ManyToOne
 
+@Entity
 @Observable
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
+	
+	@Id
+	@GeneratedValue
+	@Property long Id
 
+	@OneToMany
 	@Property List<Jugador> jugadores
+	
+	@Column
 	@Property DateTime fechaYHora
+	
+	@Column
 	@Property String lugar
+	
+	@Column
 	@Property EstadoDePartido estadoDePartido
+	
+	@ManyToOne
 	@Property Admin administrador
+	
+	@OneToOne
 	@Property ParDeEquipos equipos
+	
 	@Property ArmadorEquipos armadorDeEquipos
 
 	List<InscripcionDeJugadorObserver> inscripcionObservers
@@ -43,48 +67,11 @@ class Partido {
 	
 	new() {
 	}
-/* 
-	def void confirmar() {
-		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
-		
-		if (equipos.estanOk) {
-			this.estadoDePartido = EstadoDePartido.CONFIRMADO
-		} else {
-			throw new EquiposNoGeneradosException("Generar equipos antes de confirmar")
-		}
-	}*/
-	/* 
-	def void confirmar(){
-		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible confirmar partido con estado: ")
-		armadorDeEquipos.confirmarEquipos
-	}*/
-	/* 
-	def void generarEquiposTentativos(){
-		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible generar equipos para partido con estado: ")
-		armadorDeEquipos.armarTentativos
-	}*/
 	
 	def void cerrarInscripcion(){
 		estadoDePartido = EstadoDePartido.CONFIRMADO
 	}
 
-	// MÉTODOS DE EQUIPOS
-	/*def void generarEquiposTentativos(OrdenadorDeJugadores ordenador, GeneradorDeEquipos generadorDeEquipos) {
-		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible generar equipos para partido con estado: ")
-		
-		// Me quedo con los 10 Jugadores con más prioridad
-		val jugadoresFinales = this.jugadoresQueJugarian.sortBy[modoDeInscripcion.prioridadInscripcion].take(10).toList
-	
-		val cantidadDeConfirmados = jugadoresFinales.size 
-		if (cantidadDeConfirmados.equals(10)) {
-			val jugadoresOrdenados = ordenador.ordenar(jugadoresFinales) //agrego la asignacion porque el sortby no tiene efecto
-			this.equipos = generadorDeEquipos.generar(jugadoresOrdenados)
-		} else {
-			throw new NoHaySuficientesJugadoresException("Solamente confirmaron " + cantidadDeConfirmados + "jugadores...")
-		}
-	}*/
-	
-	
 	// MÉTODOS DE JUGADORES
 	def void agregarJugadorPartido(Jugador jugador) {
 		this.validarEstadoDePartido(EstadoDePartido.ABIERTA_LA_INSCRIPCION, "Imposible agregar jugadores a un partido con estado: ")

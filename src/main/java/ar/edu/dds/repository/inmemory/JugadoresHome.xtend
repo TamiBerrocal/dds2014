@@ -1,4 +1,4 @@
-package ar.edu.dds.home
+package ar.edu.dds.repository.inmemory
 
 import java.util.List
 import ar.edu.dds.model.Jugador
@@ -11,8 +11,11 @@ import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Admin
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
+import ar.edu.dds.ui.applicationmodel.BusquedaDeJugadores
+import ar.edu.dds.repository.JugadoresRepo
+
 @Observable
-class JugadoresHome {
+class JugadoresHome implements JugadoresRepo {
 
 	static JugadoresHome INSTANCE
 
@@ -21,11 +24,11 @@ class JugadoresHome {
 	
 	List<Rechazo> rechazos
 	
-	def List<Jugador> buscarPorNombre(String s) {
+	override List<Jugador> buscarPorNombre(String s) {
 		todosLosJugadores.filter[ j | j.nombre.contains(s) ].toList
 	}
 	
-	def List<Jugador> busquedaCompleta(BusquedaDeJugadores busqueda){
+	override List<Jugador> busquedaCompleta(BusquedaDeJugadores busqueda) {
 		todosLosJugadores.filter[ j|
 			j.tieneNombreQueEmpieza(busqueda.nombreJugador) &&
 			j.tieneApodoCon(busqueda.apodoJugador) &&
@@ -41,12 +44,12 @@ class JugadoresHome {
 		this.jugadoresPendientesDeAprobacion.add(jugador)
 	}
 
-	def void aprobarJugador(Jugador jugador) {
+	override void aprobarJugador(Jugador jugador) {
 		this.jugadoresPendientesDeAprobacion.remove(jugador)
 		this.jugadoresAprobados.add(jugador)
 	}
 
-	def void rechazarJugador(Jugador jugador, String motivoDeRechazo) {
+	override void rechazarJugador(Jugador jugador, String motivoDeRechazo) {
 		this.jugadoresPendientesDeAprobacion.remove(jugador)
 		this.rechazos.add(new Rechazo(jugador, motivoDeRechazo))
 	}
@@ -100,7 +103,7 @@ class JugadoresHome {
 		this.rechazos
 	}
 	
-	def buscarPorApodo(String string) {
+	override buscarPorApodo(String string) {
 			todosLosJugadores.filter[ j | j.apodo.contains(string) ].toList
 	}
 	

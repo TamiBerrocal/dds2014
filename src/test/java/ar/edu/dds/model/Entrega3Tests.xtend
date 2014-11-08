@@ -1,13 +1,13 @@
 package ar.edu.dds.model
 
-import org.junit.Before
-import ar.edu.dds.model.inscripcion.Estandar
-import org.joda.time.DateTime
-import org.junit.Test
-import org.junit.Assert
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
-import ar.edu.dds.home.JugadoresHome
+import ar.edu.dds.model.inscripcion.Estandar
+import ar.edu.dds.repository.inmemory.JugadoresHome
+import org.joda.time.DateTime
 import org.joda.time.LocalDate
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
 class Entrega3Tests {
 
@@ -105,7 +105,7 @@ class Entrega3Tests {
 	def void unJugadorProponeAUnAmigoYElAdminNoHaceNada() {
 
 		val rodrigo = new Jugador("Rodrigo", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Rodri")
-		this.matias.recomendarAmigo(rodrigo)
+		this.matias.recomendarAmigo(rodrigo, jugadoresHome)
 
 		Assert.assertTrue(jugadoresHome.estaPendiente(rodrigo))
 	}
@@ -114,10 +114,10 @@ class Entrega3Tests {
 	def void unJugadorProponeUnAmigoYElAdminLoRechaza() {
 
 		val rodrigo = new Jugador("Rodrigo", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Rodri")
-		this.matias.recomendarAmigo(rodrigo)
+		this.matias.recomendarAmigo(rodrigo, jugadoresHome)
 
 		//el admin rechaza el amigo del jugador 
-		admin.rechazarJugador(rodrigo, "No sabe jugar")
+		admin.rechazarJugador(rodrigo, "No sabe jugar", jugadoresHome)
 
 		Assert.assertTrue(jugadoresHome.estaRechazado(rodrigo))
 		Assert.assertFalse(jugadoresHome.estaPendiente(rodrigo))
@@ -128,10 +128,10 @@ class Entrega3Tests {
 	def void unJugadorProponeAmigoYseAcepta() {
 
 		val rodrigo = new Jugador("Rodrigo", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Rodri")
-		this.matias.recomendarAmigo(rodrigo)
+		this.matias.recomendarAmigo(rodrigo, jugadoresHome)
 
 		//el admin acepta el amigo del jugador 
-		admin.aprobarJugador(rodrigo)
+		admin.aprobarJugador(rodrigo, jugadoresHome)
 
 		Assert.assertTrue(jugadoresHome.estaAprobado(rodrigo))
 		Assert.assertFalse(jugadoresHome.estaPendiente(rodrigo))

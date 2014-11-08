@@ -15,8 +15,6 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.Jugador
 import org.uqbar.commons.model.ObservableUtils
-import ar.edu.dds.home.PartidosHome
-import ar.edu.dds.home.JugadoresHome
 import ar.edu.dds.model.Infraccion
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
 import ar.edu.dds.ui.filtros.SoloConInfracciones
@@ -24,12 +22,16 @@ import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.model.EstadoDePartido
 import ar.edu.dds.model.ArmadorEquipos
-import ar.edu.dds.home.BusquedaDeJugadores
+import ar.edu.dds.repository.JugadoresRepo
+import ar.edu.dds.repository.inmemory.JugadoresHome
+import ar.edu.dds.repository.inmemory.PartidosHome
+import ar.edu.dds.repository.PartidosRepo
 
 @Observable
 class OrganizadorPartido implements Serializable {
 	
-	@Property JugadoresHome repositorioDeJugadores = JugadoresHome.instance
+	@Property JugadoresRepo repositorioDeJugadores = JugadoresHome.instance
+	@Property PartidosRepo partidosRepo = PartidosHome.instance
 	
 	// CRITERIOS DE GENERACION
 	@Property List<GeneradorDeEquipos> criterios
@@ -123,7 +125,7 @@ class OrganizadorPartido implements Serializable {
 	
 	def void inicializar() {
 
-		partido = PartidosHome.getInstance.partidos.head
+		partido = partidosRepo.todosLosPartidos.head
 		
 		//inicializo la busqueda
 		busquedaDeJugadores = new BusquedaDeJugadores

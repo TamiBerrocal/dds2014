@@ -1,4 +1,4 @@
-package ar.edu.dds.home
+package ar.edu.dds.ui.applicationmodel
 
 import org.joda.time.LocalDate
 import ar.edu.dds.ui.filtros.FiltroDeJugadores

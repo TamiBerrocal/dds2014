@@ -1,13 +1,13 @@
 package ar.edu.dds.runnable
 
+import ar.edu.dds.model.Jugador
+import ar.edu.dds.model.Partido
+import ar.edu.dds.repository.inmemory.JugadoresHome
+import ar.edu.dds.repository.inmemory.PartidosHome
+import ar.edu.dds.ui.view.OrganizadorWindow
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 import org.uqbar.commons.utils.ApplicationContext
-import ar.edu.dds.home.JugadoresHome
-import ar.edu.dds.model.Jugador
-import ar.edu.dds.model.Partido
-import ar.edu.dds.home.PartidosHome
-import ar.edu.dds.ui.view.OrganizadorWindow
 
 class OrganizadorPartidoApplication extends Application {
 	

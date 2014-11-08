@@ -10,8 +10,4 @@ CREATE VIEW traicioneros AS SELECT * FROM jugadores j
 -- 3.c
 CREATE VIEW pueden_mejorar AS 
 	SELECT * FROM malos
-			 WHERE DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(fecha_nac)), '%Y')+0 < 25;
-             
-
-
-
+			 WHERE DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(fecha_nac)), '%Y')+0 < 25;s
