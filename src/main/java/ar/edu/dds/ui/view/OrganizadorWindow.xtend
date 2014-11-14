@@ -100,7 +100,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			bindItemsToProperty("armador.equipos.equipo1")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
-			height = 200
+			//height = 200
 			onSelection[|this.verDetalleDeJugador]
 		]
 
@@ -109,7 +109,7 @@ class OrganizadorWindow extends SimpleWindow<OrganizadorPartido> {
 			bindItemsToProperty("armador.equipos.equipo2")
 			bindValueToProperty("jugadorSeleccionado")
 			width = 125
-			height = 200
+			//height = 200
 			onSelection[|this.verDetalleDeJugador]
 		]
 

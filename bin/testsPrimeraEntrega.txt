@@ -1,0 +1,8 @@
+TESTS
+
+1) tratar de hacer un partido con 11 jugadores standard y que tire excepcion de que no se pueden agregar mas jugadores
+2) que el sistema te deje agregar un jugador standard a un partido que tiene 9 standard y 1 solidario
+3) que el sistema te deje agregar un jugador standard a un partido que tiene 9 standard y 1 condicional
+4) que el sistema te deje agregar un jugador solidario a un partido que tiene 9 standard y 1 condicional (el solidario tiene prioridad sobre el condicional)
+5) teniendo un partido con 5 jugadores standard y 5 jugadores solidarios, al agregar un standard saque al primer solidario que ingreso. (capaz se puede integrar con el test 1)
+6) testear el tipoDeInscripcion condicional segun lo que responda Gaston 
