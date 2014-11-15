@@ -24,11 +24,17 @@ WHERE DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(fecha_nac)), '%Y')+0 < 25;
 -- pendientes de aprobacion
 CREATE VIEW pendientes_aprobacion as
 SELECT nombre, apodo, mail, fecha_nac, handicap
-FROM jugadores
-WHERE aprobado = 'N';
+FROM jugadores j
+WHERE aprobado = 'N'
+AND not exists(SELECT id
+				FROM rechazo_jugadores r
+				WHERE r.id = j.id);
 
 -- aprobados
 CREATE VIEW aprobados as
 SELECT nombre, apodo, mail, fecha_nac, handicap
-FROM jugadores
-WHERE aprobado = 'S';
+FROM jugadores j
+WHERE aprobado = 'Y'
+AND not exists(SELECT id
+				FROM rechazo_jugadores r
+				WHERE r.id = j.id);

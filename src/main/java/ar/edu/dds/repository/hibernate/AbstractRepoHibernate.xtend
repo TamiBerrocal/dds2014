@@ -21,11 +21,8 @@ abstract class AbstractRepoHibernate<T> {
 		sessionFactory
 	}
 	
-	def T get(Long id) {
-		get(id, false)
-	}
+	def T get(Long id) {}
 
-	def T get(Long id, boolean deep)
 	 
 	/* Para el test */
 	/* Necesitamos siempre hacer lo mismo:

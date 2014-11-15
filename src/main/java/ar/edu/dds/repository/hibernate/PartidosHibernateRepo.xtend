@@ -5,7 +5,7 @@ import ar.edu.dds.model.Partido
 
 class PartidosHibernateRepo extends AbstractRepoHibernate<Partido> implements PartidosRepo {
 	
-	override get(Long id, boolean deep) {
+	override get(Long id) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	

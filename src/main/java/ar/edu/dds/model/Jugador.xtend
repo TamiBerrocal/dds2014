@@ -18,6 +18,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
+import org.hibernate.annotations.Type
 
 @Entity
 @Observable
@@ -46,6 +47,10 @@ class Jugador {
 	
 	@Column
 	@Property int handicap
+	
+	@Column
+	@Type (type = "yes_no")
+	@Property Boolean aprobado
 	
 	@OneToMany
 	@Property List<Infraccion> infracciones

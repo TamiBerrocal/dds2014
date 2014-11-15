@@ -11,41 +11,41 @@ CREATE TABLE jugadores (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			            mail VARCHAR(30) NOT NULL, 
 					    fecha_nac DATE NOT NULL,
 						handicap TINYINT,
-                        aprobado CHAR(1) default'N' CHECK(aprobado in ('S','N')));
+                        aprobado CHAR(1) default'N' CHECK(aprobado in ('Y','N')));
              
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Marcos', 'Marquitos', 'marquitos@gmail.com', '1991-09-23', 6, 'S');
+	VALUES('Marcos', 'Marquitos', 'marquitos@gmail.com', '1991-09-23', 6, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Juan Jose', 'Juanjo', 'jj@gmail.com', '1992-01-22', 5, 'S');
+	VALUES('Juan Jose', 'Juanjo', 'jj@gmail.com', '1992-01-22', 5, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Carlos', 'Apache', 'carlitos@gmail.com', '1986-02-13', 6, 'S');
+	VALUES('Carlos', 'Apache', 'carlitos@gmail.com', '1986-02-13', 6, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Roberto', 'Beto', 'beto@gmail.com', '1988-05-15', 9, 'S');
+	VALUES('Roberto', 'Beto', 'beto@gmail.com', '1988-05-15', 9, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Manuel', 'Manolo', 'manolo@gmail.com', '1971-04-16', 2, 'S');
+	VALUES('Manuel', 'Manolo', 'manolo@gmail.com', '1971-04-16', 2, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Luis', 'Lucho', 'lucho@gmail.com', '1987-07-30', 4, 'S');
+	VALUES('Luis', 'Lucho', 'lucho@gmail.com', '1987-07-30', 4, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Matias', 'Tute', 'tute@gmail.com', '1994-03-13', 5, 'S');
+	VALUES('Matias', 'Tute', 'tute@gmail.com', '1994-03-13', 5, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Damian', 'Damo', 'damoina@gmail.com', '1987-09-30', 8, 'S');
+	VALUES('Damian', 'Damo', 'damoina@gmail.com', '1987-09-30', 8, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Omar', 'Omi', 'vomi@gmail.com', '1986-10-11', 3, 'S');
+	VALUES('Omar', 'Omi', 'vomi@gmail.com', '1986-10-11', 3, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Joaquin', 'Joacko', 'joacko@gmail.com', '1992-07-21', 2, 'S');
+	VALUES('Joaquin', 'Joacko', 'joacko@gmail.com', '1992-07-21', 2, 'Y');
 
 INSERT INTO jugadores (nombre, apodo, mail, fecha_nac, handicap, aprobado)
-	VALUES('Rodrigo', 'Uruguayo', 'rmora@gmail.com', '1988-07-21', 10, 'S');
+	VALUES('Rodrigo', 'Uruguayo', 'rmora@gmail.com', '1988-07-21', 10, 'Y');
 
 -- INFRACCIONES
 CREATE TABLE infracciones (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -171,4 +171,9 @@ CREATE TABLE baja_jugadores (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 							 jugador_id MEDIUMINT NOT NULL,
 							 partido_id MEDIUMINT NOT NULL,
                              FOREIGN KEY (jugador_id) REFERENCES jugadores(id),
-                             FOREIGN KEY (partido_id) REFERENCES partidos(id));                            
+                             FOREIGN KEY (partido_id) REFERENCES partidos(id));     
+-- RECHAZO JUGADORES
+CREATE TABLE rechazo_jugadores (id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+								jugador_id MEDIUMINT NOT NULL,
+                                motivo VARCHAR(60),
+                                fecha DATETIME);
