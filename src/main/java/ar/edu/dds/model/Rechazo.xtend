@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import org.hibernate.annotations.Type
 import javax.persistence.Entity
+import javax.persistence.OneToOne
+import javax.persistence.CascadeType
 
 @Entity
 class Rechazo {
@@ -14,7 +16,7 @@ class Rechazo {
 	@GeneratedValue
 	@Property long id
 	
-	@Column
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@Property
 	Jugador jugador
 	
