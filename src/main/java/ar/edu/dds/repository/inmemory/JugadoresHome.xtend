@@ -106,16 +106,12 @@ class JugadoresHome implements JugadoresRepo {
 	override buscarPorApodo(String string) {
 			todosLosJugadores.filter[ j | j.apodo.contains(string) ].toList
 	}
-	
-
-	
-	
-		def List<Jugador> todosLosJugadores() {
+		
+	def List<Jugador> todosLosJugadores() {
 		val result = new ArrayList<Jugador>
 		result.addAll(jugadoresAprobados)
 		result.addAll(jugadoresPendientesDeAprobacion)
-		result.addAll(jugadoresRechazados)
-		
+		result.addAll(this.jugadoresRechazados)
 		result
 	}
 	

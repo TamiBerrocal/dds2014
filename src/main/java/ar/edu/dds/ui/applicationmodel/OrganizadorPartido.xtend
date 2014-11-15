@@ -22,16 +22,22 @@ import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
 import ar.edu.dds.model.EstadoDePartido
 import ar.edu.dds.model.ArmadorEquipos
-import ar.edu.dds.repository.JugadoresRepo
-import ar.edu.dds.repository.inmemory.JugadoresHome
-import ar.edu.dds.repository.inmemory.PartidosHome
-import ar.edu.dds.repository.PartidosRepo
+//import ar.edu.dds.repository.JugadoresRepo
+//import ar.edu.dds.repository.inmemory.JugadoresHome
+//import ar.edu.dds.repository.inmemory.PartidosHome
+//import ar.edu.dds.repository.PartidosRepo
+import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 
 @Observable
 class OrganizadorPartido implements Serializable {
 	
-	@Property JugadoresRepo repositorioDeJugadores = JugadoresHome.instance
-	@Property PartidosRepo partidosRepo = PartidosHome.instance
+//	@Property JugadoresRepo repositorioDeJugadores = JugadoresHome.instance
+//	@Property PartidosRepo partidosRepo = PartidosHome.instance
+
+	@Property JugadoresHibernateRepo repositorioDeJugadores = JugadoresHibernateRepo.instance
+	@Property PartidosHibernateRepo partidosRepo = PartidosHibernateRepo.instance
+
 	
 	// CRITERIOS DE GENERACION
 	@Property List<GeneradorDeEquipos> criterios
@@ -154,7 +160,7 @@ class OrganizadorPartido implements Serializable {
 		filtrosDeInfracciones.add(new SoloConInfracciones())
 		filtrosDeInfracciones.add(new SoloSinInfracciones())
 
-		jugadoresDeBusqueda = JugadoresHome.getInstance.todosLosJugadores
+		jugadoresDeBusqueda = JugadoresHibernateRepo.getInstance.todosLosJugadores
 
 		ordenadorSeleccionado = null
 		criterioSeleccionado = null

@@ -9,9 +9,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
 import org.joda.time.Period
-import ar.edu.dds.repository.PartidosRepo
+//import ar.edu.dds.repository.PartidosRepo
 import ar.edu.dds.repository.inmemory.JugadoresHome
-import ar.edu.dds.repository.inmemory.PartidosHome
+//import ar.edu.dds.repository.inmemory.PartidosHome
 import javax.persistence.ManyToMany
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,6 +19,7 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
 import org.hibernate.annotations.Type
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 
 @Entity
 @Observable
@@ -92,8 +93,6 @@ class Jugador {
 			calificaciones.map[ c | c.nota ].reduce[ n1, n2 | n1 + n2 ] / calificaciones.size
 	}
 	
-	
-
 	def tieneNombreQueEmpieza(String comienzo){
 		nombre.startsWith(comienzo)
 	}
@@ -128,8 +127,9 @@ class Jugador {
 		minOk && maxOk
 	}
 	
-	def getPartidosJugados(PartidosRepo partidosRepo) {
-		PartidosHome.getInstance.todosLosPartidos.fold(0)[ jugados, partido |
+	//def getPartidosJugados(PartidosRepo partidosRepo) {
+	def getPartidosJugados () {
+		PartidosHibernateRepo.instance.todosLosPartidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
 				jugados + 1
 			else

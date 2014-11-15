@@ -7,8 +7,18 @@ import java.util.List
 import org.hibernate.criterion.Restrictions
 import org.hibernate.HibernateException
 import ar.edu.dds.model.Rechazo
+import java.util.ArrayList
 
 class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements JugadoresRepo {
+	
+	static JugadoresHibernateRepo INSTANCE
+	
+	def static JugadoresHibernateRepo getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new JugadoresHibernateRepo
+		}
+		INSTANCE
+	}
 
 	override get(Long id) {
 		var Jugador jugador = null
@@ -34,7 +44,8 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 					.add(Restrictions.le("jugadores.fecha_nac", busqueda.fechaNacJugador))
 					.add(Restrictions.between(
 						"jugadores.handicap", busqueda.minHandicapJugador, busqueda.maxHandicapJugador))
-					//.add(Restrictions.between()) buscar por el promedio
+					.add(Restrictions.between(
+						"jugadores.promedio", busqueda.minPromedioJugador, busqueda.maxPromedioJugador))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -105,6 +116,40 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		} finally {
 			session.close
 		}
+		result
+	}
+	
+	def List<Jugador> jugadoresAprobados() {
+		var List<Jugador> aprobados = null
+		val session = sessionFactory.openSession
+		try {
+			aprobados = session
+					.createCriteria(Jugador)
+					.add(Restrictions.eq("aprobado", true))
+					.list
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+		aprobados
+	}
+
+	def List<Jugador> jugadoresPendientesDeAprobacion() {
+	}
+
+	def List<Jugador> jugadoresRechazados() {
+	}
+
+	def List<Rechazo> rechazos() {
+		this.rechazos
+	}
+	
+	def List<Jugador> todosLosJugadores() {
+		val result = new ArrayList<Jugador>
+		result.addAll(jugadoresAprobados)
+		result.addAll(jugadoresPendientesDeAprobacion)
+		result.addAll(this.jugadoresRechazados)
 		result
 	}
 

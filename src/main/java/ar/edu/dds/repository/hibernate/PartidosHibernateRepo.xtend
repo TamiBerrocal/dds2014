@@ -7,6 +7,15 @@ import java.util.List
 
 class PartidosHibernateRepo extends AbstractRepoHibernate<Partido> implements PartidosRepo {
 	
+	static PartidosHibernateRepo INSTANCE
+	
+	def static PartidosHibernateRepo getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new PartidosHibernateRepo
+		}
+		INSTANCE
+	}
+		
 	override get(Long id) {
 		var Partido partido = null
 		val session = sessionFactory.openSession
