@@ -135,7 +135,20 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		aprobados
 	}
 
-	def List<Jugador> jugadoresPendientesDeAprobacion() {
+	def List<Jugador> jugadoresPendientesDeAprobacion() {	
+		var List<Jugador> pendientes = null
+		val session = sessionFactory.openSession
+		try {
+			pendientes = session
+					.createCriteria(Jugador)
+					.add(Restrictions.eq("aprobado", false))
+					.list
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+		pendientes
 	}
 
 	def List<Jugador> jugadoresRechazados() {
