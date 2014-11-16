@@ -1,24 +1,25 @@
 package ar.edu.dds.model
 
 import ar.edu.dds.exception.EstadoDePartidoInvalidoException
+import ar.edu.dds.model.equipos.ParDeEquipos
 import ar.edu.dds.observer.baja.BajaDeJugadorObserver
 import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
 import java.util.ArrayList
 import java.util.List
-import org.joda.time.DateTime
-import org.apache.commons.lang3.builder.ToStringBuilder
-import org.apache.commons.lang3.builder.HashCodeBuilder
-import org.apache.commons.lang3.builder.EqualsBuilder
-import org.uqbar.commons.utils.Observable
-import ar.edu.dds.model.equipos.ParDeEquipos
-import javax.persistence.Id
+import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
-import javax.persistence.Column
 import javax.persistence.OneToOne
-import javax.persistence.ManyToOneimport javax.persistence.CascadeType
-import javax.persistence.FetchType
+import org.apache.commons.lang3.builder.EqualsBuilder
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.apache.commons.lang3.builder.ToStringBuilder
+import org.eclipse.xtend.lib.Property
+import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
 
 @Entity
 @Observable

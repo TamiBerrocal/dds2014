@@ -6,7 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
 @Entity
-//@DiscriminatorValue ("Por Lugar")
+@DiscriminatorValue ("PorLugar")
 class CondicionalPorLugar extends ModoDeInscripcion {
 	
 	new(String lugar) {

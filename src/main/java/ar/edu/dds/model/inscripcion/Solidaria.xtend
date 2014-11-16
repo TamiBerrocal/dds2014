@@ -5,7 +5,7 @@ import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
 @Entity
-//@DiscriminatorValue ("Partido")
+@DiscriminatorValue ("Solidaria")
 class Solidaria extends ModoDeInscripcion {
 
 	new() {

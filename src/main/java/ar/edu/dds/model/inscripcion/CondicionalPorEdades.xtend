@@ -7,7 +7,7 @@ import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
 @Entity
-//@DiscriminatorValue ("Por Edad")
+@DiscriminatorValue ("PorEdad")
 class CondicionalPorEdades extends ModoDeInscripcion {
 
 	private int edadHasta

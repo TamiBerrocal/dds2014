@@ -48,6 +48,13 @@ class Calificacion {
 		this.fechaDeCarga = new DateTime
 	}
 	
+	new(int nota, String comentario, Jugador autor, Partido partido) {
+		this.nota = nota
+		this.comentario = comentario
+		this.autor = autor
+		this.partido = partido
+	}
+	
 	// ------ HASHCODE - EQUALS - TOSTRING ------- //
 	override hashCode() {
 		HashCodeBuilder.reflectionHashCode(this, "fechaDeCarga")

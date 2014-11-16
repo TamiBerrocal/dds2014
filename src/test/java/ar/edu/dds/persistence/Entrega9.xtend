@@ -24,7 +24,7 @@ class Entrega9 {
 	val jugadoresRepo = JugadoresHibernateRepo.instance
 	
 	Admin admin
-	Partido partido
+	Partido partidoJugado
 	
 	//ModoDeInscripcion estandar
 	Estandar estandar
@@ -58,72 +58,10 @@ class Entrega9 {
 		estandar = new Estandar
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), estandar,	"mail@ejemplo.com",	"Quique")
-		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
+		partidoJugado = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
 		
-		//CALIFICACIONES
-		
-		calificacion1 = new Calificacion => [
-		autor = carlos
-		nota = 1
-		partido = partido
-		]
-
-		calificacion2 = new Calificacion => [
-		autor = pedro
-		nota = 2
-		partido = partido
-		]
-
-		calificacion3 = new Calificacion => [
-		autor = patricio
-		nota = 3
-		partido = partido
-		]
-
-		calificacion4 = new Calificacion => [
-		autor = simon
-		nota = 4
-		partido = partido
-		]
-
-		calificacion5 = new Calificacion => [
-		autor = franco
-		nota = 5
-		partido = partido
-		]
-		
-		calificacion6 = new Calificacion => [
-		autor = lucas
-		nota = 6
-		partido = partido
-		]
-
-		calificacion7 = new Calificacion => [
-		autor = adrian
-		nota = 7
-		partido = partido
-		]
-
-		calificacion8 = new Calificacion => [
-		autor = jorge
-		nota = 8
-		partido = partido
-		]
-
-		calificacion9 = new Calificacion => [
-		autor = pablo
-		nota = 9
-		partido = partido
-		]
-
-		calificacion10 = new Calificacion => [
-		autor = adrian
-		nota = 10
-		partido = partido
-		]
 		
 		//JUGADORES
-				
 		matias = new Jugador => [
 			nombre = "Matias"
 			fechaNacimiento = new LocalDate(1989, 5, 7)
@@ -131,8 +69,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Matute"
 			handicap = 5
-			recibirCalificacion(calificacion10)
-			recibirCalificacion(calificacion8)
 			agregateInfraccion
 			agregarAmigo(jorge)
 			agregarAmigo(pablo)
@@ -146,8 +82,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Jorgito"
 			handicap = 8
-			recibirCalificacion(calificacion7)
-			recibirCalificacion(calificacion3)
 			agregateInfraccion
 			agregarAmigo(lucas)
 			agregarAmigo(adrian)
@@ -162,8 +96,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Chino"
 			handicap = 3
-			recibirCalificacion(calificacion8)
-			recibirCalificacion(calificacion9)
 			agregateInfraccion
 		]
 		
@@ -174,8 +106,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Pol"
 			handicap = 2
-			recibirCalificacion(calificacion6)
-			recibirCalificacion(calificacion7)
 			agregateInfraccion
 		]
 		
@@ -186,8 +116,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Pepe"
 			handicap = 9
-			recibirCalificacion(calificacion9)
-			recibirCalificacion(calificacion10)
 		]
 		
 		franco = new Jugador => [
@@ -197,8 +125,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Francho"
 			handicap = 1
-			recibirCalificacion(calificacion4)
-			recibirCalificacion(calificacion5)
 		]
 		
 		lucas = new Jugador => [
@@ -208,8 +134,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Toto"
 			handicap = 4
-			recibirCalificacion(calificacion1)
-			recibirCalificacion(calificacion2)
 		]
 		
 		adrian = new Jugador => [
@@ -219,8 +143,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Tano"
 			handicap = 7
-			recibirCalificacion(calificacion3)
-			recibirCalificacion(calificacion4)
 		]
 		
 		simon = new Jugador => [
@@ -230,8 +152,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Simba"
 			handicap = 6
-			recibirCalificacion(calificacion3)
-			recibirCalificacion(calificacion1)
 		]
 		
 		patricio = new Jugador => [
@@ -241,8 +161,6 @@ class Entrega9 {
 			mail = "mail@ejemplo.com"
 			apodo = "Pato"
 			handicap = 10
-			recibirCalificacion(calificacion5)
-			recibirCalificacion(calificacion6)
 		]
 		
 		martin = new Jugador => [
@@ -254,6 +172,88 @@ class Entrega9 {
 			handicap = 10
 		]
 		
+		
+		//CALIFICACIONES
+		
+		calificacion1 = new Calificacion => [
+			autor = carlos
+			nota = 1
+			partido = partidoJugado
+		]
+
+		calificacion2 = new Calificacion => [
+			autor = pedro
+			nota = 2
+			partido = partidoJugado
+		]
+
+		calificacion3 = new Calificacion => [
+			autor = patricio
+			nota = 3
+			partido = partidoJugado
+		]
+
+		calificacion4 = new Calificacion => [
+			autor = simon
+			nota = 4
+			partido = partidoJugado
+		]
+
+		calificacion5 = new Calificacion => [
+			autor = franco
+			nota = 5
+			partido = partidoJugado
+		]
+		
+		calificacion6 = new Calificacion => [
+			autor = lucas
+			nota = 6
+			partido = partidoJugado
+		]
+
+		calificacion7 = new Calificacion => [
+			autor = adrian
+			nota = 7
+			partido = partidoJugado
+		]
+
+		calificacion8 = new Calificacion => [
+			autor = jorge
+			nota = 8
+			partido = partidoJugado
+		]
+
+		calificacion9 = new Calificacion => [
+			autor = pablo
+			nota = 9
+			partido = partidoJugado
+		]
+
+		calificacion10 = new Calificacion => [
+			autor = adrian
+			nota = 10
+			partido = partidoJugado
+		]
+		
+		matias.recibirCalificacion(calificacion1)
+		matias.recibirCalificacion(calificacion2)
+		
+		jorge.recibirCalificacion(calificacion3)
+		jorge.recibirCalificacion(calificacion4)
+				
+		carlos.recibirCalificacion(calificacion5)
+		carlos.recibirCalificacion(calificacion6)
+		
+		pedro.recibirCalificacion(calificacion9)
+		pedro.recibirCalificacion(calificacion10)
+
+		franco.recibirCalificacion(calificacion4)
+		franco.recibirCalificacion(calificacion5)
+		
+		lucas.recibirCalificacion(calificacion7)
+		lucas.recibirCalificacion(calificacion8)
+		
+				
 		modosRepo.add(estandar)
 		adminRepo.add(admin)
 		
@@ -268,7 +268,7 @@ class Entrega9 {
 		jugadoresRepo.actualizarJugador(simon)
 		jugadoresRepo.actualizarJugador(patricio)
 		
-		partidosRepo.add (partido)
+		partidosRepo.add (partidoJugado)
 
 	}
 	

@@ -1,29 +1,26 @@
 package ar.edu.dds.model
 
-import ar.edu.dds.model.inscripcion.ModoDeInscripcion
-
-import java.util.List
-import java.util.ArrayList
-import org.apache.commons.lang3.builder.HashCodeBuilder
-import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
-import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
-import org.joda.time.Period
-//import ar.edu.dds.repository.PartidosRepo
+import ar.edu.dds.model.inscripcion.ModoDeInscripcion
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import ar.edu.dds.repository.inmemory.JugadoresHome
-//import ar.edu.dds.repository.inmemory.PartidosHome
-import javax.persistence.ManyToMany
+import java.util.ArrayList
+import java.util.List
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.Id
 import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import org.apache.commons.lang3.builder.EqualsBuilder
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.eclipse.xtend.lib.Property
 import org.hibernate.annotations.Type
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepoimport javax.persistence.OneToOne
-import javax.persistence.CascadeType
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
-import javax.persistence.FetchType
-import javax.persistence.CascadeTypeimport javax.persistence.ManyToOne
+import org.joda.time.LocalDate
+import org.joda.time.Period
+import org.uqbar.commons.utils.Observable
 
 @Entity
 @Observable
@@ -58,10 +55,10 @@ class Jugador {
 	@Type (type = "yes_no")
 	@Property Boolean aprobado
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@Property List<Infraccion> infracciones
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@Property List<Calificacion> calificaciones
 		
 	/* @Id	@GeneratedValue
