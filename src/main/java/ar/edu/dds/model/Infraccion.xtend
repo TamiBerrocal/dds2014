@@ -19,17 +19,16 @@ class Infraccion {
 	@Property long id
 
 	@Column
-	@Type (type = "date")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Property
 	LocalDate fechaCreacion
 	
 	@Column
-	@Type (type = "time")
 	@Property
 	String hora
 	
 	@Column
-	@Type (type = "date")
+	@Type (type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Property
 	LocalDate validaHasta
 

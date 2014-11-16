@@ -19,13 +19,13 @@ class ArmadorEquipos {
 	@GeneratedValue
 	@Property long Id
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Property GeneradorDeEquipos generador
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Property OrdenadorDeJugadores ordenador
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Property ParDeEquipos equipos
 	
 	new(){}

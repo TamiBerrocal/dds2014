@@ -27,16 +27,16 @@ class Calificacion {
 	@Property
 	String comentario
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne()
 	@Property
 	Jugador autor
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne()
 	@Property
 	Partido partido
 	
 	@Column
-	@Type (type = "date")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Property
 	DateTime fechaDeCarga
 	

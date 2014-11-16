@@ -25,7 +25,7 @@ class Rechazo {
 	String motivoDeRechazo
 	
 	@Column
-	@Type (type = "date")
+	@Type (type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Property
 	LocalDate fechaDeRechazo
 	

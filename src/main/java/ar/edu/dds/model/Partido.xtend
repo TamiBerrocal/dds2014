@@ -20,6 +20,7 @@ import org.eclipse.xtend.lib.Property
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import javax.persistence.OneToOne
+import org.hibernate.annotations.Type
 
 @Entity
 @Observable
@@ -110,6 +111,7 @@ class Partido {
 	@Property List<Jugador> jugadores
 	
 	@Column
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Property DateTime fechaYHora
 	
 	@Column
@@ -118,19 +120,19 @@ class Partido {
 	@Column
 	@Property EstadoDePartido estadoDePartido
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne()
 	@Property Admin administrador
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	@Property ParDeEquipos equipos
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Property ArmadorEquipos armadorDeEquipos
 
 
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.ALL)
 	List<InscripcionDeJugadorObserver> inscripcionObservers
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.ALL)
 	List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar, Admin administrador) {

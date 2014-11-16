@@ -45,7 +45,9 @@ class Jugador {
 	@Column
 	@Property String apodo
 	
+	
 	@Column
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Property LocalDate fechaNacimiento
 	
 	@Column
