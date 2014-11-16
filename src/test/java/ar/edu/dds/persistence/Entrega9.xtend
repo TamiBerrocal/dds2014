@@ -176,71 +176,71 @@ class Entrega9 {
 		//CALIFICACIONES
 		
 		calificacion1 = new Calificacion => [
-			autor = carlos
+			autor = martin
 			nota = 1
 			partido = partidoJugado
 		]
 
 		calificacion2 = new Calificacion => [
-			autor = pedro
+			autor = carlos
 			nota = 2
 			partido = partidoJugado
 		]
 
 		calificacion3 = new Calificacion => [
-			autor = patricio
+			autor = martin
 			nota = 3
 			partido = partidoJugado
 		]
 
 		calificacion4 = new Calificacion => [
-			autor = simon
+			autor = matias
 			nota = 4
 			partido = partidoJugado
 		]
 
 		calificacion5 = new Calificacion => [
-			autor = franco
+			autor = martin
 			nota = 5
 			partido = partidoJugado
 		]
 		
 		calificacion6 = new Calificacion => [
-			autor = lucas
+			autor = matias
 			nota = 6
 			partido = partidoJugado
 		]
 
 		calificacion7 = new Calificacion => [
-			autor = adrian
+			autor = martin
 			nota = 7
 			partido = partidoJugado
 		]
 
 		calificacion8 = new Calificacion => [
-			autor = jorge
+			autor = matias
 			nota = 8
 			partido = partidoJugado
 		]
 
 		calificacion9 = new Calificacion => [
-			autor = pablo
+			autor = martin
 			nota = 9
 			partido = partidoJugado
 		]
 
 		calificacion10 = new Calificacion => [
-			autor = adrian
+			autor = matias
 			nota = 10
 			partido = partidoJugado
 		]
 		
 		matias.recibirCalificacion(calificacion1)
-		matias.recibirCalificacion(calificacion2)
 		
 		jorge.recibirCalificacion(calificacion3)
 		jorge.recibirCalificacion(calificacion4)
-				
+		jorge.recibirCalificacion(calificacion2)			
+	
 		carlos.recibirCalificacion(calificacion5)
 		carlos.recibirCalificacion(calificacion6)
 		
@@ -253,13 +253,16 @@ class Entrega9 {
 		lucas.recibirCalificacion(calificacion7)
 		lucas.recibirCalificacion(calificacion8)
 		
-				
+			
 		modosRepo.add(estandar)
 		adminRepo.add(admin)
 		
+		partidosRepo.add (partidoJugado)
+
+		jugadoresRepo.add(martin)
 		jugadoresRepo.add(matias)
-		jugadoresRepo.add(jorge)
 		jugadoresRepo.add(carlos)
+		jugadoresRepo.add(jorge)
 		jugadoresRepo.add(pablo)
 		jugadoresRepo.add(pedro)
 		jugadoresRepo.add(franco)

@@ -260,7 +260,7 @@ class Jugador {
 	
 	def void recibirCalificacion(Calificacion calificacion) {
 		if (this.calificaciones.exists[ c | c.esLaMismaQue(calificacion) ]) {
-			throw new JugadorYaCalificadoParaEsePartidoException("Jugador Ya Calificado...")
+			throw new JugadorYaCalificadoParaEsePartidoException(calificacion.autor.nombre + " ya Calificó a " + nombre)
 		}
 		this.calificaciones.add(calificacion)
 	}
