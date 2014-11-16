@@ -10,6 +10,5 @@ interface JugadoresRepo {
 	def List<Jugador> busquedaCompleta(BusquedaDeJugadores busqueda)
 	def List<Jugador> buscarPorApodo(String string)
 	def void aprobarJugador(Jugador jugador)
-	def void actualizarJugador(Jugador jugador)
 	def void rechazarJugador(Jugador jugador, String motivoDeRechazo)
 }

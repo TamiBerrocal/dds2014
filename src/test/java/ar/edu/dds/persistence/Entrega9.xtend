@@ -257,18 +257,18 @@ class Entrega9 {
 		modosRepo.add(estandar)
 		adminRepo.add(admin)
 		
-		jugadoresRepo.actualizarJugador(matias)
-		jugadoresRepo.actualizarJugador(jorge)
-		jugadoresRepo.actualizarJugador(carlos)
-		jugadoresRepo.actualizarJugador(pablo)
-		jugadoresRepo.actualizarJugador(pedro)
-		jugadoresRepo.actualizarJugador(franco)
-		jugadoresRepo.actualizarJugador(lucas)
-		jugadoresRepo.actualizarJugador(adrian)
-		jugadoresRepo.actualizarJugador(simon)
-		jugadoresRepo.actualizarJugador(patricio)
+		jugadoresRepo.add(matias)
+		jugadoresRepo.add(jorge)
+		jugadoresRepo.add(carlos)
+		jugadoresRepo.add(pablo)
+		jugadoresRepo.add(pedro)
+		jugadoresRepo.add(franco)
+		jugadoresRepo.add(lucas)
+		jugadoresRepo.add(adrian)
+		jugadoresRepo.add(simon)
+		jugadoresRepo.add(patricio)
 		
-		partidosRepo.add (partido)
+		partidosRepo.add(partido)
 
 	}
 	
@@ -277,19 +277,18 @@ class Entrega9 {
 		jugadoresRepo.deleteAll
 		partidosRepo.deleteAll
 	}
-	
-	
-	@Test
-	def void seAgregaAMartinAlRepoDeJugadores()	{
-		jugadoresRepo.actualizarJugador(martin)
-		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
-	}	
 
 	
+/*	@Test
+	def void seAgregaAMartinAlRepoDeJugadores()	{
+		jugadoresRepo.add(martin)
+		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
+	}*/	
+
+
 	@Test
 	def void seApruebaJugador(){
-		jugadoresRepo.aprobarJugador(matias)
-		jugadoresRepo.actualizarJugador(matias)
+		jugadoresRepo.add(matias)
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
 	}
 	
@@ -299,5 +298,4 @@ class Entrega9 {
 		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)		
 	}
 	
-
 }

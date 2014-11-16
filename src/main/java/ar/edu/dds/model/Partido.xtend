@@ -18,15 +18,15 @@ import javax.persistence.OneToMany
 import javax.persistence.Column
 import javax.persistence.OneToOne
 import javax.persistence.ManyToOneimport javax.persistence.CascadeType
-import javax.persistence.FetchType
+//import javax.persistence.FetchType
 
 @Entity
 @Observable
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
-	/*
-	Long id
+	
+/*	Long id
 	List<Jugador> jugadores
 	DateTime fechaYHora
 	String lugar

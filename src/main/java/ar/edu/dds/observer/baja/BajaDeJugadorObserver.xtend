@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Entity
 
 @Entity
-@Inheritance ( strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn (name = "tipo")
 abstract class BajaDeJugadorObserver {
 	

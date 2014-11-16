@@ -1,12 +1,11 @@
 package ar.edu.dds.repository.hibernate
-
-import ar.edu.dds.model.Jugador
-import ar.edu.dds.model.Partido
+//import ar.edu.dds.model.Jugador
+//import ar.edu.dds.model.Partido
 import org.apache.commons.collections.Closure
 import org.hibernate.HibernateException
 import org.hibernate.Session
 import org.hibernate.SessionFactory
-import org.hibernate.cfg.AnnotationConfigurationimport ar.edu.dds.model.Admin
+/*import org.hibernate.cfg.AnnotationConfigurationimport ar.edu.dds.model.Admin
 import ar.edu.dds.model.equipos.ParDeEquipos
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import ar.edu.dds.model.inscripcion.Estandar
@@ -22,7 +21,7 @@ import ar.edu.dds.observer.baja.NotificarAdministradorObserver
 import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
 import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
 import ar.edu.dds.observer.baja.BajaDeJugadorObserver
-import ar.edu.dds.observer.baja.InfraccionObserver
+import ar.edu.dds.observer.baja.InfraccionObserver*/
 import org.hibernate.cfg.Configuration
 
 abstract class AbstractRepoHibernate<T> {
@@ -67,8 +66,10 @@ abstract class AbstractRepoHibernate<T> {
 	 * y recibimos un closure que es lo que cambia cada vez
 	 * (otra opción podría haber sido definir un template method)
 	 */
+	 
+	 
 	def void add(T object) {
-		this.executeBatch([ session| (session as Session).save(object)])
+		this.executeBatch([ session| (session as Session).saveOrUpdate(object)])
 	}
 		
 	def void delete(T object) {
@@ -90,13 +91,10 @@ abstract class AbstractRepoHibernate<T> {
 	}
 	
 	def void deleteAll() {
-		val session = sessionFactory.openSession
-		try {
-			session.createCriteria(this.class).list.forEach [ elem | this.delete(elem) ]
-		} catch (HibernateException e) {
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
+		this.executeBatch([ session| (session as Session)
+									.createCriteria(this.class)
+									.list.forEach [ elem | this.delete(elem) ]
+		])
 	}
+	
 }

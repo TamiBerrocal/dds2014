@@ -9,9 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import org.joda.time.LocalDateimport org.uqbar.commons.utils.Observable
 import org.joda.time.Period
-//import ar.edu.dds.repository.PartidosRepo
 import ar.edu.dds.repository.inmemory.JugadoresHome
-//import ar.edu.dds.repository.inmemory.PartidosHome
 import javax.persistence.ManyToMany
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,11 +17,8 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
 import org.hibernate.annotations.Type
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepoimport javax.persistence.OneToOne
-import javax.persistence.CascadeType
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
-import javax.persistence.FetchType
-import javax.persistence.CascadeTypeimport javax.persistence.ManyToOne
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepoimport javax.persistence.CascadeType
+import javax.persistence.ManyToOne
 
 @Entity
 @Observable
@@ -64,21 +59,11 @@ class Jugador {
 	@OneToMany
 	@Property List<Calificacion> calificaciones
 		
-	/* @Id	@GeneratedValue
-	def Long getId() {
-		id
-	}*/
-	/* 
-	def void setId(Long unId) {
-		id = unId
-	}
-
-	@Id
+/*	
+ 	@Id
 	@GeneratedValue
 	@Property long id
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@Property ModoDeInscripcion modoDeInscripcion
 	@Column def ModoDeInscripcion getModoDeInscripcion() {
 		modoDeInscripcion
 	}
@@ -162,6 +147,7 @@ class Jugador {
 		calificaciones = unasCalificaciones
 	}
 	*/
+	
 	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre
@@ -230,7 +216,6 @@ class Jugador {
 		minOk && maxOk
 	}
 	
-	//def getPartidosJugados(PartidosRepo partidosRepo) {
 	def getPartidosJugados () {
 		PartidosHibernateRepo.instance.todosLosPartidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
@@ -313,4 +298,3 @@ class Jugador {
 	}
 
 }
-

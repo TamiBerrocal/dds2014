@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions
 import org.hibernate.HibernateException
 import ar.edu.dds.model.Rechazo
 import java.util.ArrayList
+import org.hibernate.Session
 
 class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements JugadoresRepo {
 	
@@ -24,7 +25,6 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		
 	}
 	
-
 	override get(Long id) {
 		var Jugador jugador = null
 		val session = sessionFactory.openSession
@@ -77,54 +77,14 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		result
 	}
 	
-	override actualizarJugador(Jugador jugador) {
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.saveOrUpdate(jugador)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}
-	
 	override aprobarJugador(Jugador jugador) {
 		jugador.aprobado = true
-		actualizarJugador(jugador)
+		add(jugador)
 		}
-
-/*	override aprobarJugador(Jugador jugador) {
-		jugador.aprobado = true
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.saveOrUpdate(jugador)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}
-*/
 
 	override rechazarJugador(Jugador jugador, String motivoDeRechazo) {
-		var rechazo = new Rechazo(jugador, motivoDeRechazo)
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.saveOrUpdate(rechazo)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
+		val rechazo = new Rechazo(jugador, motivoDeRechazo)
+		executeBatch([ session| (session as Session).saveOrUpdate(rechazo)])
 	}
 
 	override buscarPorNombre(String nombre) {
