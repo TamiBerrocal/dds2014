@@ -116,7 +116,7 @@ class OrganizadorPartido implements Serializable {
 		armador.generador = criterioSeleccionado
 		armador.ordenador = ordenadorSeleccionado
 		//partido.armadorDeEquipos = armador
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 		cambioPuedeConfirmar			
 	}
 
@@ -125,7 +125,7 @@ class OrganizadorPartido implements Serializable {
 	}
 
 	def confirmarEquipos() {
-		armador.confirmarEquipos
+		armador.confirmarEquipos(partido)
 		cambioPuedeConfirmar
 	}
 	
@@ -136,7 +136,7 @@ class OrganizadorPartido implements Serializable {
 		//inicializo la busqueda
 		busquedaDeJugadores = new BusquedaDeJugadores
 		
-		armador = new ArmadorEquipos(partido)
+		armador = new ArmadorEquipos
 
 		//Criterios
 		criterios = new ArrayList
