@@ -4,7 +4,11 @@ import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import ar.edu.dds.repository.JugadoresRepo
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
+import javax.persistence.Entity
+import org.uqbar.commons.utils.Observable
 
+@Observable
+@Entity
 class Admin extends Jugador {
 	
 	new(String nombre, LocalDate fechaDeNac, ModoDeInscripcion modoDeInscripcion, String mail, String apodo) {

@@ -3,7 +3,7 @@ package ar.edu.dds.persistence
 import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import ar.edu.dds.model.Jugador
-//import ar.edu.dds.model.Admin
+import ar.edu.dds.model.Admin
 import ar.edu.dds.model.Partido
 import org.junit.Before
 import org.joda.time.LocalDate
@@ -11,15 +11,14 @@ import ar.edu.dds.model.inscripcion.Estandar
 import ar.edu.dds.model.Calificacion
 import org.junit.Test
 import junit.framework.Assert
-
-//import org.joda.time.DateTime
+import org.joda.time.DateTime
 
 class Entrega9 {
 	
 	JugadoresHibernateRepo jugadoresRepo 
 	PartidosHibernateRepo partidosRepo
 	
-//	Admin admin
+	Admin admin
 	Partido partido
 	
 	Calificacion calificacion1
@@ -53,9 +52,8 @@ class Entrega9 {
 //		jugadoresRepo.deleteAll
 //		partidosRepo.deleteAll
 		
-/*		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
+		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
-*/
 		
 		//CALIFICACIONES
 		
@@ -252,15 +250,15 @@ class Entrega9 {
 		]
 		
 		jugadoresRepo.actualizarJugador(matias)
-		jugadoresRepo.add(jorge)
-		jugadoresRepo.add(carlos)
-		jugadoresRepo.add(pablo)
-		jugadoresRepo.add(pedro)
-		jugadoresRepo.add(franco)
-		jugadoresRepo.add(lucas)
-		jugadoresRepo.add(adrian)
-		jugadoresRepo.add(simon)
-		jugadoresRepo.add(patricio)
+		jugadoresRepo.actualizarJugador(jorge)
+		jugadoresRepo.actualizarJugador(carlos)
+		jugadoresRepo.actualizarJugador(pablo)
+		jugadoresRepo.actualizarJugador(pedro)
+		jugadoresRepo.actualizarJugador(franco)
+		jugadoresRepo.actualizarJugador(lucas)
+		jugadoresRepo.actualizarJugador(adrian)
+		jugadoresRepo.actualizarJugador(simon)
+		jugadoresRepo.actualizarJugador(patricio)
 		
 		partidosRepo.add (partido)
 
@@ -268,7 +266,7 @@ class Entrega9 {
 	
 	@Test
 	def void seAgregaAMartinAlRepoDeJugadores()	{
-//		jugadoresRepo.add(martin)
-//		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
+		jugadoresRepo.actualizarJugador(martin)
+		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
 	}
 }

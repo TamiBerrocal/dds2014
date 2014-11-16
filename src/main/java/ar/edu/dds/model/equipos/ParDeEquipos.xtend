@@ -4,8 +4,10 @@ import ar.edu.dds.model.Jugador
 import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
 
 @Observable
+@Entity
 class ParDeEquipos {
 	
 	@Property
