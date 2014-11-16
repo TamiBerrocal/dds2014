@@ -271,4 +271,19 @@ class Entrega9 {
 		jugadoresRepo.actualizarJugador(martin)
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
 	}
+	
+	
+	@Test
+	def void seApruebaJugador(){
+		jugadoresRepo.aprobarJugador(matias)
+		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
+	}
+	
+	
+	@Test
+	def void jugadoresPendientesDeAprobacion(){
+		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)		
+	}
+	
+	
 }
