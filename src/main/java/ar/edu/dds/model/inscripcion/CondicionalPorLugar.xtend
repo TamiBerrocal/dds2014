@@ -2,7 +2,11 @@ package ar.edu.dds.model.inscripcion
 
 import ar.edu.dds.model.Partido
 import ar.edu.dds.model.inscripcion.PrioridadInscripcion
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
 
+@Entity
+//@DiscriminatorValue ("Por Lugar")
 class CondicionalPorLugar extends ModoDeInscripcion {
 	
 	new(String lugar) {
@@ -16,4 +20,7 @@ class CondicionalPorLugar extends ModoDeInscripcion {
 		lugar.equals(partido.getLugar)
 	}
 	
+	new(){
+		
+	}
 }

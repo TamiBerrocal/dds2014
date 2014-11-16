@@ -4,21 +4,39 @@ import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.joda.time.DateTime
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+import javax.persistence.ManyToOne
+import javax.persistence.CascadeType
+import org.hibernate.annotations.Type
 
+@Entity
 class Calificacion {
 	
+	@Id
+	@GeneratedValue
+	@Property long id
+	
+	@Column
 	@Property
 	int nota
 	
+	@Column
 	@Property
 	String comentario
 	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property
 	Jugador autor
 	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property
 	Partido partido
 	
+	@Column
+	@Type (type = "date")
 	@Property
 	DateTime fechaDeCarga
 	

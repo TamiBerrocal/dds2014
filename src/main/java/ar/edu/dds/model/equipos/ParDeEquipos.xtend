@@ -4,15 +4,25 @@ import ar.edu.dds.model.Jugador
 import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
-import javax.persistence.Entity
+import javax.persistence.Entityimport javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.OneToMany
+import javax.persistence.FetchType
+import javax.persistence.CascadeType
 
 @Observable
 @Entity
 class ParDeEquipos {
 	
+	@Id
+	@GeneratedValue
+	@Property long id
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@Property
 	List<Jugador> equipo1
 	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@Property
 	List<Jugador> equipo2
 	

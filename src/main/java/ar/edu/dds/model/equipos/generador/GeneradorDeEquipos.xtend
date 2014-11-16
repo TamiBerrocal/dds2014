@@ -4,10 +4,20 @@ import java.util.List
 import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.equipos.ParDeEquipos
 import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
 
 @Observable
+@Entity
 abstract class GeneradorDeEquipos {
 	
+	@Id
+	@GeneratedValue
+	@Property long Id
+	
+	@Column
 	@Property String nombre
 	
 	def generar(List<Jugador> jugadoresOrdenados) {
@@ -18,4 +28,6 @@ abstract class GeneradorDeEquipos {
 	}
 	
 	def boolean cumpleParaEquipo1(Jugador j, List<Jugador> jugadores)
+	
+	new(){}
 }

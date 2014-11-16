@@ -5,13 +5,30 @@ import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import ar.edu.dds.model.equipos.ParDeEquipos
 import ar.edu.dds.exception.NoHaySuficientesJugadoresException
 import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
+import javax.persistence.ManyToOne
+import javax.persistence.CascadeType
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
 
 @Observable
+@Entity
 class ArmadorEquipos {
 	
+	@Id
+	@GeneratedValue
+	@Property long Id
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property GeneradorDeEquipos generador
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property OrdenadorDeJugadores ordenador
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property ParDeEquipos equipos
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property Partido partido
 	
 	new(Partido partidoDeInteres){

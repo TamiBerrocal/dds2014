@@ -19,7 +19,8 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
 import org.hibernate.annotations.Type
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepoimport javax.persistence.OneToOne
+import javax.persistence.CascadeType
 
 @Entity
 @Observable
@@ -29,6 +30,7 @@ class Jugador {
 	@GeneratedValue
 	@Property long id
 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@Property ModoDeInscripcion modoDeInscripcion
 	
 	@ManyToMany

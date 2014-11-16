@@ -6,7 +6,17 @@ import org.apache.commons.collections.Closure
 import org.hibernate.HibernateException
 import org.hibernate.Session
 import org.hibernate.SessionFactory
-import org.hibernate.cfg.AnnotationConfiguration
+import org.hibernate.cfg.AnnotationConfigurationimport ar.edu.dds.model.Admin
+import ar.edu.dds.model.equipos.ParDeEquipos
+import ar.edu.dds.model.inscripcion.ModoDeInscripcion
+import ar.edu.dds.model.inscripcion.Estandar
+import ar.edu.dds.model.inscripcion.CondicionalPorEdades
+import ar.edu.dds.model.inscripcion.CondicionalPorLugar
+import ar.edu.dds.model.Infraccion
+import ar.edu.dds.model.Calificacion
+import ar.edu.dds.model.ArmadorEquipos
+import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
+import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 
 abstract class AbstractRepoHibernate<T> {
 	
@@ -15,6 +25,15 @@ abstract class AbstractRepoHibernate<T> {
 			.configure()
 			.addAnnotatedClass(Jugador)
 			.addAnnotatedClass(Partido)
+			.addAnnotatedClass(Admin)
+			.addAnnotatedClass(ParDeEquipos)
+			.addAnnotatedClass(ModoDeInscripcion)
+			.addAnnotatedClass(Estandar)
+			.addAnnotatedClass(Infraccion)
+			.addAnnotatedClass(Calificacion)
+			.addAnnotatedClass(ArmadorEquipos)
+			.addAnnotatedClass(GeneradorDeEquipos)
+			.addAnnotatedClass(OrdenadorDeJugadores)
 			.buildSessionFactory()
 
 	def getSessionFactory() {

@@ -17,7 +17,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
 import javax.persistence.Column
 import javax.persistence.OneToOne
-import javax.persistence.ManyToOne
+import javax.persistence.ManyToOneimport javax.persistence.CascadeType
 
 @Entity
 @Observable
@@ -41,15 +41,18 @@ class Partido {
 	@Column
 	@Property EstadoDePartido estadoDePartido
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property Admin administrador
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@Property ParDeEquipos equipos
 	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property ArmadorEquipos armadorDeEquipos
 
+	@OneToMany(cascade = CascadeType.PERSIST)
 	List<InscripcionDeJugadorObserver> inscripcionObservers
+	@OneToMany(cascade = CascadeType.PERSIST)
 	List<BajaDeJugadorObserver> bajaObservers
 
 	new(DateTime fechaYHora, String lugar, Admin administrador) {

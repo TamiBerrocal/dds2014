@@ -26,4 +26,8 @@ class Admin extends Jugador {
 	def void rechazarJugador(Jugador jugador, String motivoDeRechazo, JugadoresRepo jugadoresRepo) {
 		jugadoresRepo.rechazarJugador(jugador, motivoDeRechazo)
 	}
+	
+	new(){
+		
+	}
 }

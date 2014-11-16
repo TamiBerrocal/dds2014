@@ -12,14 +12,19 @@ import ar.edu.dds.model.Calificacion
 import org.junit.Test
 import junit.framework.Assert
 import org.joda.time.DateTimeimport org.junit.After
+import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
 
 class Entrega9 {
 	
 	JugadoresHibernateRepo jugadoresRepo = JugadoresHibernateRepo.instance
 	PartidosHibernateRepo partidosRepo =  PartidosHibernateRepo.instance
+	ModosInscripcionHibernateRepo modosRepo = ModosInscripcionHibernateRepo.instance
 	
 	Admin admin
 	Partido partido
+	
+	//ModoDeInscripcion estandar
+	Estandar estandar
 	
 	Calificacion calificacion1
 	Calificacion calificacion2
@@ -47,7 +52,10 @@ class Entrega9 {
 	@Before
 	def init() {
 		
-		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
+		estandar = new Estandar
+		modosRepo.add(estandar)
+		
+		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
 		
 		//CALIFICACIONES
@@ -117,7 +125,7 @@ class Entrega9 {
 		matias = new Jugador => [
 			nombre = "Matias"
 			fechaNacimiento = new LocalDate(1989, 5, 7)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Matute"
 			handicap = 5
@@ -132,7 +140,7 @@ class Entrega9 {
 		jorge = new Jugador => [
 			nombre = "Jorge"
 			fechaNacimiento = new LocalDate(1988, 12, 2)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Jorgito"
 			handicap = 8
@@ -148,7 +156,7 @@ class Entrega9 {
 		carlos = new Jugador => [
 			nombre = "Carlos"
 			fechaNacimiento = new LocalDate(1987, 9, 9)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Chino"
 			handicap = 3
@@ -160,7 +168,7 @@ class Entrega9 {
 		pablo = new Jugador => [
 			nombre = "Pablo"
 			fechaNacimiento = new LocalDate(1978, 3, 7)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Pol"
 			handicap = 2
@@ -172,7 +180,7 @@ class Entrega9 {
 		pedro = new Jugador => [
 			nombre = "Pedro"
 			fechaNacimiento = new LocalDate(1988, 2, 11)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Pepe"
 			handicap = 9
@@ -183,7 +191,7 @@ class Entrega9 {
 		franco = new Jugador => [
 			nombre = "Franco"
 			fechaNacimiento = new LocalDate(1984, 12, 7)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Francho"
 			handicap = 1
@@ -194,7 +202,7 @@ class Entrega9 {
 		lucas = new Jugador => [
 			nombre = "Lucas"
 			fechaNacimiento = new LocalDate(1992, 6, 8)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Toto"
 			handicap = 4
@@ -205,7 +213,7 @@ class Entrega9 {
 		adrian = new Jugador => [
 			nombre = "Adrian"
 			fechaNacimiento = new LocalDate(1995, 12, 4)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Tano"
 			handicap = 7
@@ -216,7 +224,7 @@ class Entrega9 {
 		simon = new Jugador => [
 			nombre = "Simon"
 			fechaNacimiento = new LocalDate(1982, 12, 9)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Simba"
 			handicap = 6
@@ -227,7 +235,7 @@ class Entrega9 {
 		patricio = new Jugador => [
 			nombre = "Patricio"
 			fechaNacimiento = new LocalDate(1985, 12, 10)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Pato"
 			handicap = 10
@@ -238,7 +246,7 @@ class Entrega9 {
 		martin = new Jugador => [
 			nombre = "Martin"
 			fechaNacimiento = new LocalDate(1991, 2, 3)
-			modoDeInscripcion = new Estandar
+			modoDeInscripcion = estandar
 			mail = "mail@ejemplo.com"
 			apodo = "Tincho"
 			handicap = 10

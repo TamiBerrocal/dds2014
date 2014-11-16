@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable
 import java.math.RoundingMode
 
 @Observable
+
 abstract class OrdenadorPorPromedio extends OrdenadorDeJugadores {
 	
 	@Property String nombre
