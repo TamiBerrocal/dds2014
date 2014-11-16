@@ -15,8 +15,8 @@ import org.joda.time.DateTimeimport org.junit.After
 
 class Entrega9 {
 	
-	JugadoresHibernateRepo jugadoresRepo 
-	PartidosHibernateRepo partidosRepo
+	JugadoresHibernateRepo jugadoresRepo = JugadoresHibernateRepo.instance
+	PartidosHibernateRepo partidosRepo =  PartidosHibernateRepo.instance
 	
 	Admin admin
 	Partido partido
@@ -46,8 +46,6 @@ class Entrega9 {
 	
 	@Before
 	def init() {
-		jugadoresRepo = JugadoresHibernateRepo.instance
-		partidosRepo = PartidosHibernateRepo.instance
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
