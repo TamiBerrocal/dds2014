@@ -18,6 +18,7 @@ import javax.persistence.OneToMany
 import javax.persistence.Column
 import javax.persistence.OneToOne
 import javax.persistence.ManyToOneimport javax.persistence.CascadeType
+import javax.persistence.FetchType
 
 @Entity
 @Observable
@@ -25,7 +26,82 @@ class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
 	
-	@Id
+	Long id
+	List<Jugador> jugadores
+	DateTime fechaYHora
+	String lugar
+	EstadoDePartido estadoDePartido
+	Admin administrador
+	ParDeEquipos equipos
+	ArmadorEquipos armadorDeEquipos
+	
+	@Id @GeneratedValue
+	def getId() {
+		id
+	}
+
+	def void setId(Long unId) {
+		id = unId
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	def List<Jugador> getJugadores() {
+		jugadores
+	}
+	
+	def void setJugadores(List<Jugador> unosJugadores) {
+		jugadores = unosJugadores
+	}
+	
+	@Column def DateTime getFechaYHora() {
+		fechaYHora
+	}
+
+	def void setFechaYHora(DateTime unaFechaYHora) {
+		fechaYHora = unaFechaYHora
+	}
+	
+	@Column def String getLugar() {
+		lugar
+	}
+
+	def void setLugar(String unLugar) {
+		lugar = unLugar
+	}
+
+	@Column def EstadoDePartido getEstadoDePartido() {
+		estadoDePartido
+	}
+
+	def void setEstadoDePartido(EstadoDePartido unEstado) {
+		estadoDePartido = unEstado
+	}
+	
+	@ManyToOne	def Admin getAdministrador() {
+		administrador
+	}
+	
+	def void setAdministrador(Admin unAdministrador) {
+		administrador = unAdministrador
+	}
+	
+	@OneToOne	def ParDeEquipos getEquipos() {
+		equipos
+	}
+	
+	def void setEquipos(ParDeEquipos unosEquipos) {
+		equipos = unosEquipos
+	}
+	
+	@Column def ArmadorEquipos getArmadorDeEquipos() {
+		armadorDeEquipos
+	}
+	
+	def void setArmadorDeEquipos(ArmadorEquipos unArmadorDeEquipos) {
+		armadorDeEquipos = unArmadorDeEquipos
+	}
+
+/* 	@Id
 	@GeneratedValue
 	@Property long Id
 
@@ -49,6 +125,7 @@ class Partido {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property ArmadorEquipos armadorDeEquipos
+*/
 
 	@OneToMany(cascade = CascadeType.PERSIST)
 	List<InscripcionDeJugadorObserver> inscripcionObservers
