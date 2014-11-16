@@ -17,9 +17,6 @@ import ar.edu.dds.repository.JugadoresRepo
 @Observable
 class JugadoresHome implements JugadoresRepo {
 	
-	override actualizarJugador(Jugador jugador) {
-	}
-
 	static JugadoresHome INSTANCE
 
 	List<Jugador> jugadoresAprobados

@@ -5,10 +5,12 @@ import ar.edu.dds.model.inscripcion.PrioridadInscripcion
 import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
+//import javax.persistence.DiscriminatorValue
+
 @Entity
-@DiscriminatorValue ("PorLugar")
+@DiscriminatorValue("PorLugar")
 class CondicionalPorLugar extends ModoDeInscripcion {
-	
+
 	new(String lugar) {
 		this.lugar = lugar
 		this.prioridadInscripcion = PrioridadInscripcion.CONDICIONAL

@@ -6,10 +6,12 @@ import ar.edu.dds.model.inscripcion.ModoDeInscripcion
 import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
-@Entity
-@DiscriminatorValue ("PorEdad")
-class CondicionalPorEdades extends ModoDeInscripcion {
+//import javax.persistence.DiscriminatorValue
 
+@Entity
+@DiscriminatorValue("PorEdad")
+class CondicionalPorEdades extends ModoDeInscripcion {
+	
 	private int edadHasta
 	private int cantidad
 

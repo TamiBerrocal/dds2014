@@ -65,8 +65,10 @@ abstract class AbstractRepoHibernate<T> {
 	 * y recibimos un closure que es lo que cambia cada vez
 	 * (otra opción podría haber sido definir un template method)
 	 */
+	 
+	 
 	def void add(T object) {
-		this.executeBatch([ session| (session as Session).save(object)])
+		this.executeBatch([ session| (session as Session).saveOrUpdate(object)])
 	}
 		
 	def void delete(T object) {
@@ -88,13 +90,10 @@ abstract class AbstractRepoHibernate<T> {
 	}
 	
 	def void deleteAll() {
-		val session = sessionFactory.openSession
-		try {
-			session.createCriteria(this.class).list.forEach [ elem | this.delete(elem) ]
-		} catch (HibernateException e) {
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
+		this.executeBatch([ session| (session as Session)
+									.createCriteria(this.class)
+									.list.forEach [ elem | this.delete(elem) ]
+		])
 	}
+	
 }

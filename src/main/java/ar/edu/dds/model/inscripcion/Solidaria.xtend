@@ -4,8 +4,10 @@ import ar.edu.dds.model.Partido
 import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
 
+//import javax.persistence.DiscriminatorValue
+
 @Entity
-@DiscriminatorValue ("Solidaria")
+@DiscriminatorValue("Solidaria")
 class Solidaria extends ModoDeInscripcion {
 
 	new() {

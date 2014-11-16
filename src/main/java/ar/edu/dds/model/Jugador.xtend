@@ -17,10 +17,10 @@ import javax.persistence.OneToMany
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.eclipse.xtend.lib.Property
-import org.hibernate.annotations.Type
 import org.joda.time.LocalDate
 import org.joda.time.Period
 import org.uqbar.commons.utils.Observable
+import org.hibernate.annotations.Type
 
 @Entity
 @Observable
@@ -61,21 +61,11 @@ class Jugador {
 	@OneToMany(cascade = CascadeType.ALL)
 	@Property List<Calificacion> calificaciones
 		
-	/* @Id	@GeneratedValue
-	def Long getId() {
-		id
-	}*/
-	/* 
-	def void setId(Long unId) {
-		id = unId
-	}
-
-	@Id
+/*	
+ 	@Id
 	@GeneratedValue
 	@Property long id
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@Property ModoDeInscripcion modoDeInscripcion
 	@Column def ModoDeInscripcion getModoDeInscripcion() {
 		modoDeInscripcion
 	}
@@ -159,6 +149,7 @@ class Jugador {
 		calificaciones = unasCalificaciones
 	}
 	*/
+	
 	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre
@@ -227,7 +218,6 @@ class Jugador {
 		minOk && maxOk
 	}
 	
-	//def getPartidosJugados(PartidosRepo partidosRepo) {
 	def getPartidosJugados () {
 		PartidosHibernateRepo.instance.todosLosPartidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
@@ -310,4 +300,3 @@ class Jugador {
 	}
 
 }
-

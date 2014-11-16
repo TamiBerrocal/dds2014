@@ -6,15 +6,13 @@ import ar.edu.dds.model.MailSender
 import ar.edu.dds.model.Mail
 import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
-import javax.persistence.Id
-import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import org.hibernate.annotations.Type
 
 @Entity
 @DiscriminatorValue ("NotificarAdmin")
 class NotificarAdministradorObserver extends BajaDeJugadorObserver {
-
+	
 	@Column 
 	@Type (type = "string")
 	@Property 

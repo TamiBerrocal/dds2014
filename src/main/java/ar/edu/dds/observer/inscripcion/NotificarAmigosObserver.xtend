@@ -6,10 +6,6 @@ import ar.edu.dds.model.MailSender
 import ar.edu.dds.model.Mail
 import javax.persistence.Entity
 import javax.persistence.DiscriminatorValue
-import javax.persistence.Id
-import javax.persistence.GeneratedValue
-import javax.persistence.ManyToOne
-import javax.persistence.CascadeType
 import javax.persistence.Column
 import org.hibernate.annotations.Type
 

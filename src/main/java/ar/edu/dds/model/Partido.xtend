@@ -13,21 +13,21 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
-import javax.persistence.OneToOne
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.eclipse.xtend.lib.Property
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
+import javax.persistence.OneToOne
 
 @Entity
 @Observable
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
-	/*
-	Long id
+	
+/*	Long id
 	List<Jugador> jugadores
 	DateTime fechaYHora
 	String lugar
