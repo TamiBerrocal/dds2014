@@ -271,4 +271,5 @@ class Entrega9 {
 		jugadoresRepo.actualizarJugador(martin)
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
 	}
+	
 }

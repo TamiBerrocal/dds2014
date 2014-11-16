@@ -5,10 +5,16 @@ import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
 import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
 
 @Observable
 @Entity
 class ParDeEquipos {
+	
+	@Id
+	@GeneratedValue
+	@Property long id
 	
 	@Property
 	List<Jugador> equipo1

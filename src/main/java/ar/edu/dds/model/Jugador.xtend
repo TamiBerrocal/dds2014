@@ -24,7 +24,19 @@ import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 @Entity
 @Observable
 class Jugador {
-
+	
+	Long id
+	ModoDeInscripcion modoDeInscripcion
+	List<Jugador> amigos
+	String mail
+	String nombre
+	String apodo
+	LocalDate fechaNacimiento
+	int handicap
+	Boolean aprobado
+	List<Infraccion> infracciones
+	List<Calificacion> calificaciones
+	
 	@Id
 	@GeneratedValue
 	@Property long id
