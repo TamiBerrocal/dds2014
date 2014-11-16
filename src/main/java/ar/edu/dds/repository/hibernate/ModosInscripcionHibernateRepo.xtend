@@ -15,20 +15,7 @@ class ModosInscripcionHibernateRepo extends AbstractRepoHibernate<ModoDeInscripc
 		INSTANCE
 	}
 	
-	/*def actualizarModo(ModoDeInscripcion modo) {
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.saveOrUpdate(modo)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}*/
-	
+
 	def buscarPorNombre(String nombre){
 		var ModoDeInscripcion result = null
 		val session = sessionFactory.openSession

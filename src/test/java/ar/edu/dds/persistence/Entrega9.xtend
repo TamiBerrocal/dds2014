@@ -13,12 +13,14 @@ import org.junit.Test
 import junit.framework.Assert
 import org.joda.time.DateTimeimport org.junit.After
 import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
+import ar.edu.dds.repository.hibernate.AdminHibernateRepo
 
 class Entrega9 {
 	
 	JugadoresHibernateRepo jugadoresRepo = JugadoresHibernateRepo.instance
 	PartidosHibernateRepo partidosRepo =  PartidosHibernateRepo.instance
 	ModosInscripcionHibernateRepo modosRepo = ModosInscripcionHibernateRepo.instance
+	AdminHibernateRepo adminRepo = AdminHibernateRepo.instance
 	
 	Admin admin
 	Partido partido
@@ -251,6 +253,8 @@ class Entrega9 {
 			apodo = "Tincho"
 			handicap = 10
 		]
+		
+		adminRepo.add(admin)
 		
 		jugadoresRepo.actualizarJugador(matias)
 		jugadoresRepo.actualizarJugador(jorge)
