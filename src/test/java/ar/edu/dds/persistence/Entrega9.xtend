@@ -11,7 +11,7 @@ import ar.edu.dds.model.inscripcion.Estandar
 import ar.edu.dds.model.Calificacion
 import org.junit.Test
 import junit.framework.Assert
-import org.joda.time.DateTime
+import org.joda.time.DateTimeimport org.junit.After
 
 class Entrega9 {
 	
@@ -48,9 +48,6 @@ class Entrega9 {
 	def init() {
 		jugadoresRepo = JugadoresHibernateRepo.instance
 		partidosRepo = PartidosHibernateRepo.instance
-		
-//		jugadoresRepo.deleteAll
-//		partidosRepo.deleteAll
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
@@ -263,6 +260,13 @@ class Entrega9 {
 		partidosRepo.add (partido)
 
 	}
+	
+	@After
+	def void limpiarBase(){
+		jugadoresRepo.deleteAll
+		partidosRepo.deleteAll
+	}
+	
 	
 	@Test
 	def void seAgregaAMartinAlRepoDeJugadores()	{
