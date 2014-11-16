@@ -15,12 +15,13 @@ import org.joda.time.DateTimeimport org.junit.After
 import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
 import ar.edu.dds.repository.hibernate.AdminHibernateRepo
 
+
 class Entrega9 {
 	
-	JugadoresHibernateRepo jugadoresRepo = JugadoresHibernateRepo.instance
-	PartidosHibernateRepo partidosRepo =  PartidosHibernateRepo.instance
-	ModosInscripcionHibernateRepo modosRepo = ModosInscripcionHibernateRepo.instance
-	AdminHibernateRepo adminRepo = AdminHibernateRepo.instance
+	val adminRepo = AdminHibernateRepo.instance
+	val modosRepo = ModosInscripcionHibernateRepo.instance
+	val partidosRepo =  PartidosHibernateRepo.instance
+	val jugadoresRepo = JugadoresHibernateRepo.instance
 	
 	Admin admin
 	Partido partido
@@ -55,7 +56,6 @@ class Entrega9 {
 	def init() {
 		
 		estandar = new Estandar
-		modosRepo.add(estandar)
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
@@ -254,6 +254,7 @@ class Entrega9 {
 			handicap = 10
 		]
 		
+		modosRepo.add(estandar)
 		adminRepo.add(admin)
 		
 		jugadoresRepo.actualizarJugador(matias)
@@ -288,6 +289,7 @@ class Entrega9 {
 	@Test
 	def void seApruebaJugador(){
 		jugadoresRepo.aprobarJugador(matias)
+		jugadoresRepo.actualizarJugador(matias)
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
 	}
 	

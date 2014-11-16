@@ -23,29 +23,30 @@ import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
 import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
 import ar.edu.dds.observer.baja.BajaDeJugadorObserver
 import ar.edu.dds.observer.baja.InfraccionObserver
+import org.hibernate.cfg.Configuration
 
 abstract class AbstractRepoHibernate<T> {
 	
 	private static final SessionFactory sessionFactory = 
-		new AnnotationConfiguration()
+		new Configuration()
 			.configure()
-			.addAnnotatedClass(Jugador)
-			.addAnnotatedClass(Partido)
-			.addAnnotatedClass(Admin)
-			.addAnnotatedClass(ParDeEquipos)
-			.addAnnotatedClass(ModoDeInscripcion)
-			.addAnnotatedClass(Estandar)
-			.addAnnotatedClass(Infraccion)
-			.addAnnotatedClass(Calificacion)
-			.addAnnotatedClass(ArmadorEquipos)
-			.addAnnotatedClass(GeneradorDeEquipos)
-			.addAnnotatedClass(OrdenadorDeJugadores)
-			.addAnnotatedClass(InscripcionDeJugadorObserver)
-			.addAnnotatedClass(NotificarAmigosObserver)
-			.addAnnotatedClass(HayDiezJugadoresObserver)
-			.addAnnotatedClass(BajaDeJugadorObserver)
-			.addAnnotatedClass(NotificarAdministradorObserver)
-			.addAnnotatedClass(InfraccionObserver)
+//			.addAnnotatedClass(Jugador)
+//			.addAnnotatedClass(Partido)
+//			.addAnnotatedClass(Admin)
+//			.addAnnotatedClass(ParDeEquipos)
+//			.addAnnotatedClass(ModoDeInscripcion)
+//			.addAnnotatedClass(Estandar)
+//			.addAnnotatedClass(Infraccion)
+//			.addAnnotatedClass(Calificacion)
+//			.addAnnotatedClass(ArmadorEquipos)
+//			.addAnnotatedClass(GeneradorDeEquipos)
+//			.addAnnotatedClass(OrdenadorDeJugadores)
+//			.addAnnotatedClass(InscripcionDeJugadorObserver)
+//			.addAnnotatedClass(NotificarAmigosObserver)
+//			.addAnnotatedClass(HayDiezJugadoresObserver)
+//			.addAnnotatedClass(BajaDeJugadorObserver)
+//			.addAnnotatedClass(NotificarAdministradorObserver)
+//			.addAnnotatedClass(InfraccionObserver)
 			.buildSessionFactory()
 
 	def getSessionFactory() {

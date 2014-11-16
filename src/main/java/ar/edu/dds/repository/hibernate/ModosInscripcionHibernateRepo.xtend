@@ -8,6 +8,8 @@ class ModosInscripcionHibernateRepo extends AbstractRepoHibernate<ModoDeInscripc
 	
 	static ModosInscripcionHibernateRepo INSTANCE
 	
+	new(){}
+	
 	def static ModosInscripcionHibernateRepo getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ModosInscripcionHibernateRepo

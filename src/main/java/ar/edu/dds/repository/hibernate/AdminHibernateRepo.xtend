@@ -7,6 +7,8 @@ class AdminHibernateRepo extends AbstractRepoHibernate<Admin> {
 	
 	static AdminHibernateRepo INSTANCE
 	
+	new(){}
+	
 	def static AdminHibernateRepo getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new AdminHibernateRepo

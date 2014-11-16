@@ -19,6 +19,11 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		}
 		INSTANCE
 	}
+	
+	new(){
+		
+	}
+	
 
 	override get(Long id) {
 		var Jugador jugador = null

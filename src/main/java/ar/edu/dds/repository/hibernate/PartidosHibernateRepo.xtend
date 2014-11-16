@@ -9,6 +9,8 @@ class PartidosHibernateRepo extends AbstractRepoHibernate<Partido> implements Pa
 	
 	static PartidosHibernateRepo INSTANCE
 	
+	new(){}
+	
 	def static PartidosHibernateRepo getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new PartidosHibernateRepo
