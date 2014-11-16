@@ -41,7 +41,7 @@ class Entrega4Tests {
 		this.admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Quique")
 		this.partido = this.admin.organizarPartido(new DateTime(2014, 5, 25, 21, 0), "Avellaneda")
 
-		this.armador = new ArmadorEquipos(partido)
+		this.armador = new ArmadorEquipos()
 
 		matias = new Jugador("Matías", new LocalDate(1989, 12, 12), new Estandar, "mail@ejemplo.com", "Matute")
 		this.partido.agregarJugadorPartido(matias)
@@ -175,7 +175,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorHandicap
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//Verificamos que los jugadores se encuentren en los Equipos que corresponde
 		Assert.assertTrue(armador.equipos.equipo1.contains(pablo))
@@ -190,7 +190,7 @@ class Entrega4Tests {
 		Assert.assertTrue(armador.equipos.equipo2.contains(adrian))
 		Assert.assertTrue(armador.equipos.equipo2.contains(pedro))
 
-		armador.confirmarEquipos
+		armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -204,7 +204,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquipos14589Vs236710
 		armador.ordenador = new OrdenadorPorHandicap
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, armador.equipos.equipo1.size)
@@ -223,7 +223,7 @@ class Entrega4Tests {
 		Assert.assertTrue(armador.equipos.equipo2.contains(adrian))
 		Assert.assertTrue(armador.equipos.equipo2.contains(patricio))
 
-		armador.confirmarEquipos
+		armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -236,7 +236,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -255,7 +255,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(jorge))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(matias))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -269,7 +269,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquipos14589Vs236710
 		armador.ordenador = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -289,7 +289,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pablo))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pedro))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -303,7 +303,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -322,7 +322,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(jorge))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(matias))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -335,7 +335,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquipos14589Vs236710
 		armador.ordenador = new OrdenadorPorPromedioDeUltimasNCalificaciones(2)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -355,7 +355,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pablo))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pedro))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -372,7 +372,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorCompuesto(listaOrdenadores)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -391,7 +391,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(jorge))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(patricio))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmo  el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -408,7 +408,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquipos14589Vs236710
 		armador.ordenador = new OrdenadorCompuesto(listaOrdenadores)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//verificamos que los 2 equipos tengan 5 jugadores cada uno
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -428,7 +428,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(jorge))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pedro))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -446,7 +446,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorCompuesto(ordenadoresDeJugadores)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//Verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -466,7 +466,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pablo))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(matias))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Verificamos que el equipo esté confirmado
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -483,7 +483,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquipos14589Vs236710
 		armador.ordenador = new OrdenadorCompuesto(ordenadoresDeJugadores)
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 		//Verificamos que ambos equipos tengan 5 jugadores
 		Assert.assertEquals(5, this.armador.equipos.equipo1.size)
@@ -503,7 +503,7 @@ class Entrega4Tests {
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pablo))
 		Assert.assertTrue(this.armador.equipos.equipo2.contains(pedro))
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Verificamos que el equipo esté confirmado
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -516,9 +516,9 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 		
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el estado del equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -533,9 +533,9 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
-		this.armador.confirmarEquipos
+		this.armador.confirmarEquipos(partido)
 
 		//Confirmamos el estado del equipo
 		Assert.assertEquals(EstadoDePartido.CONFIRMADO, this.partido.estadoDePartido)
@@ -554,7 +554,7 @@ class Entrega4Tests {
 		armador.generador = new GeneradorDeEquiposParesContraImpares
 		armador.ordenador = new OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 
-		armador.armarTentativos
+		armador.armarTentativos(partido)
 
 	}
 

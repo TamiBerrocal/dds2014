@@ -28,16 +28,9 @@ class ArmadorEquipos {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property ParDeEquipos equipos
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@Property Partido partido
-	
 	new(){}
 	
-	new(Partido partidoDeInteres){
-		partido = partidoDeInteres
-	}
-	
-	def void armarTentativos(){
+	def void armarTentativos(Partido partido){
 		partido.validarEstadoDePartido(
 					EstadoDePartido.ABIERTA_LA_INSCRIPCION, 
 					"Imposible generar equipos para partido con estado: ")
@@ -55,12 +48,12 @@ class ArmadorEquipos {
 		}
 	}
 	
-	def void confirmarEquipos(){
+	def void confirmarEquipos(Partido partido){
 		partido.validarEstadoDePartido(
 					EstadoDePartido.ABIERTA_LA_INSCRIPCION, 
 					"Imposible confirmar partido con estado: ")
 					
-		this.armarTentativos
+		this.armarTentativos(partido)
 		partido.equipos = this.equipos
 		partido.cerrarInscripcion
 		

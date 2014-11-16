@@ -142,7 +142,7 @@ class Partido {
 		this.bajaObservers = new ArrayList
 		this.jugadores = new ArrayList
 		this.equipos = new ParDeEquipos
-		this.armadorDeEquipos = new ArmadorEquipos(this)
+		this.armadorDeEquipos = new ArmadorEquipos
 	}
 	
 	new() {
