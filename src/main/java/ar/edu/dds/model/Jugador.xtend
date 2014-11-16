@@ -23,29 +23,52 @@ import ar.edu.dds.repository.hibernate.PartidosHibernateRepoimport javax.persis
 import javax.persistence.CascadeType
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import javax.persistence.FetchType
-import javax.persistence.CascadeType
+import javax.persistence.CascadeTypeimport javax.persistence.ManyToOne
 
 @Entity
 @Observable
 class Jugador {
 	
-	//Long id
-	//ModoDeInscripcion modoDeInscripcion
-	List<Jugador> amigos
-	String mail
-	String nombre
-	String apodo
-	LocalDate fechaNacimiento
-	int handicap
-	Boolean aprobado
-	List<Infraccion> infracciones
-	List<Calificacion> calificaciones
+	@Id
+	@GeneratedValue
+	@Property long id
 	
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@Property ModoDeInscripcion modoDeInscripcion
+	
+	@ManyToMany (cascade = CascadeType.PERSIST)
+	@Property List<Jugador> amigos
+	
+	@Column
+	@Property String mail
+	
+	@Column
+	@Property String nombre
+	
+	@Column
+	@Property String apodo
+	
+	@Column
+	@Property LocalDate fechaNacimiento
+	
+	@Column
+	@Property int handicap
+	
+	@Column
+	@Type (type = "yes_no")
+	@Property Boolean aprobado
+	
+	@OneToMany
+	@Property List<Infraccion> infracciones
+	
+	@OneToMany
+	@Property List<Calificacion> calificaciones
+		
 	/* @Id	@GeneratedValue
 	def Long getId() {
 		id
 	}*/
-	
+	/* 
 	def void setId(Long unId) {
 		id = unId
 	}
@@ -138,7 +161,7 @@ class Jugador {
 	def void setCalificaciones(List<Calificacion> unasCalificaciones) {
 		calificaciones = unasCalificaciones
 	}
-	
+	*/
 	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()
 		this.nombre = nombre

@@ -25,7 +25,7 @@ import javax.persistence.FetchType
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
-	
+	/*
 	Long id
 	List<Jugador> jugadores
 	DateTime fechaYHora
@@ -99,9 +99,9 @@ class Partido {
 	
 	def void setArmadorDeEquipos(ArmadorEquipos unArmadorDeEquipos) {
 		armadorDeEquipos = unArmadorDeEquipos
-	}
+	}*/
 
-/* 	@Id
+	@Id
 	@GeneratedValue
 	@Property long Id
 
@@ -125,7 +125,7 @@ class Partido {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property ArmadorEquipos armadorDeEquipos
-*/
+
 
 	@OneToMany(cascade = CascadeType.PERSIST)
 	List<InscripcionDeJugadorObserver> inscripcionObservers

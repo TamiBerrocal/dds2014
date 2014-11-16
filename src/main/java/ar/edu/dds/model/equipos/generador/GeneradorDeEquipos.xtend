@@ -8,9 +8,12 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
 
 @Observable
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 abstract class GeneradorDeEquipos {
 	
 	@Id

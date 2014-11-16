@@ -31,6 +31,8 @@ class ArmadorEquipos {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@Property Partido partido
 	
+	new(){}
+	
 	new(Partido partidoDeInteres){
 		partido = partidoDeInteres
 	}
