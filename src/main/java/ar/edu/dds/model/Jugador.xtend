@@ -20,6 +20,8 @@ import javax.persistence.GeneratedValue
 import javax.persistence.OneToMany
 import org.hibernate.annotations.Type
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
+import javax.persistence.FetchType
+import javax.persistence.CascadeType
 
 @Entity
 @Observable
@@ -37,39 +39,97 @@ class Jugador {
 	List<Infraccion> infracciones
 	List<Calificacion> calificaciones
 	
-	@Id
-	@GeneratedValue
-	@Property long id
+	@Id	@GeneratedValue
+	def Long getId() {
+		id
+	}
+	
+	def void setId(Long unId) {
+		id = unId
+	}
 
-	@Property ModoDeInscripcion modoDeInscripcion
+	@Column def ModoDeInscripcion getModoDeInscripcion() {
+		modoDeInscripcion
+	}
 	
-	@ManyToMany
-	@Property List<Jugador> amigos
+	def void setModoDeInscripcion(ModoDeInscripcion unModoDeInscripcion) {
+		modoDeInscripcion = unModoDeInscripcion
+	}
 	
-	@Column
-	@Property String mail
+	@ManyToMany def List<Jugador> getAmigos() {
+		amigos
+	}
 	
-	@Column
-	@Property String nombre
+	def void setAmigos (List<Jugador> unosAmigos) {
+		amigos = unosAmigos
+	}
 	
-	@Column
-	@Property String apodo
+	@Column def String getMail() {
+		mail
+	}
 	
-	@Column
-	@Property LocalDate fechaNacimiento
+	def void setMail(String unMail) {
+		mail = unMail
+	}
 	
-	@Column
-	@Property int handicap
+	@Column def String getNombre() {
+		nombre
+	}
 	
-	@Column
-	@Type (type = "yes_no")
-	@Property Boolean aprobado
+	def void setNombre (String unNombre) {
+		nombre = unNombre
+	}
 	
-	@OneToMany
-	@Property List<Infraccion> infracciones
+	@Column def String getApodo() {
+		apodo
+	}
 	
-	@OneToMany
-	@Property List<Calificacion> calificaciones
+	def void setApodo(String unApodo) {
+		apodo = unApodo
+	}
+	
+	@Column def LocalDate getFechaNacimiento() {
+		fechaNacimiento
+	}
+	
+	def void setFechaNacimiento(LocalDate unaFecha) {
+		fechaNacimiento = unaFecha
+	}
+	
+	@Column def int getHandicap() {
+		handicap
+	}
+	
+	def void setHandicap(int unHandicap) {
+		handicap = unHandicap
+	}
+	
+	@Column	@Type (type = "yes_no")
+	def Boolean getAprobado() {
+		aprobado
+	}
+	
+	def void setAprobado(Boolean unBooleano) {
+		aprobado = unBooleano
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	def List<Infraccion> getInfracciones() {
+		infracciones
+	}
+	
+	def void setInfracciones(List<Infraccion> unasInfracciones) {
+		infracciones = unasInfracciones
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	def List<Calificacion> getCalificaciones() {
+		calificaciones	
+	}
+	
+	def void setCalificaciones(List<Calificacion> unasCalificaciones) {
+		calificaciones = unasCalificaciones
+	}
 	
 	new(String nombre, LocalDate fechaNac, ModoDeInscripcion modoDeInscripcion, String direccionMail, String apodo) {
 		this()

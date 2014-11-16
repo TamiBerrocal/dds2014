@@ -27,7 +27,7 @@ class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
 	
-	long id
+	Long id
 	List<Jugador> jugadores
 	DateTime fechaYHora
 	String lugar
@@ -54,7 +54,7 @@ class Partido {
 		jugadores = unosJugadores
 	}
 	
-	@Column def DateTime getFechaYHoraNumero() {
+	@Column def DateTime getFechaYHora() {
 		fechaYHora
 	}
 
