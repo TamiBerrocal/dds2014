@@ -32,7 +32,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		}
 		jugador
 	}
-
+	
 	override busquedaCompleta(BusquedaDeJugadores busqueda) {
 		var List<Jugador> result = null
 		val session = sessionFactory.openSession
@@ -71,8 +71,27 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		}
 		result
 	}
-
+	
+	override actualizarJugador(Jugador jugador) {
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.saveOrUpdate(jugador)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+	
 	override aprobarJugador(Jugador jugador) {
+		jugador.aprobado = true
+		actualizarJugador(jugador)
+		}
+
+/*	override aprobarJugador(Jugador jugador) {
 		jugador.aprobado = true
 		val session = sessionFactory.openSession
 		try {
@@ -86,6 +105,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 			session.close
 		}
 	}
+*/
 
 	override rechazarJugador(Jugador jugador, String motivoDeRechazo) {
 		var rechazo = new Rechazo(jugador, motivoDeRechazo)
@@ -151,19 +171,15 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		pendientes
 	}
 
-	def List<Jugador> jugadoresRechazados() {
-	}
-
-	def List<Rechazo> rechazos() {
-		this.rechazos
-	}
-	
 	def List<Jugador> todosLosJugadores() {
 		val result = new ArrayList<Jugador>
 		result.addAll(jugadoresAprobados)
 		result.addAll(jugadoresPendientesDeAprobacion)
-		result.addAll(this.jugadoresRechazados)
 		result
+	}
+	
+	def existe(Jugador jugador) {
+		buscarPorNombre(jugador.nombre) != null
 	}
 
 }

@@ -3,20 +3,23 @@ package ar.edu.dds.persistence
 import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import ar.edu.dds.model.Jugador
-import ar.edu.dds.model.Admin
+//import ar.edu.dds.model.Admin
 import ar.edu.dds.model.Partido
 import org.junit.Before
 import org.joda.time.LocalDate
 import ar.edu.dds.model.inscripcion.Estandar
 import ar.edu.dds.model.Calificacion
-import org.joda.time.DateTime
+import org.junit.Test
+import junit.framework.Assert
+
+//import org.joda.time.DateTime
 
 class Entrega9 {
 	
 	JugadoresHibernateRepo jugadoresRepo 
 	PartidosHibernateRepo partidosRepo
 	
-	Admin admin
+//	Admin admin
 	Partido partido
 	
 	Calificacion calificacion1
@@ -40,14 +43,19 @@ class Entrega9 {
 	Jugador adrian
 	Jugador simon
 	Jugador patricio
+	Jugador martin
 	
 	@Before
 	def init() {
 		jugadoresRepo = JugadoresHibernateRepo.instance
 		partidosRepo = PartidosHibernateRepo.instance
 		
-		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
+//		jugadoresRepo.deleteAll
+//		partidosRepo.deleteAll
+		
+/*		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), new Estandar,	"mail@ejemplo.com",	"Quique")
 		partido = new Partido(DateTime.now.minusDays(20), "Parque Patricios", admin)
+*/
 		
 		//CALIFICACIONES
 		
@@ -233,6 +241,34 @@ class Entrega9 {
 			recibirCalificacion(calificacion5)
 			recibirCalificacion(calificacion6)
 		]
+		
+		martin = new Jugador => [
+			nombre = "Martin"
+			fechaNacimiento = new LocalDate(1991, 2, 3)
+			modoDeInscripcion = new Estandar
+			mail = "mail@ejemplo.com"
+			apodo = "Tincho"
+			handicap = 10
+		]
+		
+		jugadoresRepo.actualizarJugador(matias)
+		jugadoresRepo.add(jorge)
+		jugadoresRepo.add(carlos)
+		jugadoresRepo.add(pablo)
+		jugadoresRepo.add(pedro)
+		jugadoresRepo.add(franco)
+		jugadoresRepo.add(lucas)
+		jugadoresRepo.add(adrian)
+		jugadoresRepo.add(simon)
+		jugadoresRepo.add(patricio)
+		
+		partidosRepo.add (partido)
 
+	}
+	
+	@Test
+	def void seAgregaAMartinAlRepoDeJugadores()	{
+//		jugadoresRepo.add(martin)
+//		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
 	}
 }

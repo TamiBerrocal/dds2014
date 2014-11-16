@@ -57,4 +57,14 @@ abstract class AbstractRepoHibernate<T> {
 		}
 	}
 	
+	def void deleteAll() {
+		val session = sessionFactory.openSession
+		try {
+			session.createCriteria(this.class).list.forEach [ elem | this.delete(elem) ]
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 }
