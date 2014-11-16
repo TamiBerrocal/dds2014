@@ -279,11 +279,11 @@ class Entrega9 {
 	}
 
 	
-/*	@Test
+	@Test
 	def void seAgregaAMartinAlRepoDeJugadores()	{
 		jugadoresRepo.add(martin)
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))				
-	}*/	
+	}	
 
 
 	@Test
