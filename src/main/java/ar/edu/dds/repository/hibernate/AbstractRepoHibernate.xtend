@@ -47,5 +47,13 @@ abstract class AbstractRepoHibernate<T> {
 			session.close
 		}
 	}
+	
+	def void deleteAll() {
+		this.executeBatch([ session| (session as Session)
+									.createCriteria(this.class)
+									.list
+									.forEach [ elem | this.delete(elem) ]
+		])
+	}
 
 }
