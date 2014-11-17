@@ -24,8 +24,7 @@ class ModosInscripcionHibernateRepo extends AbstractRepoHibernate<ModoDeInscripc
 		try {
 			result = session
 					.createCriteria(typeof(ModoDeInscripcion))
-					.createAlias("_ModosDeInscripcion", "modos")
-					.add(Restrictions.eq("modos.prioridadInscripcion", nombre)) as ModoDeInscripcion
+					.add(Restrictions.eq("_prioridadInscripcion", nombre)) as ModoDeInscripcion
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {
@@ -33,5 +32,6 @@ class ModosInscripcionHibernateRepo extends AbstractRepoHibernate<ModoDeInscripc
 		}
 		result
 	} 
+	
 	
 }

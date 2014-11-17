@@ -92,7 +92,8 @@ abstract class AbstractRepoHibernate<T> {
 	def void deleteAll() {
 		this.executeBatch([ session| (session as Session)
 									.createCriteria(this.class)
-									.list.forEach [ elem | this.delete(elem) ]
+									.list
+									.forEach [ elem | this.delete(elem) ]
 		])
 	}
 	

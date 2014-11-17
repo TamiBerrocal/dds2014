@@ -159,12 +159,14 @@ class Jugador {
 		this.modoDeInscripcion = modoDeInscripcion
 		this.mail = direccionMail
 		this.apodo = apodo
+		this.aprobado = false
 	}
 
 	new() {
 		this.amigos = new ArrayList
 		this.infracciones = new ArrayList
 		this.calificaciones = new ArrayList
+		this.aprobado = false
 	}
 	
  	def getPromedio() {

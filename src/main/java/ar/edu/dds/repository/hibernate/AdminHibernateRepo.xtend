@@ -15,4 +15,6 @@ class AdminHibernateRepo extends AbstractRepoHibernate<Admin> {
 		}
 		INSTANCE
 	}
+	
+	
 }

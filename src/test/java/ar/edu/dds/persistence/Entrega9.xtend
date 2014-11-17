@@ -285,9 +285,11 @@ class Entrega9 {
 	}
 	
 	@After
-	def void limpiarBase(){
+	def limpiarBase(){
 		jugadoresRepo.deleteAll
 		partidosRepo.deleteAll
+		modosRepo.deleteAll
+		adminRepo.deleteAll
 	}
 
 	
@@ -295,6 +297,7 @@ class Entrega9 {
 	def void seAgregaAMartinAlRepoDeJugadores()	{
 		jugadoresRepo.add(martin)
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))
+		this.limpiarBase
 	}	
 
 /*
@@ -304,10 +307,11 @@ class Entrega9 {
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
 	}
 	
+	* */
 	
 	@Test
 	def void jugadoresPendientesDeAprobacion(){
 		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)		
-	}*/
 	
+	}
 }
