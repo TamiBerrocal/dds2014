@@ -43,14 +43,14 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		val session = sessionFactory.openSession
 		try {
 			result = session
-					.createCriteria(typeof(Jugador)).createAlias("_jugadores", "jugadores")
-					.add(Restrictions.like("jugadores.nombre", busqueda.nombreJugador.toString))
-					.add(Restrictions.like("jugadores.apodo", busqueda.apodoJugador))
-					.add(Restrictions.le("jugadores.fecha_nac", busqueda.fechaNacJugador))
+					.createCriteria(typeof(Jugador))
+					.add(Restrictions.like("_nombre", busqueda.nombreJugador+"%"))
+					.add(Restrictions.like("_apodo", busqueda.apodoJugador+"%"))
+					.add(Restrictions.le("_fecha_nac", busqueda.fechaNacJugador))
 					.add(Restrictions.between(
-						"jugadores.handicap", busqueda.minHandicapJugador, busqueda.maxHandicapJugador))
+						"_handicap", busqueda.minHandicapJugador, busqueda.maxHandicapJugador))
 					.add(Restrictions.between(
-						"jugadores.promedio", busqueda.minPromedioJugador, busqueda.maxPromedioJugador))
+						"_promedio", busqueda.minPromedioJugador, busqueda.maxPromedioJugador))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -66,8 +66,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			result = session
 					.createCriteria(typeof(Jugador))
-					.createAlias("_jugadores", "jugadores")
-					.add(Restrictions.like("jugadores.apodo", apodo))
+					.add(Restrictions.like("_apodo", apodo+"%"))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -109,8 +108,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			aprobados = session
 					.createCriteria(Jugador)
-					.createAlias("_jugadores", "jugadores")
-					.add(Restrictions.eq("jugadores.aprobado", true))
+					.add(Restrictions.eq("_aprobado", true))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -126,8 +124,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			pendientes = session
 					.createCriteria(Jugador)
-					.createAlias("_jugadores", "jugadores")
-					.add(Restrictions.eq("jugadores.aprobado", false))
+					.add(Restrictions.eq("_aprobado", false))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
