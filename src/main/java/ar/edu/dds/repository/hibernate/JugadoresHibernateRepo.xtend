@@ -110,7 +110,8 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			aprobados = session
 					.createCriteria(Jugador)
-					.add(Restrictions.eq("aprobado", true))
+					.createAlias("_jugadores", "jugadores")
+					.add(Restrictions.eq("jugadores.aprobado", true))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -126,7 +127,8 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			pendientes = session
 					.createCriteria(Jugador)
-					.add(Restrictions.eq("aprobado", false))
+					.createAlias("_jugadores", "jugadores")
+					.add(Restrictions.eq("jugadores.aprobado", false))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
