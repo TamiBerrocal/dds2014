@@ -1,0 +1,69 @@
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMADOREQUIPOS" not found; SQL statement:
+alter table ArmadorEquipos drop constraint FK_9rhrg5gf5twormu8xi7en7c4x if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMADOREQUIPOS" not found; SQL statement:
+alter table ArmadorEquipos drop constraint FK_lb3jvu6vwt5unvwa9o8ov9h7r if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMADOREQUIPOS" not found; SQL statement:
+alter table ArmadorEquipos drop constraint FK_5ibbi5j53rcxmkngfm8jm0d1p if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CALIFICACION" not found; SQL statement:
+alter table Calificacion drop constraint FK_qj0066jyd61k439dhb97674yh if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CALIFICACION" not found; SQL statement:
+alter table Calificacion drop constraint FK_2exlamvhb4xbh2rvnxwrgyv2t if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_CALIFICACION" not found; SQL statement:
+alter table Jugador_Calificacion drop constraint FK_g8pobr7xxfgoubj33wm63ifvh if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_CALIFICACION" not found; SQL statement:
+alter table Jugador_Calificacion drop constraint FK_g707lfdmgw87h7typcfkv5mn9 if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_INFRACCION" not found; SQL statement:
+alter table Jugador_Infraccion drop constraint FK_tj023v2bem15iyppvuflt69cp if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_INFRACCION" not found; SQL statement:
+alter table Jugador_Infraccion drop constraint FK_j7ubh9fcjaekhr2jbjpqp5wfi if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_JUGADOR" not found; SQL statement:
+alter table Jugador_Jugador drop constraint FK_2cslhp7k2suc9ujpofdpsfqqs if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "JUGADOR_JUGADOR" not found; SQL statement:
+alter table Jugador_Jugador drop constraint FK_1epdj26elwqwtrw65mypjmreq if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARDEEQUIPOS_JUGADOR" not found; SQL statement:
+alter table ParDeEquipos_Jugador drop constraint FK_2oran09iexcgrhhplv1jgo2ii if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARDEEQUIPOS_JUGADOR" not found; SQL statement:
+alter table ParDeEquipos_Jugador drop constraint FK_gg9citjffrucga4lmd1im12i6 if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARDEEQUIPOS_JUGADOR" not found; SQL statement:
+alter table ParDeEquipos_Jugador drop constraint FK_fjfs4bjwcweo0qd16be0nvgu5 if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO" not found; SQL statement:
+alter table Partido drop constraint FK_9lpw8xfvk41mbr98enbp795bl if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO" not found; SQL statement:
+alter table Partido drop constraint FK_gul1x5lpryjnbwqws8y7dyubm if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO" not found; SQL statement:
+alter table Partido drop constraint FK_jad1f5wa3gihrdnpnlial00d2 if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_BAJADEJUGADOROBSERVER" not found; SQL statement:
+alter table Partido_BajaDeJugadorObserver drop constraint FK_f36oltkxj4qu9xrrukp0oygbq if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_BAJADEJUGADOROBSERVER" not found; SQL statement:
+alter table Partido_BajaDeJugadorObserver drop constraint FK_1bwbric2q07lv1tjsatdvhgmi if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_INSCRIPCIONDEJUGADOROBSERVER" not found; SQL statement:
+alter table Partido_InscripcionDeJugadorObserver drop constraint FK_97vb8vffv1akoashyecbya25a if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_INSCRIPCIONDEJUGADOROBSERVER" not found; SQL statement:
+alter table Partido_InscripcionDeJugadorObserver drop constraint FK_7ecodsp6o2jaqinbbeodu8o2y if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_JUGADOR" not found; SQL statement:
+alter table Partido_Jugador drop constraint FK_hpr9nafj4wyf1ku3r5rkmbc33 if exists [42102-160]
+11-17 18:03:00 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARTIDO_JUGADOR" not found; SQL statement:
+alter table Partido_Jugador drop constraint FK_pgmwlur4ubruv7lf4bb1t6m07 if exists [42102-160]

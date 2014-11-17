@@ -10,3 +10,4 @@ classes
 /src/test/xtend-gen/**
 /src/main/generated-sources/**
 /src/test/generated-sources/**
+/bin

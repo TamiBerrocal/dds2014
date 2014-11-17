@@ -1,28 +1,41 @@
 package ar.edu.dds.persistence
 
-import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
-import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Admin
-import ar.edu.dds.model.Partido
-import org.junit.Before
-import org.joda.time.LocalDate
-import ar.edu.dds.model.inscripcion.Estandar
+import ar.edu.dds.model.ArmadorEquipos
 import ar.edu.dds.model.Calificacion
-import org.junit.Test
-import junit.framework.Assert
-import org.joda.time.DateTimeimport org.junit.After
-import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
+import ar.edu.dds.model.Infraccion
+import ar.edu.dds.model.Jugador
+import ar.edu.dds.model.Partido
+import ar.edu.dds.model.equipos.ParDeEquipos
+import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
+import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
+import ar.edu.dds.model.inscripcion.Estandar
+import ar.edu.dds.model.inscripcion.ModoDeInscripcion
+import ar.edu.dds.observer.baja.BajaDeJugadorObserver
+import ar.edu.dds.observer.baja.InfraccionObserver
+import ar.edu.dds.observer.baja.NotificarAdministradorObserver
+import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
+import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
+import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
 import ar.edu.dds.repository.hibernate.AdminHibernateRepo
-import org.hibernate.Transaction
-import ar.edu.dds.repository.hibernate.SingletonSessionFactory
+import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
+import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
+import junit.framework.Assert
 import org.hibernate.Session
+import org.hibernate.Transaction
+import org.hibernate.cfg.AnnotationConfiguration
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
 import org.hibernate.SessionFactory
 
 class Entrega9 {
 	
-	SessionFactory session 
 	Transaction tran
+	SessionFactory sessionFactory
 	Session openSession
 	
 	val adminRepo = AdminHibernateRepo.instance
@@ -62,7 +75,33 @@ class Entrega9 {
 	@Before
 	def init() {
 		
-		session = SingletonSessionFactory.instance
+		val configuration = new AnnotationConfiguration
+		configuration.addAnnotatedClass(Jugador)
+					 .addAnnotatedClass(Partido)
+					 .addAnnotatedClass(Admin)
+					 .addAnnotatedClass(ParDeEquipos)
+					 .addAnnotatedClass(ModoDeInscripcion)
+					 .addAnnotatedClass(Estandar)
+					 .addAnnotatedClass(Infraccion)
+					 .addAnnotatedClass(Calificacion)
+					 .addAnnotatedClass(ArmadorEquipos)
+					 .addAnnotatedClass(GeneradorDeEquipos)
+					 .addAnnotatedClass(OrdenadorDeJugadores)
+					 .addAnnotatedClass(InscripcionDeJugadorObserver)
+					 .addAnnotatedClass(NotificarAmigosObserver)
+					 .addAnnotatedClass(HayDiezJugadoresObserver)
+					 .addAnnotatedClass(BajaDeJugadorObserver)
+					 .addAnnotatedClass(NotificarAdministradorObserver)
+					 .addAnnotatedClass(InfraccionObserver)
+					   
+		configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
+		configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver")
+		configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem")
+		configuration.setProperty("hibernate.hbm2ddl.auto", "create")
+		 
+		sessionFactory = configuration.buildSessionFactory()
+		openSession = sessionFactory.openSession
+		
 		estandar = new Estandar
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), estandar,	"mail@ejemplo.com",	"Quique")
@@ -243,7 +282,6 @@ class Entrega9 {
 			partido = partidoJugado
 		]
 		
-		openSession = session.openSession
 		tran = openSession.beginTransaction()
 		
 		modosRepo.add(estandar)
@@ -293,11 +331,11 @@ class Entrega9 {
 		lucas.recibirCalificacion(calificacion8)
 	}
 	
-	@After
-	def void limpiarBase(){
-		tran.rollback
-		openSession.close
-	}
+	 @After
+	 def void after() {
+	  openSession.close()
+	  sessionFactory.close()
+	 }
 
 	
 	@Test
