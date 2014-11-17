@@ -300,14 +300,11 @@ class Entrega9 {
 		this.limpiarBase
 	}	
 
-/*
 	@Test
 	def void seApruebaJugador(){
-		jugadoresRepo.add(matias)
+		jugadoresRepo.aprobarJugador(matias)
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
 	}
-	
-	* */
 	
 	@Test
 	def void jugadoresPendientesDeAprobacion(){
