@@ -9,7 +9,6 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.ManyToOne
-import javax.persistence.CascadeType
 import org.hibernate.annotations.Type
 
 @Entity

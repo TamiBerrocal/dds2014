@@ -20,7 +20,7 @@ import org.eclipse.xtend.lib.Property
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import javax.persistence.OneToOne
-import org.hibernate.annotations.Type
+import org.hibernate.annotations.Typeimport javax.persistence.ManyToMany
 
 @Entity
 @Observable
@@ -107,7 +107,7 @@ class Partido {
 	@GeneratedValue
 	@Property long Id
 
-	@OneToMany
+	@ManyToMany (cascade = CascadeType.REFRESH)
 	@Property List<Jugador> jugadores
 	
 	@Column
