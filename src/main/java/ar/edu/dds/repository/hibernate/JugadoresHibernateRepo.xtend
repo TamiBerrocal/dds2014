@@ -85,7 +85,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		val rechazo = new Rechazo(jugador, motivoDeRechazo)
 		executeBatch([ session| (session as Session).saveOrUpdate(rechazo)])
 	}
-
+	
 	override buscarPorNombre(String nombre) {
 		var List<Jugador> result = null
 		val session = sessionFactory.openSession

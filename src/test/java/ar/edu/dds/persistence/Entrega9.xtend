@@ -313,7 +313,6 @@ class Entrega9 {
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)
 	}
 
-
 /*	@Test
 	def void hay10jugadores() {
 		Assert.assertEquals(10, jugadoresRepo.todosLosJugadores.size)

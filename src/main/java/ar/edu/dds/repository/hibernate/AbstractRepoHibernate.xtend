@@ -11,20 +11,6 @@ abstract class AbstractRepoHibernate<T> {
 	}
 	
 	def T get(Long id) {}
-
-	 
-	/* Para el test */
-	/* Necesitamos siempre hacer lo mismo:
-	 * 1) abrir la sesión
-	 * 2) ejecutar un query que actualice
-	 * 3) commitear los cambios 
-	 * 4) y cerrar la sesión
-	 * 5) pero además controlar errores
-	 * Entonces definimos un método executeBatch que hace eso
-	 * y recibimos un closure que es lo que cambia cada vez
-	 * (otra opción podría haber sido definir un template method)
-	 */
-	 
 	 
 	def void add(T object) {
 		this.executeBatch([ session| (session as Session).saveOrUpdate(object)])
