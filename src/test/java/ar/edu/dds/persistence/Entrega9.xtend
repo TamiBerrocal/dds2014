@@ -293,9 +293,8 @@ class Entrega9 {
 	
 	@Test
 	def void seAgregaAMartinAlRepoDeJugadores()	{
-		//jugadoresRepo.add(martin)
-		//Assert.assertEquals(true, jugadoresRepo.existe(martin))
-		Assert.assertEquals(1,1)				
+		jugadoresRepo.add(martin)
+		Assert.assertEquals(true, jugadoresRepo.existe(martin))
 	}	
 
 /*

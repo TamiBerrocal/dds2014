@@ -93,8 +93,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		try {
 			result = session
 					.createCriteria(typeof(Jugador))
-					.createAlias("_jugadores", "jugadores")
-					.add(Restrictions.like("jugadores.nombre", nombre))
+					.add(Restrictions.like("_nombre", nombre+"%"))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
