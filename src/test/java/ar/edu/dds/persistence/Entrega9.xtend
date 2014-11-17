@@ -279,9 +279,7 @@ class Entrega9 {
 		
 		lucas.recibirCalificacion(calificacion7)
 		lucas.recibirCalificacion(calificacion8)
-		
-			
-		
+					
 	}
 	
 	@After
@@ -300,15 +298,22 @@ class Entrega9 {
 		this.limpiarBase
 	}	
 
+
 	@Test
 	def void seApruebaJugador(){
 		jugadoresRepo.aprobarJugador(matias)
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
 	}
+
+
+/*	@Test
+	def void hay10jugadores() {
+		Assert.assertEquals(10, jugadoresRepo.todosLosJugadores.size)
+	}*/
+
 	
 	@Test
 	def void jugadoresPendientesDeAprobacion(){
 		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)		
-	
 	}
 }
