@@ -14,8 +14,16 @@ import junit.framework.Assert
 import org.joda.time.DateTimeimport org.junit.After
 import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
 import ar.edu.dds.repository.hibernate.AdminHibernateRepo
+import org.hibernate.Transaction
+import ar.edu.dds.repository.hibernate.SingletonSessionFactory
+import org.hibernate.Session
+import org.hibernate.SessionFactory
 
 class Entrega9 {
+	
+	SessionFactory session 
+	Transaction tran
+	Session openSession
 	
 	val adminRepo = AdminHibernateRepo.instance
 	val modosRepo = ModosInscripcionHibernateRepo.instance
@@ -54,6 +62,7 @@ class Entrega9 {
 	@Before
 	def init() {
 		
+		session = SingletonSessionFactory.instance
 		estandar = new Estandar
 		
 		admin = new Admin("Enrique", new LocalDate(1989, 12, 12), estandar,	"mail@ejemplo.com",	"Quique")
@@ -234,6 +243,9 @@ class Entrega9 {
 			partido = partidoJugado
 		]
 		
+		openSession = session.openSession
+		tran = openSession.beginTransaction()
+		
 		modosRepo.add(estandar)
 		adminRepo.add(admin)
 		
@@ -279,17 +291,12 @@ class Entrega9 {
 		
 		lucas.recibirCalificacion(calificacion7)
 		lucas.recibirCalificacion(calificacion8)
-		
-			
-		
 	}
 	
 	@After
-	def limpiarBase(){
-		jugadoresRepo.deleteAll
-		partidosRepo.deleteAll
-		modosRepo.deleteAll
-		adminRepo.deleteAll
+	def void limpiarBase(){
+		tran.rollback
+		openSession.close
 	}
 
 	
@@ -297,18 +304,16 @@ class Entrega9 {
 	def void seAgregaAMartinAlRepoDeJugadores()	{
 		jugadoresRepo.add(martin)
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))
-		this.limpiarBase
 	}	
 
 	@Test
 	def void seApruebaJugador(){
 		jugadoresRepo.aprobarJugador(matias)
-		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)		
+		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)
 	}
 	
 	@Test
 	def void jugadoresPendientesDeAprobacion(){
-		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)		
-	
+		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)	
 	}
 }
