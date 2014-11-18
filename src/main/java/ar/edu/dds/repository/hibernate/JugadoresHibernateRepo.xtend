@@ -46,11 +46,11 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 					.createCriteria(typeof(Jugador))
 					.add(Restrictions.like("_nombre", busqueda.nombreJugador+"%"))
 					.add(Restrictions.like("_apodo", busqueda.apodoJugador+"%"))
-					.add(Restrictions.le("_fecha_nac", busqueda.fechaNacJugador))
+					.add(Restrictions.le("_fechaNacimiento", busqueda.fechaNacJugador))
 					.add(Restrictions.between(
 						"_handicap", busqueda.minHandicapJugador, busqueda.maxHandicapJugador))
-					.add(Restrictions.between(
-						"_promedio", busqueda.minPromedioJugador, busqueda.maxPromedioJugador))
+//					.add(Restrictions.between(
+//						"_promedio", busqueda.minPromedioJugador, busqueda.maxPromedioJugador))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)

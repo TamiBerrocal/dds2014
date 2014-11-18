@@ -25,6 +25,7 @@ import javax.persistence.InheritanceType
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorValue
 import ar.edu.dds.repository.PartidosRepo
+import javax.persistence.FetchType
 
 @Entity
 @Observable
@@ -67,7 +68,7 @@ class Jugador {
 	@OneToMany(cascade = CascadeType.ALL)
 	@Property List<Infraccion> infracciones
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Property List<Calificacion> calificaciones
 		
 /*	

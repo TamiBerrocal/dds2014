@@ -21,6 +21,7 @@ import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import javax.persistence.OneToOne
 import org.hibernate.annotations.Typeimport javax.persistence.ManyToMany
+import javax.persistence.FetchType
 
 @Entity
 @Observable
