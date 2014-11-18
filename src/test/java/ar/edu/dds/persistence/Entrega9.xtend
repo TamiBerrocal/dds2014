@@ -340,7 +340,7 @@ class Entrega9 {
 
 	@Test
 	def void jugadoresPendientesDeAprobacion(){
-		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)	
+		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)
 	}
 	
 	@Test
@@ -349,17 +349,11 @@ class Entrega9 {
 		Assert.assertEquals(true, jugadoresRepo.existe(martin))
 	}	
 
-
 	@Test
 	def void seApruebaJugador(){
 		jugadoresRepo.aprobarJugador(matias)
 		Assert.assertEquals(1, jugadoresRepo.jugadoresAprobados.size)
 	}
-
-/*	@Test
-	def void hay10jugadores() {
-		Assert.assertEquals(10, jugadoresRepo.todosLosJugadores.size)
-	}*/
 
 	
 }
