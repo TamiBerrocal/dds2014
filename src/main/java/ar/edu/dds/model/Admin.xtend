@@ -5,12 +5,14 @@ import ar.edu.dds.repository.JugadoresRepo
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import javax.persistence.Entity
-import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.Observableimport javax.persistence.DiscriminatorValue
 
 @Observable
 @Entity
+@DiscriminatorValue("Admin")
 class Admin extends Jugador {
 	
+		
 	new(String nombre, LocalDate fechaDeNac, ModoDeInscripcion modoDeInscripcion, String mail, String apodo) {
 		super(nombre, fechaDeNac, modoDeInscripcion, mail, apodo)
 	}

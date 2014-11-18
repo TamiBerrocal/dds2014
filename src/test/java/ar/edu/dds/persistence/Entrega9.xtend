@@ -307,6 +307,7 @@ class Entrega9 {
 		partidoJugado.agregarJugadorPartido(adrian)
 		partidoJugado.agregarJugadorPartido(simon)
 		partidoJugado.agregarJugadorPartido(patricio)
+		partidoJugado.agregarJugadorPartido(jorge)
 		partidoJugado.agregarJugadorPartido(matias)
 
 		
@@ -337,6 +338,10 @@ class Entrega9 {
 	  sessionFactory.close()
 	 }
 
+	@Test
+	def void jugadoresPendientesDeAprobacion(){
+		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)	
+	}
 	
 	@Test
 	def void seAgregaAMartinAlRepoDeJugadores()	{
@@ -357,8 +362,4 @@ class Entrega9 {
 	}*/
 
 	
-	@Test
-	def void jugadoresPendientesDeAprobacion(){
-		Assert.assertEquals(10, jugadoresRepo.jugadoresPendientesDeAprobacion.size)	
-	}
 }

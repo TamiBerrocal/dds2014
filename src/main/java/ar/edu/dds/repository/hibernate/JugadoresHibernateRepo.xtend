@@ -125,6 +125,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 			pendientes = session
 					.createCriteria(Jugador)
 					.add(Restrictions.eq("_aprobado", false))
+					.add(Restrictions.ne("class", "Admin"))
 					.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)

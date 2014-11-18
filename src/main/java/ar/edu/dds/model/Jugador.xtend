@@ -21,9 +21,16 @@ import org.joda.time.LocalDate
 import org.joda.time.Period
 import org.uqbar.commons.utils.Observable
 import org.hibernate.annotations.Type
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorValue
 
 @Entity
 @Observable
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Clase")
+@DiscriminatorValue ("Jugador")
 class Jugador {
 	
 	@Id
