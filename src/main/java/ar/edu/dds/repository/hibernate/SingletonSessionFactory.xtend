@@ -22,29 +22,32 @@ import org.hibernate.SessionFactory
 
 class SingletonSessionFactory {
 	
-	private static final SessionFactory session = 
-		new AnnotationConfiguration()
-			.configure()
-			.addAnnotatedClass(Jugador)
-			.addAnnotatedClass(Partido)
-			.addAnnotatedClass(Admin)
-			.addAnnotatedClass(ParDeEquipos)
-			.addAnnotatedClass(ModoDeInscripcion)
-			.addAnnotatedClass(Estandar)
-			.addAnnotatedClass(Infraccion)
-			.addAnnotatedClass(Calificacion)
-			.addAnnotatedClass(ArmadorEquipos)
-			.addAnnotatedClass(GeneradorDeEquipos)
-			.addAnnotatedClass(OrdenadorDeJugadores)
-			.addAnnotatedClass(InscripcionDeJugadorObserver)
-			.addAnnotatedClass(NotificarAmigosObserver)
-			.addAnnotatedClass(HayDiezJugadoresObserver)
-			.addAnnotatedClass(BajaDeJugadorObserver)
-			.addAnnotatedClass(NotificarAdministradorObserver)
-			.addAnnotatedClass(InfraccionObserver)
-			.buildSessionFactory()
+	static SessionFactory INSTANCE
 	
 	def static SessionFactory getInstance() {
-		session
+		if (INSTANCE == null) {
+			INSTANCE = new AnnotationConfiguration()
+								.configure()
+								.addAnnotatedClass(Jugador)
+								.addAnnotatedClass(Partido)
+								.addAnnotatedClass(Admin)
+								.addAnnotatedClass(ParDeEquipos)
+								.addAnnotatedClass(ModoDeInscripcion)
+								.addAnnotatedClass(Estandar)
+								.addAnnotatedClass(Infraccion)
+								.addAnnotatedClass(Calificacion)
+								.addAnnotatedClass(ArmadorEquipos)
+								.addAnnotatedClass(GeneradorDeEquipos)
+								.addAnnotatedClass(OrdenadorDeJugadores)
+								.addAnnotatedClass(InscripcionDeJugadorObserver)
+								.addAnnotatedClass(NotificarAmigosObserver)
+								.addAnnotatedClass(HayDiezJugadoresObserver)
+								.addAnnotatedClass(BajaDeJugadorObserver)
+								.addAnnotatedClass(NotificarAdministradorObserver)
+								.addAnnotatedClass(InfraccionObserver)
+								.buildSessionFactory()
+		}
+		INSTANCE
 	}
+	
 }
