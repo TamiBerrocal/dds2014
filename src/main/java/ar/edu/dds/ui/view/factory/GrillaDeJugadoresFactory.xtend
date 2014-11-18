@@ -17,34 +17,37 @@ class GrillaDeJugadoresFactory {
 			width = 560
 		]
 		
-		new Column<Jugador>(table) 
-			.setTitle("Nombre")
-			.bindBackground("esCrack", new CracksColorTransformer)
-			.setFixedSize(125)
-			.bindContentsToProperty("nombre")
+		val colNombre = new Column<Jugador>(table)
+		colNombre.setTitle("Nombre")
+				 .setFixedSize(125)
+				 .bindContentsToProperty("nombre")
+			
+		colNombre.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
 						
-		new Column<Jugador>(table) 
-			.setTitle("Apodo")
-			.bindBackground("esCrack", new CracksColorTransformer)
-			.setFixedSize(125)
-			.bindContentsToProperty("apodo")
+		val colApodo = new Column<Jugador>(table) 
+		colApodo.setTitle("Apodo")
+				.setFixedSize(125)
+				.bindContentsToProperty("apodo")
 		
-		new Column<Jugador>(table) 
-			.setTitle("Fecha de nacimiento")
-			.bindBackground("esCrack", new CracksColorTransformer)
-			.setFixedSize(150)
-			.bindContentsToProperty("fechaNacimiento")
+		val colFechaNac = new Column<Jugador>(table) 
+		colFechaNac.setTitle("Fecha de nacimiento")
+					.setFixedSize(150)
+					.bindContentsToProperty("fechaNacimiento")
 			
-		new Column<Jugador>(table) 
-			.setTitle("Handicap")
-			.bindBackground("esCrack", new CracksColorTransformer)
-			.setFixedSize(80)
-			.bindContentsToProperty("handicap")
+		val colHandicap = new Column<Jugador>(table) 
+		colHandicap.setTitle("Handicap")
+				   .setFixedSize(80)
+				   .bindContentsToProperty("handicap")
 			
-		new Column<Jugador>(table) 
-			.setTitle("Promedio")
-			.bindBackground("esCrack", new CracksColorTransformer)
-			.setFixedSize(80)
-			.bindContentsToProperty("promedioUltimoPartido")
+		val colPromedio = new Column<Jugador>(table) 
+		colPromedio.setTitle("Promedio")
+				   .setFixedSize(80)
+				   .bindContentsToProperty("promedioUltimoPartido")
+				   
+		colNombre.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
+		colApodo.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
+		colFechaNac.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
+		colHandicap.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
+		colPromedio.bindBackground("esCrack").setTransformer(new CracksColorTransformer)
 	}
 }

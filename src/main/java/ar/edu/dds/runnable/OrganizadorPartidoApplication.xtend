@@ -16,8 +16,8 @@ class OrganizadorPartidoApplication extends Application {
 	}
 
 	override protected Window<?> createMainWindow() {
-		ApplicationContext.instance.configureSingleton(typeof(Jugador), new JugadoresHibernateRepo)
-		ApplicationContext.instance.configureSingleton(typeof(Partido), new PartidosHibernateRepo)
+		ApplicationContext.instance.configureSingleton(typeof(Jugador), JugadoresHibernateRepo.instance)
+		ApplicationContext.instance.configureSingleton(typeof(Partido), PartidosHibernateRepo.instance)
 		return new OrganizadorWindow(this)
 	}
 } 

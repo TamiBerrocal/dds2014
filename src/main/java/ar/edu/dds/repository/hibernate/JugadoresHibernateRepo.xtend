@@ -135,7 +135,7 @@ class JugadoresHibernateRepo extends AbstractRepoHibernate<Jugador> implements J
 		pendientes
 	}
 
-	def List<Jugador> todosLosJugadores() {
+	override List<Jugador> todosLosJugadores() {
 		val result = new ArrayList<Jugador>
 		result.addAll(jugadoresAprobados)
 		result.addAll(jugadoresPendientesDeAprobacion)

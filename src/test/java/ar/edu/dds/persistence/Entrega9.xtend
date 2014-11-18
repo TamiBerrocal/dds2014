@@ -40,7 +40,7 @@ class Entrega9 {
 	
 	val adminRepo = AdminHibernateRepo.instance
 	val modosRepo = ModosInscripcionHibernateRepo.instance
-	val partidosRepo =  PartidosHibernateRepo.instance
+	val partidosRepo = PartidosHibernateRepo.instance
 	val jugadoresRepo = JugadoresHibernateRepo.instance
 	
 	Admin admin

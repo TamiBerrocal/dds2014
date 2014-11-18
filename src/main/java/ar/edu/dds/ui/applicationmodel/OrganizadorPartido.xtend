@@ -1,33 +1,29 @@
 package ar.edu.dds.ui.applicationmodel
 
+import ar.edu.dds.model.ArmadorEquipos
+import ar.edu.dds.model.EstadoDePartido
+import ar.edu.dds.model.Infraccion
+import ar.edu.dds.model.Jugador
+import ar.edu.dds.model.Partido
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
-import java.util.ArrayList
-import java.util.List
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos14589Vs236710
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquiposParesContraImpares
-import java.io.Serializable
-import org.uqbar.commons.utils.Observable
+import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorHandicap
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeCalificacionesDelUltimoPartido
 import ar.edu.dds.model.equipos.ordenador.OrdenadorPorPromedioDeUltimasNCalificaciones
-import ar.edu.dds.model.equipos.ordenador.OrdenadorCompuesto
-import ar.edu.dds.model.Partido
-import ar.edu.dds.model.Jugador
-import org.uqbar.commons.model.ObservableUtils
-import ar.edu.dds.model.Infraccion
+import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
+import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import ar.edu.dds.ui.filtros.FiltroDeJugadores
 import ar.edu.dds.ui.filtros.SoloConInfracciones
 import ar.edu.dds.ui.filtros.SoloSinInfracciones
 import ar.edu.dds.ui.filtros.TodosLosJugadores
-import ar.edu.dds.model.EstadoDePartido
-import ar.edu.dds.model.ArmadorEquipos
-//import ar.edu.dds.repository.JugadoresRepo
-//import ar.edu.dds.repository.inmemory.JugadoresHome
-//import ar.edu.dds.repository.inmemory.PartidosHome
-//import ar.edu.dds.repository.PartidosRepo
-import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
+import java.io.Serializable
+import java.util.ArrayList
+import java.util.List
+import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Observable
 
 @Observable
 class OrganizadorPartido implements Serializable {
@@ -160,7 +156,7 @@ class OrganizadorPartido implements Serializable {
 		filtrosDeInfracciones.add(new SoloConInfracciones())
 		filtrosDeInfracciones.add(new SoloSinInfracciones())
 
-		jugadoresDeBusqueda = JugadoresHibernateRepo.getInstance.todosLosJugadores
+		jugadoresDeBusqueda = repositorioDeJugadores.todosLosJugadores()
 
 		ordenadorSeleccionado = null
 		criterioSeleccionado = null

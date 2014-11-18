@@ -2,7 +2,6 @@ package ar.edu.dds.model
 
 import ar.edu.dds.exception.JugadorYaCalificadoParaEsePartidoException
 import ar.edu.dds.model.inscripcion.ModoDeInscripcion
-import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import ar.edu.dds.repository.inmemory.JugadoresHome
 import java.util.ArrayList
 import java.util.List
@@ -25,6 +24,7 @@ import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorValue
+import ar.edu.dds.repository.PartidosRepo
 
 @Entity
 @Observable
@@ -229,8 +229,8 @@ class Jugador {
 		minOk && maxOk
 	}
 	
-	def getPartidosJugados () {
-		PartidosHibernateRepo.instance.todosLosPartidos.fold(0)[ jugados, partido |
+	def getPartidosJugados (PartidosRepo partidosRepo) {
+		partidosRepo.todosLosPartidos.fold(0)[ jugados, partido |
 			if (this.jugastePartido(partido))
 				jugados + 1
 			else
