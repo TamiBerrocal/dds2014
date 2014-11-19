@@ -19,6 +19,7 @@ import ar.edu.dds.observer.baja.NotificarAdministradorObserver
 import ar.edu.dds.observer.baja.InfraccionObserver
 import org.hibernate.cfg.AnnotationConfiguration
 import org.hibernate.SessionFactory
+import ar.edu.dds.model.equipos.JugadorEnEquipo
 
 class SingletonSessionFactory {
 	
@@ -45,6 +46,8 @@ class SingletonSessionFactory {
 								.addAnnotatedClass(BajaDeJugadorObserver)
 								.addAnnotatedClass(NotificarAdministradorObserver)
 								.addAnnotatedClass(InfraccionObserver)
+								.addAnnotatedClass(ParDeEquipos)
+								.addAnnotatedClass(JugadorEnEquipo)
 								.buildSessionFactory()
 		}
 		INSTANCE

@@ -1,38 +1,24 @@
 package ar.edu.dds.persistence
 
 import ar.edu.dds.model.Admin
-import ar.edu.dds.model.ArmadorEquipos
 import ar.edu.dds.model.Calificacion
-import ar.edu.dds.model.Infraccion
 import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Partido
-import ar.edu.dds.model.equipos.ParDeEquipos
-import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
-import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
 import ar.edu.dds.model.inscripcion.Estandar
-import ar.edu.dds.model.inscripcion.ModoDeInscripcion
-import ar.edu.dds.observer.baja.BajaDeJugadorObserver
-import ar.edu.dds.observer.baja.InfraccionObserver
-import ar.edu.dds.observer.baja.NotificarAdministradorObserver
-import ar.edu.dds.observer.inscripcion.HayDiezJugadoresObserver
-import ar.edu.dds.observer.inscripcion.InscripcionDeJugadorObserver
-import ar.edu.dds.observer.inscripcion.NotificarAmigosObserver
 import ar.edu.dds.repository.hibernate.AdminHibernateRepo
 import ar.edu.dds.repository.hibernate.JugadoresHibernateRepo
 import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
+import ar.edu.dds.repository.hibernate.SingletonSessionFactory
 import junit.framework.Assert
 import org.hibernate.Session
+import org.hibernate.SessionFactory
 import org.hibernate.Transaction
-import org.hibernate.cfg.AnnotationConfiguration
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.hibernate.SessionFactory
-import ar.edu.dds.repository.hibernate.AbstractRepoHibernate
-import ar.edu.dds.repository.hibernate.SingletonSessionFactory
 
 class Entrega9 {
 	

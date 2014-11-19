@@ -6,6 +6,7 @@ import ar.edu.dds.model.Calificacion
 import ar.edu.dds.model.Infraccion
 import ar.edu.dds.model.Jugador
 import ar.edu.dds.model.Partido
+import ar.edu.dds.model.equipos.JugadorEnEquipo
 import ar.edu.dds.model.equipos.ParDeEquipos
 import ar.edu.dds.model.equipos.generador.GeneradorDeEquipos
 import ar.edu.dds.model.equipos.ordenador.OrdenadorDeJugadores
@@ -23,6 +24,7 @@ import ar.edu.dds.repository.hibernate.ModosInscripcionHibernateRepo
 import ar.edu.dds.repository.hibernate.PartidosHibernateRepo
 import junit.framework.Assert
 import org.hibernate.Session
+import org.hibernate.SessionFactory
 import org.hibernate.Transaction
 import org.hibernate.cfg.AnnotationConfiguration
 import org.joda.time.DateTime
@@ -30,7 +32,6 @@ import org.joda.time.LocalDate
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.hibernate.SessionFactory
 
 class Entrega9 {
 	
@@ -93,6 +94,8 @@ class Entrega9 {
 					 .addAnnotatedClass(BajaDeJugadorObserver)
 					 .addAnnotatedClass(NotificarAdministradorObserver)
 					 .addAnnotatedClass(InfraccionObserver)
+					 .addAnnotatedClass(ParDeEquipos)
+					 .addAnnotatedClass(JugadorEnEquipo)
 					   
 		configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
 		configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver")

@@ -67,3 +67,111 @@ alter table Partido_Jugador drop constraint FK_hpr9nafj4wyf1ku3r5rkmbc33 if exis
 11-17 18:03:00 jdbc[2]: exception
 org.h2.jdbc.JdbcSQLException: Table "PARTIDO_JUGADOR" not found; SQL statement:
 alter table Partido_Jugador drop constraint FK_pgmwlur4ubruv7lf4bb1t6m07 if exists [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_f7nn32g91occqtyg3sj68gw10 if exists [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_cuf40a910doliahpw5af855k6 if exists [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_mh3xy470825c5wkdbk2mo8r01 if exists [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_524fiaulv7xjgu710cyc04ym3 if exists [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS1 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO1__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos1 (ParDeEquipos__id bigint not null, _equipo1__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS2 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO2__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos2 (ParDeEquipos__id bigint not null, _equipo2__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint UK_f7nn32g91occqtyg3sj68gw10  unique (_equipo1__id) [42102-160]
+11-19 11:25:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint UK_mh3xy470825c5wkdbk2mo8r01  unique (_equipo2__id) [42102-160]
+11-19 11:25:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_f7nn32g91occqtyg3sj68gw10 foreign key (_equipo1__id) references Jugador [42102-160]
+11-19 11:25:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_cuf40a910doliahpw5af855k6 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]
+11-19 11:25:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_mh3xy470825c5wkdbk2mo8r01 foreign key (_equipo2__id) references Jugador [42102-160]
+11-19 11:25:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_524fiaulv7xjgu710cyc04ym3 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_f7nn32g91occqtyg3sj68gw10 if exists [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_cuf40a910doliahpw5af855k6 if exists [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_mh3xy470825c5wkdbk2mo8r01 if exists [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_524fiaulv7xjgu710cyc04ym3 if exists [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS1 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO1__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos1 (ParDeEquipos__id bigint not null, _equipo1__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS2 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO2__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos2 (ParDeEquipos__id bigint not null, _equipo2__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint UK_f7nn32g91occqtyg3sj68gw10  unique (_equipo1__id) [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint UK_mh3xy470825c5wkdbk2mo8r01  unique (_equipo2__id) [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_f7nn32g91occqtyg3sj68gw10 foreign key (_equipo1__id) references Jugador [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_cuf40a910doliahpw5af855k6 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_mh3xy470825c5wkdbk2mo8r01 foreign key (_equipo2__id) references Jugador [42102-160]
+11-19 11:25:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_524fiaulv7xjgu710cyc04ym3 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_f7nn32g91occqtyg3sj68gw10 if exists [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 drop constraint FK_cuf40a910doliahpw5af855k6 if exists [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_mh3xy470825c5wkdbk2mo8r01 if exists [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 drop constraint FK_524fiaulv7xjgu710cyc04ym3 if exists [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS1 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO1__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos1 (ParDeEquipos__id bigint not null, _equipo1__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE EQUIPOS2 (PARDEEQUIPOS__ID BIGINT NOT NULL, _EQUIPO2__ID BIGINT NOT NULL, ORDER[*] INTEGER NOT NULL, PRIMARY KEY (PARDEEQUIPOS__ID, ORDER)) "; expected "identifier"; SQL statement:
+create table equipos2 (ParDeEquipos__id bigint not null, _equipo2__id bigint not null, ORDER integer not null, primary key (ParDeEquipos__id, ORDER)) [42001-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint UK_f7nn32g91occqtyg3sj68gw10  unique (_equipo1__id) [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint UK_mh3xy470825c5wkdbk2mo8r01  unique (_equipo2__id) [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_f7nn32g91occqtyg3sj68gw10 foreign key (_equipo1__id) references Jugador [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS1" not found; SQL statement:
+alter table equipos1 add constraint FK_cuf40a910doliahpw5af855k6 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_mh3xy470825c5wkdbk2mo8r01 foreign key (_equipo2__id) references Jugador [42102-160]
+11-19 11:25:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EQUIPOS2" not found; SQL statement:
+alter table equipos2 add constraint FK_524fiaulv7xjgu710cyc04ym3 foreign key (ParDeEquipos__id) references ParDeEquipos [42102-160]

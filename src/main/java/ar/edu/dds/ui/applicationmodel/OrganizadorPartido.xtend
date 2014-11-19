@@ -122,6 +122,7 @@ class OrganizadorPartido implements Serializable {
 
 	def confirmarEquipos() {
 		armador.confirmarEquipos(partido)
+		partidosRepo.add(partido)
 		cambioPuedeConfirmar
 	}
 	
@@ -132,8 +133,10 @@ class OrganizadorPartido implements Serializable {
 		//inicializo la busqueda
 		busquedaDeJugadores = new BusquedaDeJugadores
 		
-		armador = new ArmadorEquipos
-
+		armador = partido.armadorDeEquipos
+		
+		armador.equipos = partido.equipos
+		
 		//Criterios
 		criterios = new ArrayList
 		criterios.add(new GeneradorDeEquipos14589Vs236710)
@@ -160,6 +163,11 @@ class OrganizadorPartido implements Serializable {
 
 		ordenadorSeleccionado = null
 		criterioSeleccionado = null
+		
+		cambioPuedeConfirmar
+		cambioPuedeOrdenar
+		cambioPuedeGenerar
+		
 	}
 	
 }

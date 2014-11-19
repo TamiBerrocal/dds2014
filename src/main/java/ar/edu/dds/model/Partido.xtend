@@ -11,104 +11,31 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 import org.apache.commons.lang3.builder.ToStringBuilder
-import org.eclipse.xtend.lib.Property
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
+import org.hibernate.annotations.Type
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import javax.persistence.OneToOne
-import org.hibernate.annotations.Typeimport javax.persistence.ManyToMany
-import javax.persistence.FetchType
 
 @Entity
 @Observable
 class Partido {
 	
 	private static final String MAIL_OFICIAL = "no-reply@of5.com"
-	
-/*	Long id
-	List<Jugador> jugadores
-	DateTime fechaYHora
-	String lugar
-	EstadoDePartido estadoDePartido
-	Admin administrador
-	ParDeEquipos equipos
-	ArmadorEquipos armadorDeEquipos
-	
-	@Id @GeneratedValue
-	def getId() {
-		id
-	}
-
-	def void setId(Long unId) {
-		id = unId
-	}
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	def List<Jugador> getJugadores() {
-		jugadores
-	}
-	
-	def void setJugadores(List<Jugador> unosJugadores) {
-		jugadores = unosJugadores
-	}
-	
-	@Column def DateTime getFechaYHora() {
-		fechaYHora
-	}
-
-	def void setFechaYHora(DateTime unaFechaYHora) {
-		fechaYHora = unaFechaYHora
-	}
-	
-	@Column def String getLugar() {
-		lugar
-	}
-
-	def void setLugar(String unLugar) {
-		lugar = unLugar
-	}
-
-	@Column def EstadoDePartido getEstadoDePartido() {
-		estadoDePartido
-	}
-
-	def void setEstadoDePartido(EstadoDePartido unEstado) {
-		estadoDePartido = unEstado
-	}
-	
-	@ManyToOne	def Admin getAdministrador() {
-		administrador
-	}
-	
-	def void setAdministrador(Admin unAdministrador) {
-		administrador = unAdministrador
-	}
-	
-	@OneToOne	def ParDeEquipos getEquipos() {
-		equipos
-	}
-	
-	def void setEquipos(ParDeEquipos unosEquipos) {
-		equipos = unosEquipos
-	}
-	
-	@Column def ArmadorEquipos getArmadorDeEquipos() {
-		armadorDeEquipos
-	}
-	
-	def void setArmadorDeEquipos(ArmadorEquipos unArmadorDeEquipos) {
-		armadorDeEquipos = unArmadorDeEquipos
-	}*/
 
 	@Id
 	@GeneratedValue
 	@Property long Id
 
 	@ManyToMany (cascade = CascadeType.REFRESH)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Property List<Jugador> jugadores
 	
 	@Column

@@ -26,6 +26,8 @@ import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorValue
 import ar.edu.dds.repository.PartidosRepo
 import javax.persistence.FetchType
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 
 @Entity
 @Observable
@@ -66,9 +68,11 @@ class Jugador {
 	@Property Boolean aprobado
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Property List<Infraccion> infracciones
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Property List<Calificacion> calificaciones
 		
 /*	
